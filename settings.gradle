@@ -1,0 +1,8 @@
+/**
+ * Gradle's setting file which references all modules.
+ *
+ * @author Armin Schnabel
+ * @version 1.0.0
+ * @since 1.0.0
+ */
+include ':app', ':energy_settings'
