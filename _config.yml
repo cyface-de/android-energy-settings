@@ -1,1 +1,3 @@
-theme: jekyll-theme-cayman
+theme: jekyll-theme-minimal
+title: Android Energie Einstellungen
+description: Einstellungen die auf einigen Geräten für eine unterbrechungsfreie Datenaufzeichnung vorgenommen werden müssen.
