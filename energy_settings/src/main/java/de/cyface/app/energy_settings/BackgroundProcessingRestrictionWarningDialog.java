@@ -28,16 +28,15 @@ import android.os.Bundle;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 
 /**
  * Dialog to show a warning when the background processing is restricted by the energy settings.
  *
  * @author Armin Schnabel
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
-public class BackgroundProcessingRestrictionWarningDialog extends DialogFragment {
+public class BackgroundProcessingRestrictionWarningDialog extends EnergySettingDialog {
 
     @NonNull
     @Override

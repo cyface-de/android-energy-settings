@@ -140,7 +140,7 @@ showNoGuidanceNeededDialog(fragment, "support@your-domain.com");
 
 ### Dismiss Dialogs
 
-You may want to dismiss all dialogs when the app is paused, e.g. because the user may
+You may want to dismiss all dialogs created by this library when the app is paused, e.g. because the user may
 be pausing the app to change the settings as explained in the warning.
 
 This way you can use the [Show Dialogs](#show-dialogs) again in `onResume()`
@@ -149,21 +149,8 @@ and only show the dialogs again if the settings are not correctly when the app i
 ```
 Override
 protected void onPause() {
-    dismissAllDialogs(fragmentManager);
+    TrackingSettings.dismissAllDialogs(fragmentManager);
     super.onPause();
-}
-
-private void dismissAllDialogs(@NonNull final FragmentManager fragmentManager) {
-    final List<Fragment> fragments = fragmentManager.getFragments();
-    for (final Fragment fragment : fragments) {
-        if (fragment instanceof DialogFragment) {
-            final DialogFragment dialogFragment = (DialogFragment)fragment;
-            dialogFragment.dismissAllowingStateLoss();
-
-            final FragmentManager childFragmentManager = fragment.getChildFragmentManager();
-            dismissAllDialogs(childFragmentManager);
-        }
-    }
 }
 ```
 

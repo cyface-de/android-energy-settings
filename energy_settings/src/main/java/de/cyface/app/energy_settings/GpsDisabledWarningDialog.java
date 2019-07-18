@@ -26,16 +26,15 @@ import android.os.Bundle;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 
 /**
  * Dialog to show a warning when the GPS is disabled.
  *
  * @author Armin Schnabel
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
-public class GpsDisabledWarningDialog extends DialogFragment {
+public class GpsDisabledWarningDialog extends EnergySettingDialog {
 
     @NonNull
     @Override

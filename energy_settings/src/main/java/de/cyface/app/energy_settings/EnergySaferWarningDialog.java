@@ -28,16 +28,15 @@ import android.os.Bundle;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 
 /**
  * Dialog to show a warning when the energy safer is active.
  *
  * @author Armin Schnabel
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
-public class EnergySaferWarningDialog extends DialogFragment {
+public class EnergySaferWarningDialog extends EnergySettingDialog {
 
     @NonNull
     @Override

@@ -26,16 +26,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 
 /**
  * Dialog to show a dialog when the user requests guidance from a phone on which there are no problems known.
  *
  * @author Armin Schnabel
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
-public class NoGuidanceNeededDialog extends DialogFragment {
+public class NoGuidanceNeededDialog extends EnergySettingDialog {
 
     /**
      * The e-mail address to which the feedback email should be addressed to in the generated template.

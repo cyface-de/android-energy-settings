@@ -40,7 +40,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
-import androidx.fragment.app.DialogFragment;
 
 /**
  * Dialog to show a warning when a phone manufacturer is identified which allows to prevent background tracking
@@ -54,10 +53,10 @@ import androidx.fragment.app.DialogFragment;
  * This preference is not respected when the user requests guidance explicitly.
  *
  * @author Armin Schnabel
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
-public class ProblematicManufacturerWarningDialog extends DialogFragment {
+public class ProblematicManufacturerWarningDialog extends EnergySettingDialog {
 
     /**
      * The e-mail address to which the feedback email should be addressed to in the generated template.
