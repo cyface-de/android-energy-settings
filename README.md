@@ -69,8 +69,8 @@ was shown from the returned boolean value.
 
 #### GPS Disabled Warning
 
-If your tracking required GPS location service you can use this dialog to check whether it's enabled
-and warn the user with a dialog that we needs to enable this.
+If your tracking requires GPS location service you can use this dialog to check whether it's enabled
+and warn the user with a dialog to enable this.
 
 The specific settings page can be opened via a *Settings* button at the end of the dialog. 
 
@@ -81,10 +81,10 @@ showGpsWarningDialog(context, fragment);
 #### Energy Safer Warning
 
 In energy safer mode the GPS location service is often disabled so your tracking does
-not receive new updated while the display is off or while the app is in background.
+not receive new updates while the display is off or while the app is in background.
 
 This allows you to check whether the energy safer mode is active at this moment.
-In this case a dialog is opened, informing the user that he needs to Stop the energy safer mode.
+In this case a dialog is opened, informing the user to Stop the energy safer mode.
 
 The specific settings page can be opened via a *Settings* button at the end of the dialog.
 
@@ -96,8 +96,8 @@ showEnergySaferWarningDialog(context, fragment)
 
 Newer Android Settings contain an option to disable background processing.
 
-This allows you to check whether the this option is enabled for your application.
-In this case a dialog is opened, informing the user that he needs to disable this setting.
+This allows you to check whether this option is enabled for your application.
+In this case a dialog is opened, informing the user to disable this setting.
 
 The specific settings page can be opened via a *Settings* button at the end of the dialog.
 
@@ -107,8 +107,8 @@ showRestrictedBackgroundProcessingWarningDialog(context, fragment);
 
 #### Problematic Manufacturer Warning
 
-Some manufacturers, e.g. Huawei, Xiaomi and Samsung, implement own energy settings
-which block your app from processing in background or which disable GPS location service.
+Some manufacturers, e.g. Huawei, Xiaomi and Samsung, implement individual energy settings
+which block your app from background processing or which disable the GPS location service.
 
 This method checks whether such a manufacturer was identified.
 
@@ -130,9 +130,9 @@ When your app contains a button to check for energy setting problems and you use
 the return value of the [Show Dialogs](#show-dialogs) methods you may want to show
 the user a dialog that no problems where identified.
 
-This method does just this. It also a help button which generates an email template
+This method does just this. It also shows a help button, which generates an email template,
 for a feedback email which is addressed to the email address provided as parameter
-so the user can report when he identified a problem which was not found automatically by this library.
+so the user can report an identified problem which was not found automatically by this library.
 
 ```
 showNoGuidanceNeededDialog(fragment, "support@your-domain.com");
@@ -144,7 +144,7 @@ You may want to dismiss all dialogs created by this library when the app is paus
 be pausing the app to change the settings as explained in the warning.
 
 This way you can use the [Show Dialogs](#show-dialogs) again in `onResume()`
-and only show the dialogs again if the settings are not correctly when the app is opened again.
+and only show the dialogs again if the settings are not correct, when the app is opened again.
 
 ```
 Override
