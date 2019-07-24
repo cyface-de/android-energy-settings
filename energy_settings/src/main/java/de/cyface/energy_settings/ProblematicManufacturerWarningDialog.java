@@ -16,11 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with the Cyface SDK for Android. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.cyface.app.energy_settings;
+package de.cyface.energy_settings;
 
-import static de.cyface.app.energy_settings.Constants.MANUFACTURER_SONY;
-import static de.cyface.app.energy_settings.Constants.PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY;
-import static de.cyface.app.energy_settings.Constants.TAG;
+import static de.cyface.energy_settings.Constants.MANUFACTURER_SONY;
+import static de.cyface.energy_settings.Constants.PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY;
+import static de.cyface.energy_settings.Constants.TAG;
 
 import java.util.Map;
 

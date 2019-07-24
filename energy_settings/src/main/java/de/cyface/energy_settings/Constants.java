@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with the Cyface SDK for Android. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.cyface.app.energy_settings;
+package de.cyface.energy_settings;
 
 /**
  * Holds constants required by multiple classes.
@@ -27,8 +27,8 @@ package de.cyface.app.energy_settings;
  */
 final class Constants {
 
-    final static String TAG = "de.cyface.app.es";
-    private final static String PACKAGE = "de.cyface.app.energy_settings";
+    final static String TAG = "de.cyface.es";
+    private final static String PACKAGE = "de.cyface.energy_settings";
 
     // Dialog codes to identify the different dialogs
     final static int DIALOG_ENERGY_SAFER_WARNING_CODE = 2019071101;

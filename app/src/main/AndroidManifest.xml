@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.cyface.app.energy_settings">
+    package="de.cyface.energy_settings">
 
     <application
         android:allowBackup="true"

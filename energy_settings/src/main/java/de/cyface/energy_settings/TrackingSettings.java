@@ -16,20 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with the Cyface SDK for Android. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.cyface.app.energy_settings;
+package de.cyface.energy_settings;
 
-import static de.cyface.app.energy_settings.Constants.DIALOG_BACKGROUND_RESTRICTION_WARNING_CODE;
-import static de.cyface.app.energy_settings.Constants.DIALOG_ENERGY_SAFER_WARNING_CODE;
-import static de.cyface.app.energy_settings.Constants.DIALOG_GPS_DISABLED_WARNING_CODE;
-import static de.cyface.app.energy_settings.Constants.DIALOG_NO_GUIDANCE_NEEDED_DIALOG_CODE;
-import static de.cyface.app.energy_settings.Constants.DIALOG_PROBLEMATIC_MANUFACTURER_WARNING_CODE;
-import static de.cyface.app.energy_settings.Constants.MANUFACTURER_HONOR;
-import static de.cyface.app.energy_settings.Constants.MANUFACTURER_HUAWEI;
-import static de.cyface.app.energy_settings.Constants.MANUFACTURER_SAMSUNG;
-import static de.cyface.app.energy_settings.Constants.MANUFACTURER_SONY;
-import static de.cyface.app.energy_settings.Constants.MANUFACTURER_XIAOMI;
-import static de.cyface.app.energy_settings.Constants.PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY;
-import static de.cyface.app.energy_settings.Constants.TAG;
+import static de.cyface.energy_settings.Constants.DIALOG_BACKGROUND_RESTRICTION_WARNING_CODE;
+import static de.cyface.energy_settings.Constants.DIALOG_ENERGY_SAFER_WARNING_CODE;
+import static de.cyface.energy_settings.Constants.DIALOG_GPS_DISABLED_WARNING_CODE;
+import static de.cyface.energy_settings.Constants.DIALOG_NO_GUIDANCE_NEEDED_DIALOG_CODE;
+import static de.cyface.energy_settings.Constants.DIALOG_PROBLEMATIC_MANUFACTURER_WARNING_CODE;
+import static de.cyface.energy_settings.Constants.MANUFACTURER_HONOR;
+import static de.cyface.energy_settings.Constants.MANUFACTURER_HUAWEI;
+import static de.cyface.energy_settings.Constants.MANUFACTURER_SAMSUNG;
+import static de.cyface.energy_settings.Constants.MANUFACTURER_SONY;
+import static de.cyface.energy_settings.Constants.MANUFACTURER_XIAOMI;
+import static de.cyface.energy_settings.Constants.PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY;
+import static de.cyface.energy_settings.Constants.TAG;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import de.cyface.app.utils.Validate;
+import de.cyface.utils.Validate;
 
 /**
  * Holds the API for this energy setting library.
