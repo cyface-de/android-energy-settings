@@ -71,6 +71,9 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.extJunitVersion"
     androidTestImplementation "androidx.test:rules:$rootProject.ext.rulesVersion"
 
+    // Local dependencies - use debug library for debug output in debug build
+    implementation project(':utils')
+
     // Dependencies for local unit tests
     // - If Junit symbols are not resolvable in IntelliJ, make sure Build Variant is set to debug
     // - Loading another dependency (e.g. module) only it's production dependencies (compile) are loaded but not other dependencies (e.g. testCompile)

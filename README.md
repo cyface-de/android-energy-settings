@@ -1,7 +1,11 @@
 Cyface Android Energy Settings library
 ========================================
 
-This project contains the Cyface Android Energy Settings library which check and handle settings required for background location tracking.
+This project contains the Cyface Android Energy Settings library which check and
+handle settings required for background location tracking.
+
+This library uses the Cyface Android Utils which contains validation methods and
+shared code of the Cyface Android libraries.
 
 - [How to integrate the library](#how-to-integrate-the-library)
 - [License](#license)
@@ -10,6 +14,7 @@ This project contains the Cyface Android Energy Settings library which check and
 How to integrate the library
 -----------------------------
 
+- [Submodules](#submodules)
 - [Check Energy Settings](#check-energy-settings)
 	- [GPS Enabled](#gps-enabled)
 	- [Energy Safer Active](#energy-safer-active)
@@ -22,6 +27,31 @@ How to integrate the library
 	- [Problematic Manufacturer Warning](#problematic-manufacturer-warning)
 	- [No Guidance Needed](#no-guidance-needed)
 - [Dismiss Dialogs](#dismiss-dialogs)
+
+
+#### Importing the Cyface Android Utils
+This library is required to build this application. It is included as Git submodule.
+
+To get the current submodule's code run the following command:
+
+    $ git submodule update --init
+
+If the referenced SDK version changed you can get the new code by executing:
+
+    $ git pull
+    $ git submodule update
+    
+If you want to select a specific submodule version you can do this by using the normal Git commands:
+
+    $ cd submodule/
+    $ git fetch -p
+    $ git checkout <branch_name>
+
+If you want to publish the newly linked submodule version run:
+
+    $ git add submodule/
+    $ git commit
+    $ git push
 
 
 ### Check Energy Settings

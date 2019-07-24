@@ -49,6 +49,8 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import de.cyface.app.utils.Validate;
+
 /**
  * Holds the API for this energy setting library.
  * <p>
@@ -390,7 +392,7 @@ public class TrackingSettings {
      *
      * @param fragmentManager The {@code FragmentManager} required to search for open dialogs.
      */
-    @SuppressWarnings("WeakerAccess") // Used by implementing apps
+    @SuppressWarnings({"WeakerAccess", "RedundantSuppression"}) // Used by implementing apps
     public static void dismissAllDialogs(@NonNull final FragmentManager fragmentManager) {
         final List<Fragment> fragments = fragmentManager.getFragments();
 
