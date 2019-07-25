@@ -25,13 +25,13 @@ package de.cyface.energy_settings;
  * @version 1.0.0
  * @since 1.0.0
  */
-final class Constants {
+public final class Constants {
 
     final static String TAG = "de.cyface.es";
     private final static String PACKAGE = "de.cyface.energy_settings";
 
     // Dialog codes to identify the different dialogs
-    final static int DIALOG_ENERGY_SAFER_WARNING_CODE = 2019071101;
+    public final static int DIALOG_ENERGY_SAFER_WARNING_CODE = 2019071101;
     final static int DIALOG_BACKGROUND_RESTRICTION_WARNING_CODE = 2019071102;
     final static int DIALOG_PROBLEMATIC_MANUFACTURER_WARNING_CODE = 2019071103;
     final static int DIALOG_GPS_DISABLED_WARNING_CODE = 2019071104;
