@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Energy Settings</string>
+
+    <!-- Feedback email template -->
+    <string name="feedback_error_description">Question / Error description</string>
+    <string name="feedback_version_text">App Version</string>
+    <string name="feedback_device_text">Device</string>
+    <string name="feedback_android_text">Android Version</string>
+    <string name="feedback_choose_email_app">Send email using:</string>
+
+    <!-- Dialogs for Android settings which prevent tracking -->
+    <string name="dialog_button_do_not_show_again">I did this already</string>
+    <string name="dialog_button_open_settings">Open Settings</string>
+    <string name="dialog_button_help">Help</string>
+    <string name="dialog_energy_safer_warning_title">Disable Energy Safer Mode</string>
+    <string name="dialog_energy_safer_warning">On your device the GPS functionality is disabled in the Energy Safer mode as soon as your display turns off. This interrupts the tracking.\n\nFor this reason we ask you to disable the Energy Safer Mode during tracking. We do our best to keep the energy consumption as low as possible.</string>
+    <string name="dialog_background_processing_restriction_warning_title">Disable Background Restriction</string>
+    <string name="dialog_background_processing_restriction_warning">The Background processing is restricted for this app. Because of this the tracking stops when the display is turned off or when the app is minimized.\n\nPlease disable this restriction for this app:\n`Open Settings` Button > Advanced > Battery > Background restriction > Remove</string>
+    <string name="dialog_gps_disabled_warning_title">Enable GPS</string>
+    <string name="dialog_gps_disabled_warning">The tracking is based on GPS position data. This feature is currently disabled on your device.\n\nPlease enable the location service (GPS) in the system settings.</string>
+    <string name="dialog_no_guidance_needed_title">No Setup required</string>
+
+    <!-- Dialogs for manufacturer-/device specific settings -->
+    <string name="dialog_problematic_manufacturer_warning_title">Manufacturer specific restrictions</string>
+
+    <string name="dialog_manufacturer_warning_generic">On your device manufacturer specific settings may be enabled by default which stop the background tracking after a short time.
+        \n\nPlease whitelist this app in the <b>battery settings</b> of your mobile phone.
+        \n\n<i>Attention: Some manufacturers reset these settings on OS updates</i></string>
+
+    <string name="dialog_manufacturer_warning_huawei_app_launch">Huawei devices do not allow apps to run background tracking by default.
+        \n\nPlease set app settings \> Battery \> <b>App launch</b> to <b>Manage manually</b> and enable all options.</string>
+
+    <string name="dialog_manufacturer_warning_huawei_protected_app">Huawei devices do not allow apps to run background tracking by default.
+        \n\nPlease go to Phone Settings \> Advanced Settings \> <b>Battery manager</b> \> <b>Protected apps</b> and set our app as protected app.</string>
+
+    <string name="dialog_manufacturer_warning_samsung_smart_manager">Your Samsung device contains a "Smart Manager" which needs
+        to be set up correctly to for the background tracking to work with a turned off display.
+        \n\n Please go to your phone settings \> Smart Manager \> <b>Battery</b> \> <b>App power saving</b> \> Details > Choose our app > set to <b>Turn off</b>.</string>
+
+    <string name="dialog_manufacturer_warning_samsung_device_care">Your Samsung device contains a \"device care\" setting
+        which needs to be set up correctly to for the background tracking to work with a turned off display.
+        \n\nFirst try to find <b>Device maintenance/care \> Battery</b> and add our app to the <b>unmonitored apps</b>.
+        \n\nIf this does not work or if you cannot find this setting, this should help:
+        \nGo to your phone settings \> Device maintenance/care \> <b>Battery</b> \> Tab on the 3-dot menu and on Settings \> <b>Disable all setting but notifications</b>.
+        Then go to <b>Sleeping apps</b> and make sure our app is <b>not listed</b>.</string>
+
+    <string name="dialog_manufacturer_warning_sony_stamina">On Sony devices there is a manufacturer specific energy safer mode called <b>STAMINA</b>.
+        In this mode the background tracking is stopped automatically by the system.
+        \n\nIf you have problems with the tracking functionality please disable STAMINA completely.</string>
+
+    <string name="dialog_manufacturer_warning_xiaomi_power_settings">Xiaomi devices only allow background tracking when the display is disabled with the correct settings.
+        \n\nPlease set Settings - Battery + Performance - <b>Manage Apps Battery Usage</b> - choose our App - Energy Safer mode <b>to "No Restrictions"</b>
+        \n\nand set Settings - Battery - Other permissions - <b>"Start in Background" to "allowed"</b>.</string>
+
+    <string name="dialog_manufacturer_warning_xiaomi_auto_start">Xiaomi devices only allow background tracking when the display is disabled with the correct settings.
+        \n\nPlease set Settings - Permissions - <b>Autostart</b> - choose our App - "Allow apps to start automatically" to <b>"allowed"</b>.</string>
+
+    <string name="dialog_no_guidance_needed">We do not know of any manufacturer specific settings von your device which could prevent the tracking function from working.
+        \n\nIf the tracking stops anyways this could be due to an \"optimization app\", which stops our background service during a trip / when the display is turned off.
+        \n\nIn case you need help do not hesitate to drop us a line by e-mail. Use the <b>Help</b> button below.</string>
+</resources>
