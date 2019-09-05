@@ -20,7 +20,7 @@
  * Gradle's build file for the module which checks and handles energy settings.
  *
  * @author Armin Schnabel
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 
@@ -72,7 +72,9 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$rootProject.ext.rulesVersion"
 
     // Local dependencies - use debug library for debug output in debug build
-    implementation project(':utils')
+
+    // Cyface dependencies
+    implementation "de.cyface:android-utils:1.0.1"
 
     // Dependencies for local unit tests
     // - If Junit symbols are not resolvable in IntelliJ, make sure Build Variant is set to debug

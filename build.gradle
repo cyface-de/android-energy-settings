@@ -3,7 +3,7 @@
  * and the default dependency versions used in most modules.
  *
  * @author Armin Schnabel
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.0.0
  */
 
@@ -54,6 +54,10 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            // Repository for Cyface libraries
+            url 'https://dl.bintray.com/cyface-de/android-utils'
+        }
     }
 }
 
