@@ -20,7 +20,7 @@
  * Gradle's build file for the module which checks and handles energy settings.
  *
  * @author Armin Schnabel
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 
@@ -73,7 +73,7 @@ dependencies {
 
     // Local dependencies - use debug library for debug output in debug build
 
-    // Published Cyface dependencies
+    // Cyface dependencies
     implementation "de.cyface:android-utils:1.0.1"
 
     // Dependencies for local unit tests
