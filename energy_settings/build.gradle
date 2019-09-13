@@ -20,7 +20,7 @@
  * Gradle's build file for the module which checks and handles energy settings.
  *
  * @author Armin Schnabel
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  */
 
@@ -65,21 +65,21 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
 
     // Dependencies for instrumentation tests
-    androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.extJunitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.junitVersion"
     androidTestImplementation "androidx.test:rules:$rootProject.ext.rulesVersion"
 
     // Local dependencies - use debug library for debug output in debug build
 
     // Cyface dependencies
-    implementation "de.cyface:android-utils:1.0.1"
+    implementation "de.cyface:android-utils:$rootProject.ext.utilsVersion"
 
     // Dependencies for local unit tests
     // - If Junit symbols are not resolvable in IntelliJ, make sure Build Variant is set to debug
     // - Loading another dependency (e.g. module) only it's production dependencies (compile) are loaded but not other dependencies (e.g. testCompile)
-    testImplementation "junit:junit:$rootProject.ext.junitVersion"
+    testImplementation "androidx.test.ext:junit:$rootProject.ext.junitVersion"
     testImplementation "org.mockito:mockito-core:$rootProject.ext.mockitoVersion"
     // Optional - For better debuggable asserts
     testImplementation "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
