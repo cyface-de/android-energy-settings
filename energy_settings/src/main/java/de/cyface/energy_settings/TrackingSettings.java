@@ -338,9 +338,8 @@ public class TrackingSettings {
         final String appVersion = getAppVersion(context);
         final String appAndDeviceInfo = prepareAppAndDeviceInformation(context, appVersion);
 
-        String mailSubject = context.getString(R.string.app_name) + " Android App Feedback (" + appVersion + "-"
-                + Build.VERSION.SDK_INT;
-        mailSubject += ")";
+        String mailSubject = context.getString(R.string.app_name) + " "+context.getString(R.string.feedback_email_subject) + " (" + appVersion + "-"
+                + Build.VERSION.SDK_INT + ")";
         final Intent emailIntent;
         emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {recipientEmail});

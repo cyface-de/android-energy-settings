@@ -24,7 +24,7 @@
     <string name="dialog_problematic_manufacturer_warning_title">Restrizioni specifiche del produttore</string>
 
     <string name="dialog_manufacturer_warning_generic">Per impostazione predefinita, le impostazioni specifiche del produttore del dispositivo possono essere abilitate in modo da interrompere il monitoraggio in background dopo breve tempo.
-        \n\nPer favore acconsentire all'utilizzo di questa applicazione nelle <b>impostazioni della batteria</b> del telefono cellulare.
+        \n\nPer favore acconsentire all\'utilizzo di questa applicazione nelle <b>impostazioni della batteria</b> del telefono cellulare.
         \n\n\n<i>Attenzione: Per alcuni produttori sarà necessario reimpostare queste impostazioni sugli aggiornamenti del sistema operativo</i></string>
 
     <string name="dialog_manufacturer_warning_huawei_app_launch">I dispositivi Huawei non consentono alle applicazioni di eseguire il monitoraggio in background per impostazione predefinita.
@@ -33,7 +33,7 @@
     <string name="dialog_manufacturer_warning_huawei_protected_app">I dispositivi Huawei non consentono alle applicazioni di eseguire il monitoraggio in background per impostazione predefinita.
         \Accedi a Impostazioni telefono \n Impostazioni avanzate \> Impostazioni avanzate \> <b>Gestore batterie</b> \> <b>App protette</b> e imposta la nostra app come app protetta.</string>
 
-    <string name="dialog_manufacturer_warning_samsung_smart_manager"> Il tuo dispositivo Samsung contiene uno "Smart Manager" che deve essere impostato correttamente per far sì che il tracciamento dello spostamento funzioni con il display spento.
+    <string name="dialog_manufacturer_warning_samsung_smart_manager"> Il tuo dispositivo Samsung contiene uno \"Smart Manager\" che deve essere impostato correttamente per far sì che il tracciamento dello spostamento funzioni con il display spento.
         \Per favore vai alle impostazioni del tuo telefono \> Smart Manager \> <b>Batteria</b> \> <b>App risparmio energetico</b> \> Dettagli > Scegli la nostra applicazione > imposta su <b>Spegni</b>.</string>
 
     <string name="dialog_manufacturer_warning_samsung_device_care">Il tuo dispositivo Samsung contiene l\'impostazione \"device care\".
@@ -48,11 +48,11 @@
         \n\n\n Se si hanno problemi con la funzionalità di tracciamento si prega di disabilitare completamente STAMINA.</string>
 
     <string name="dialog_manufacturer_warning_xiaomi_power_settings">I dispositivi Xiaomi consentono il monitoraggio in background solo quando la visualizzazione è disabilitata con le impostazioni corrette.
-        \n\nImpostare le impostazioni - Batteria + Prestazioni - <b>Gestire l'uso della batteria delle applicazioni</b> - scegliere la nostra App - Modalità risparmio energetico <b>a "Nessuna restrizione"</b>.
-        \n\n\nand impostare Impostazioni - Batteria - Altre autorizzazioni - <b>"Start in background" a "allowed"</b>.</string>
+        \n\nImpostare le impostazioni - Batteria + Prestazioni - <b>Gestire l\'uso della batteria delle applicazioni</b> - scegliere la nostra App - Modalità risparmio energetico <b>a \"Nessuna restrizione\"</b>.
+        \n\n\nand impostare Impostazioni - Batteria - Altre autorizzazioni - <b>\"Start in background\" a \"allowed\"</b>.</string>
 
     <string name="dialog_manufacturer_warning_xiaomi_auto_start">I dispositivi Xiaomi consentono il monitoraggio in background solo quando la visualizzazione è disabilitata con le impostazioni corrette.
-        \n\nImpostare le impostazioni - Autorizzazioni - <b>Autostart</b> - scegliere la nostra applicazione - "Consentire l'avvio automatico delle applicazioni" a <b>"allowed"</b>.</string>
+        \n\nImpostare le impostazioni - Autorizzazioni - <b>Autostart</b> - scegliere la nostra applicazione - \"Consentire l\'avvio automatico delle applicazioni\" a <b>\"allowed\"</b>.</string>
 
     <string name="dialog_no_guidance_needed">Non conosciamo alcuna impostazione specifica del produttore del dispositivo che potrebbe impedire il funzionamento della funzione di tracciamento.
         \Se il tracciamento si interrompe comunque, questo potrebbe essere dovuto ad un\'applicazione di ottimizzazione che interrompe il nostro servizio in background durante un viaggio / quando il display è spento.
