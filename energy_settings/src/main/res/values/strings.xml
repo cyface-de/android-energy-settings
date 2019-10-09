@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Energy Settings</string>
+    <string name="app_name" translatable="false">Energy Settings</string>
 
     <!-- Feedback email template -->
     <string name="feedback_error_description">Question / Error description</string>
@@ -8,6 +8,7 @@
     <string name="feedback_device_text">Device</string>
     <string name="feedback_android_text">Android Version</string>
     <string name="feedback_choose_email_app">Send email using:</string>
+    <string name="feedback_email_subject" translatable="false">Android App Feedback</string>
 
     <!-- Dialogs for Android settings which prevent tracking -->
     <string name="dialog_button_do_not_show_again">I did this already</string>
