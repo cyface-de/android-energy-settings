@@ -1,0 +1,70 @@
+/*
+ * Copyright 2019 Cyface GmbH
+ *
+ * This file is part of the Cyface Energy Settings for Android.
+ *
+ * The Cyface Energy Settings for Android is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The Cyface Energy Settings for Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with the Cyface Energy Settings for Android. If not, see <http://www.gnu.org/licenses/>.
+ */
+/**
+ * Gradle's publish file for this module.
+ *
+ * @author Armin Schnabel
+ * @version 1.0.0
+ * @since 1.0.4
+ */
+
+apply plugin: 'maven-publish'
+
+// Load credentials
+def properties = new Properties()
+properties.load(new FileInputStream("local.properties"))
+
+publishing {
+    // Authenticate at the repository
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/cyface-de/android-energy-settings")
+            credentials {
+                username = properties.getProperty("github.user")
+                password = properties.getProperty("github.token")
+            }
+        }
+    }
+    publications {
+        Production(MavenPublication) {
+
+            artifact("$buildDir/outputs/aar/energy_settings-release.aar") {
+                builtBy tasks.getByName("assemble")
+            }
+            groupId rootProject.ext.groupId
+            artifactId rootProject.ext.artifactId
+            version rootProject.ext.version
+
+            pom.withXml {
+                // Define this explicitly if using implementation or api configurations
+                def dependenciesNode = asNode().getAt('dependencies')[0] ?: asNode().appendNode('dependencies')
+                // Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.implementation.allDependencies.each {
+                    // Ensure dependencies such as fileTree are not included.
+                    if (it.name != 'unspecified') {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
+}

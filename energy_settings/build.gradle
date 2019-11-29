@@ -85,3 +85,6 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
     testImplementation "org.robolectric:robolectric:$rootProject.ext.robolectricVersion"
 }
+
+// The gradle publish tasks is defined in a separate file:
+apply from: 'publish.gradle'
