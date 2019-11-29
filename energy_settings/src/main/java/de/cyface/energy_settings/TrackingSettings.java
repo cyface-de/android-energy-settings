@@ -1,20 +1,20 @@
 /*
  * Copyright 2019 Cyface GmbH
  *
- * This file is part of the Cyface SDK for Android.
+ * This file is part of the Cyface Energy Settings for Android.
  *
- * The Cyface SDK for Android is free software: you can redistribute it and/or modify
+ * The Cyface Energy Settings for Android is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * The Cyface SDK for Android is distributed in the hope that it will be useful,
+ * The Cyface Energy Settings for Android is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with the Cyface SDK for Android. If not, see <http://www.gnu.org/licenses/>.
+ * along with the Cyface Energy Settings for Android. If not, see <http://www.gnu.org/licenses/>.
  */
 package de.cyface.energy_settings;
 
@@ -57,7 +57,7 @@ import de.cyface.utils.Validate;
  * Offers checks and dialogs for energy settings required for background tracking.
  *
  * @author Armin Schnabel
- * @version 1.1.0
+ * @version 1.1.1
  * @since 1.0.0
  */
 public class TrackingSettings {
