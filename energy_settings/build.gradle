@@ -1,26 +1,26 @@
 /*
- * Copyright 2017 Cyface GmbH
+ * Copyright 2019 Cyface GmbH
  *
- * This file is part of the Cyface SDK for Android.
+ * This file is part of the Cyface Energy Settings for Android.
  *
- * The Cyface SDK for Android is free software: you can redistribute it and/or modify
+ * The Cyface Energy Settings for Android is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * The Cyface SDK for Android is distributed in the hope that it will be useful,
+ * The Cyface Energy Settings for Android is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with the Cyface SDK for Android. If not, see <http://www.gnu.org/licenses/>.
+ * along with the Cyface Energy Settings for Android. If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * Gradle's build file for the module which checks and handles energy settings.
+ * Gradle's build file for this module.
  *
  * @author Armin Schnabel
- * @version 1.0.2
+ * @version 1.1.0
  * @since 1.0.0
  */
 
@@ -34,16 +34,9 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 
-        versionCode 1
         versionName rootProject.ext.version
 
         testInstrumentationRunner rootProject.ext.testInstrumentationRunner
-    }
-
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
     }
 
     // Enable Proguard for the release build type.
@@ -67,14 +60,14 @@ android {
 dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
 
+    // Cyface dependencies
+    implementation "de.cyface:android-utils:$rootProject.ext.utilsVersion"
+
     // Dependencies for instrumentation tests
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.junitVersion"
     androidTestImplementation "androidx.test:rules:$rootProject.ext.rulesVersion"
 
     // Local dependencies - use debug library for debug output in debug build
-
-    // Cyface dependencies
-    implementation "de.cyface:android-utils:$rootProject.ext.utilsVersion"
 
     // Dependencies for local unit tests
     // - If Junit symbols are not resolvable in IntelliJ, make sure Build Variant is set to debug
@@ -85,3 +78,6 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
     testImplementation "org.robolectric:robolectric:$rootProject.ext.robolectricVersion"
 }
+
+// The gradle publish tasks is defined in a separate file:
+apply from: 'publish.gradle'
