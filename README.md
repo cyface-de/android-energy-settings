@@ -4,12 +4,64 @@ Cyface Android Energy Settings library
 This project contains the Cyface Android Energy Settings library which check and
 handle settings required for background location tracking.
 
-- [How to integrate the library](#how-to-integrate-the-library)
+- [Integration Guide](#integration-guide)
+- [API Usage Guide](#api-usage-guide)
+- [Development Guide](#development-guide)
 - [License](#license)
 
 
-How to integrate the library
------------------------------
+Integration Guide
+---------------------
+
+This library is published to the Github Package Registry.
+
+To use it as a dependency you need to:
+
+1. Make sure you are authenticated to the repository:
+
+    * You need a Github account with read-access to this Github repository
+    * Create a [personal access token on Github](https://github.com/settings/tokens) with "read:packages" permissions
+    * Create or adjust a `local.properties` file in the project root containing:
+
+    ```
+    github.user=YOUR_USERNAME
+    github.token=YOUR_ACCESS_TOKEN
+    ```
+    
+    * Add the custom repository to your `build.gradle`:
+
+    ``` 
+    def properties = new Properties()
+    properties.load(new FileInputStream("local.properties"))
+
+    repositories {
+        // Other maven repositories, e.g.:
+        jcenter()
+        google()
+        // Repository for this library
+        maven {
+            url = uri("https://maven.pkg.github.com/cyface-de/android-energy-settings")
+            credentials {
+                username = properties.getProperty("github.user")
+                password = properties.getProperty("github.token")
+            }
+        }
+    }
+    ```
+
+2. Add this package as a Maven dependency to your app's `build.gradle`:
+
+    ```
+    dependencies {
+        implementation "de.cyface:energy_settings:$energySettingsVersion"
+    }
+    ```
+
+3. Set the `$energySettingsVersion` gradle variable to the [latest version](https://github.com/cyface-de/android-energy-settings/releases).
+
+
+API Usage Guide
+------------------
 
 - [Check Energy Settings](#check-energy-settings)
 	- [GPS Enabled](#gps-enabled)
@@ -153,7 +205,33 @@ protected void onPause() {
     TrackingSettings.dismissAllDialogs(fragmentManager);
     super.onPause();
 }
-```
+```  
+
+
+Development Guide
+--------------------
+
+### Release a new version
+
+This library is published to the Github Package Registry.
+
+To publish a new version you need to:
+
+1. Make sure you are authenticated to the repository:
+
+    * You need a Github account with write-access to this Github repository 
+    * Create a [personal access token on Github](https://github.com/settings/tokens) with "write:packages" permissions
+    * Create or adjust a `local.properties` file in the project root containing:
+
+    ```
+    github.user=YOUR_USERNAME
+    github.token=YOUR_ACCESS_TOKEN
+    ```
+
+2. Publish a new version
+
+    * Increment the `build.gradle`'s `ext.version`
+    * Execute the publish command `./gradlew publish`
 
 
 License
