@@ -17,7 +17,7 @@
  * along with the Cyface Energy Settings for Android. If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * Gradle's build file for the module which checks and handles energy settings.
+ * Gradle's build file for this module.
  *
  * @author Armin Schnabel
  * @version 1.0.3
@@ -34,16 +34,9 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 
-        versionCode 1
         versionName rootProject.ext.version
 
         testInstrumentationRunner rootProject.ext.testInstrumentationRunner
-    }
-
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
     }
 
     // Enable Proguard for the release build type.
