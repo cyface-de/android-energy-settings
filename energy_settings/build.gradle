@@ -34,7 +34,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 
-        versionName rootProject.ext.version
+        versionName rootProject.ext.cyfaceBackendVersion
 
         testInstrumentationRunner rootProject.ext.testInstrumentationRunner
     }
@@ -61,7 +61,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
 
     // Cyface dependencies
-    implementation "de.cyface:android-utils:$rootProject.ext.utilsVersion"
+    implementation "de.cyface:android-utils:$rootProject.ext.cyfaceUtilsVersion"
 
     // Dependencies for instrumentation tests
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.junitVersion"

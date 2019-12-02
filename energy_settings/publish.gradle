@@ -47,9 +47,9 @@ publishing {
             artifact("$buildDir/outputs/aar/energy_settings-release.aar") {
                 builtBy tasks.getByName("assemble")
             }
-            groupId rootProject.ext.groupId
-            artifactId rootProject.ext.artifactId
-            version rootProject.ext.version
+            groupId = 'de.cyface'
+            artifactId = 'android-energy-settings'
+            version rootProject.ext.cyfaceEnergySettingsVersion
 
             pom.withXml {
                 // Define this explicitly if using implementation or api configurations
