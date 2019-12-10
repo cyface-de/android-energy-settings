@@ -20,7 +20,7 @@
  * Gradle's build file for this module.
  *
  * @author Armin Schnabel
- * @version 1.1.0
+ * @version 1.1.1
  * @since 1.0.0
  */
 
@@ -34,7 +34,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 
-        versionName rootProject.ext.cyfaceBackendVersion
+        versionName rootProject.ext.cyfaceEnergySettingsVersion
 
         testInstrumentationRunner rootProject.ext.testInstrumentationRunner
     }
