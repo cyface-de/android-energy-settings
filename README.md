@@ -1,6 +1,9 @@
 Cyface Android Energy Settings library
 ========================================
 
+[<img src="https://github.com/cyface-de/android-energy-settings/workflows/Gradle%20Build/badge.svg">](https://github.com/cyface-de/android-energy-settings/actions)
+[<img src="https://github.com/cyface-de/android-energy-settings/workflows/Gradle%20Publish/badge.svg">](https://github.com/cyface-de/android-energy-settings/actions)
+
 This project contains the Cyface Android Energy Settings library which check and
 handle settings required for background location tracking.
 
