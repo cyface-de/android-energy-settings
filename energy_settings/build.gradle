@@ -59,6 +59,8 @@ android {
 
 dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
+    // Dialogs without androidx/SupportFragment dependency (SR-app limitations)
+    implementation 'com.afollestad.material-dialogs:core:3.1.1'
 
     // Cyface dependencies
     implementation "de.cyface:android-utils:$rootProject.ext.cyfaceUtilsVersion"

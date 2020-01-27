@@ -49,6 +49,9 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.afollestad.materialdialogs.DialogBehavior;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import de.cyface.utils.Validate;
 
 /**
@@ -295,11 +298,25 @@ public class TrackingSettings {
             return false;
         }
 
-        final FragmentManager fragmentManager = fragment.getFragmentManager();
+        /*final FragmentManager fragmentManager = fragment.getFragmentManager();
         Validate.notNull(fragmentManager);
         final GpsDisabledWarningDialog dialog = new GpsDisabledWarningDialog();
         dialog.setTargetFragment(fragment, DIALOG_GPS_DISABLED_WARNING_CODE);
-        dialog.show(fragmentManager, "GPS_DISABLED_WARNING_DIALOG");
+        dialog.show(fragmentManager, "GPS_DISABLED_WARNING_DIALOG");*/
+
+        DialogBehavior behavior = MaterialDialog.getDEFAULT_BEHAVIOR();
+        MaterialDialog dialog = new MaterialDialog(context, behavior);
+        dialog.title(R.string.dialog_gps_disabled_warning_title, null);
+        dialog.message(R.string.dialog_gps_disabled_warning, null, null);
+        //dialog.message(R.string.dialog_gps_disabled_warning, null, null);
+        //builder.setPositiveButton(R.string.dialog_button_open_settings, new DialogInterface.OnClickListener() {
+        //    public void onClick(DialogInterface dialog, int which) {
+        //        final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        //        startActivity(intent);
+        //    }
+        //});
+        dialog.show();
+
         return true;
     }
 
