@@ -56,7 +56,7 @@ To use it as a dependency you need to:
 
     ```
     dependencies {
-        implementation "de.cyface:energy_settings:$energySettingsVersion"
+        implementation "de.cyface:android-energy-settings:$energySettingsVersion"
     }
     ```
 
