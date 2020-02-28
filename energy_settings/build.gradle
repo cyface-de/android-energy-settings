@@ -71,7 +71,9 @@ dependencies {
 
     // Other Android libraries
     implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
-    // Dialogs without androidx/SupportFragment dependency (SR-app limitations)
+    implementation "androidx.preference:preference:$rootProject.ext.androidPreferencesVersion"
+
+    // To support Dialogs without androidx/SupportFragment dependencies
     implementation 'com.afollestad.material-dialogs:core:3.1.1'
 
     // Cyface dependencies
