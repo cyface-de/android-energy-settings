@@ -55,6 +55,9 @@ ext {
     androidxAppCompatVersion = "1.1.0"
     androidPreferencesVersion = "1.1.0"
 
+    kotlinCoreVersion = "1.2.0"
+    materialDialogsVersion = "3.1.1"
+
     junitVersion = "1.1.1"
     mockitoVersion = "2.26.0"
     hamcrestVersion = "1.3"

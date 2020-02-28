@@ -67,14 +67,14 @@ dependencies {
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "androidx.core:core-ktx:1.2.0"
+    implementation "androidx.core:core-ktx:$rootProject.ext.kotlinCoreVersion"
 
     // Other Android libraries
     implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
     implementation "androidx.preference:preference:$rootProject.ext.androidPreferencesVersion"
 
     // To support Dialogs without androidx/SupportFragment dependencies
-    implementation 'com.afollestad.material-dialogs:core:3.1.1'
+    implementation "com.afollestad.material-dialogs:core:$rootProject.ext.materialDialogsVersion"
 
     // Cyface dependencies
     implementation "de.cyface:android-utils:$rootProject.ext.cyfaceUtilsVersion"
