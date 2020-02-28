@@ -20,7 +20,6 @@ package de.cyface.energy_settings;
 
 import static de.cyface.energy_settings.Constants.DIALOG_BACKGROUND_RESTRICTION_WARNING_CODE;
 import static de.cyface.energy_settings.Constants.DIALOG_ENERGY_SAFER_WARNING_CODE;
-import static de.cyface.energy_settings.Constants.DIALOG_GPS_DISABLED_WARNING_CODE;
 import static de.cyface.energy_settings.Constants.DIALOG_NO_GUIDANCE_NEEDED_DIALOG_CODE;
 import static de.cyface.energy_settings.Constants.DIALOG_PROBLEMATIC_MANUFACTURER_WARNING_CODE;
 import static de.cyface.energy_settings.Constants.MANUFACTURER_HONOR;
@@ -60,10 +59,15 @@ import de.cyface.utils.Validate;
  * Offers checks and dialogs for energy settings required for background tracking.
  *
  * @author Armin Schnabel
- * @version 1.1.1
+ * @version 2.0.0
  * @since 1.0.0
  */
 public class TrackingSettings {
+
+    /**
+     * For all instances of {@link MaterialDialog}.
+     */
+    private static DialogBehavior dialogBehavior = MaterialDialog.getDEFAULT_BEHAVIOR();
 
     /**
      * Checks whether the energy safer mode is active *at this moment*.
