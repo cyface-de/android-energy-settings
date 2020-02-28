@@ -26,18 +26,16 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Build
 import android.os.PowerManager
-import android.preference.PreferenceManager
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.afollestad.materialdialogs.DialogBehavior
-import com.afollestad.materialdialogs.MaterialDialog
+import androidx.preference.PreferenceManager
 import de.cyface.utils.Validate
+import java.util.*
 
 /**
  * Holds the API for this energy setting library.
- *
  *
  * Offers checks and dialogs for energy settings required for background tracking.
  *
@@ -46,23 +44,16 @@ import de.cyface.utils.Validate
  * @since 1.0.0
  */
 object TrackingSettings {
-  /**
-   * For all instances of [MaterialDialog].
-   */
-  private val dialogBehavior: DialogBehavior = MaterialDialog.getDEFAULT_BEHAVIOR()
 
   /**
    * Checks whether the energy safer mode is active *at this moment*.
    *
-   *
    * If this mode is active the GPS location service is disabled on most devices.
-   *
    *
    * API 28+
    * - due to Android documentation GPS is only disabled starting with API 28 when the display is off
    * - manufacturers can change this. On a Pixel 2 XL e.g. GPS is offline. On most other devices, too.
    * - we explicitly check if this is the case on the device and only return true if GPS gets disabled
-   *
    *
    * API < 28
    * - Some manufacturers implemented an own energy saving mode (e.g. on Honor 8, Android 7) which also kills GPS
@@ -72,62 +63,41 @@ object TrackingSettings {
    * @param context The `Context` required to check the system settings
    * @return `True` if an energy safer mode is currently active which very likely disables the GPS service
    */
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)  // Used by implementing app
+  @JvmStatic
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   fun isEnergySaferActive(context: Context): Boolean {
+
     val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-    val isInPowerSavingMode = powerManager != null && powerManager.isPowerSaveMode
+    val isInPowerSavingMode = powerManager.isPowerSaveMode
+
+    // On newer APIs we can check if the power safer mode actually kills location tracking in background
     return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
       isInPowerSavingMode
     } else isInPowerSavingMode
-      && powerManager.locationPowerSaveMode != PowerManager.LOCATION_MODE_FOREGROUND_ONLY && powerManager.locationPowerSaveMode != PowerManager.LOCATION_MODE_NO_CHANGE
-    // On newer APIs we can check if the power safer mode actually kills location tracking in background
+      && powerManager.locationPowerSaveMode != PowerManager.LOCATION_MODE_FOREGROUND_ONLY
+      && powerManager.locationPowerSaveMode != PowerManager.LOCATION_MODE_NO_CHANGE
   }
 
   /**
    * Checks whether background processing is restricted by the settings.
    *
-   *
    * If this mode is enabled, the background processing is paused when the app is in background or the display is off.
    *
-   *
    * This was tested on a Pixel 2 XL device. Here this setting is disabled by default.
-   *
-   *
    * On other manufacturers, e.g. on Xiaomi's MIUI this setting is enabled by default.
    *
    * @param context The `Context` required to check the system settings
    * @return `True` if the processing is restricted
    */
-  @RequiresApi(api = Build.VERSION_CODES.P)  // Used by implementing app
+  @JvmStatic
+  @RequiresApi(api = Build.VERSION_CODES.P)
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   fun isBackgroundProcessingRestricted(context: Context): Boolean {
-    val activityManager = context
-      .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-    return (activityManager != null
-      && activityManager.isBackgroundRestricted)
-  }/*
-                 * Sony STAMINA
-                 * - On Android 8 we may be able to check if STAMINA is disabled completely according to:
-                 * https://stackoverflow.com/a/50740898/5815054/, https://dontkillmyapp.com/sony
-                 * Settings.Secure.getInt(context.getContentResolver(), "somc.stamina_mode", 0) > 0;
-                 * - However, as this does not work on Android 6 we just show the warning to all SONY phones
-                 */
-/*
-                 * Other manufacturers
-                 * - The following manufacturers seem to be as restrictive as Huawei etc. (see
-                 * https://dontkillmyapp.com)
-                 * - but we have no negative reports yet from such devices, nor can we test them.
-                 * - For those reasons this part is uncommented but we keep this info here as it's some work to collect
-                 * this data.
-                 *
-                 * case MANUFACTURER_HTC:
-                 * case MANUFACTURER_OPPO:
-                 * case MANUFACTURER_ASUS:
-                 * case MANUFACTURER_LETV:
-                 * case MANUFACTURER_VIVO:
-                 * case MANUFACTURER_MEIZU:
-                 * case MANUFACTURER_DEWAV:
-                 * case MANUFACTURER_QMOBILE:
-                 */
+
+    val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    return (activityManager.isBackgroundRestricted)
+  }
 
   /**
    * Checks whether a manufacturer was identified which implements manufacturer-specific energy settings known to
@@ -135,35 +105,37 @@ object TrackingSettings {
    *
    * @return `True` if such a manufacturer is identified
    */
-  // Used by implementing app
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   val isProblematicManufacturer: Boolean
     get() {
-      val manufacturer = Build.MANUFACTURER
-      return when (manufacturer.toLowerCase()) {
-        Constants.MANUFACTURER_HUAWEI, Constants.MANUFACTURER_HONOR, Constants.MANUFACTURER_SAMSUNG, Constants.MANUFACTURER_XIAOMI, Constants.MANUFACTURER_SONY ->  /*
-                 * Sony STAMINA
-                 * - On Android 8 we may be able to check if STAMINA is disabled completely according to:
-                 * https://stackoverflow.com/a/50740898/5815054/, https://dontkillmyapp.com/sony
-                 * Settings.Secure.getInt(context.getContentResolver(), "somc.stamina_mode", 0) > 0;
-                 * - However, as this does not work on Android 6 we just show the warning to all SONY phones
-                 */
-/*
-                 * Other manufacturers
-                 * - The following manufacturers seem to be as restrictive as Huawei etc. (see
-                 * https://dontkillmyapp.com)
-                 * - but we have no negative reports yet from such devices, nor can we test them.
-                 * - For those reasons this part is uncommented but we keep this info here as it's some work to collect
-                 * this data.
-                 *
-                 * case MANUFACTURER_HTC:
-                 * case MANUFACTURER_OPPO:
-                 * case MANUFACTURER_ASUS:
-                 * case MANUFACTURER_LETV:
-                 * case MANUFACTURER_VIVO:
-                 * case MANUFACTURER_MEIZU:
-                 * case MANUFACTURER_DEWAV:
-                 * case MANUFACTURER_QMOBILE:
-                 */true
+
+      return when (Build.MANUFACTURER.toLowerCase(Locale.ROOT)) {
+        Constants.MANUFACTURER_HUAWEI, Constants.MANUFACTURER_HONOR, Constants.MANUFACTURER_SAMSUNG,
+        Constants.MANUFACTURER_XIAOMI, Constants.MANUFACTURER_SONY -> true
+        /* Sony STAMINA
+         * - On Android 8 we may be able to check if STAMINA is disabled completely according to:
+         * https://stackoverflow.com/a/50740898/5815054/, https://dontkillmyapp.com/sony
+         * Settings.Secure.getInt(context.getContentResolver(), "somc.stamina_mode", 0) > 0;
+         * - However, as this does not work on Android 6 we just show the warning to all SONY phones
+         */
+        /*
+         * Other manufacturers
+         * - The following manufacturers seem to be as restrictive as Huawei etc. (see
+         * https://dontkillmyapp.com)
+         * - but we have no negative reports yet from such devices, nor can we test them.
+         * - For those reasons this part is uncommented but we keep this info here as it's some work to collect
+         * this data.
+         *
+         * case MANUFACTURER_HTC:
+         * case MANUFACTURER_OPPO:
+         * case MANUFACTURER_ASUS:
+         * case MANUFACTURER_LETV:
+         * case MANUFACTURER_VIVO:
+         * case MANUFACTURER_MEIZU:
+         * case MANUFACTURER_DEWAV:
+         * case MANUFACTURER_QMOBILE:
+         */
         else -> false
       }
     }
@@ -174,47 +146,54 @@ object TrackingSettings {
    * @param context The `Context` required to check the system settings
    * @return `True` if GPS is enabled
    */
-  // Used by implementing app
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   fun isGpsEnabled(context: Context): Boolean {
+
     val manager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-    return manager == null || manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
   }
+
   /*
-     * Battery Optimization setting
-     *
-     * - Tests showed that this option should not be needed. (It also may sound scary to the user.)
-     * - Android settings explain that this setting is only needed if the was not Doze-optimized.
-     * - Our app should be Doze-optimized - which our tests indicated, too.
-     *
-     * else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-     * && powerManager != null && !powerManager.isIgnoringBatteryOptimizations(packageName)) {
-     *
-     * There are two native dialogs which can be popped up:
-     *
-     * 1) Request direct white-listing
-     * - this is not allowed in all cases and can end up in a denied play store release
-     * - this would required the following permissions:
-     * <uses-permission
-     * android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-     *
-     * 2) Open the settings page where the user hat to white-list the app himself
-     * final Intent intent = new Intent();
-     * intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-     * intent.setData(Uri.parse("package:" + packageName));
-     * fragmentRoot.getContext().startActivity(intent);
-     * }
-     */
+   * Battery Optimization setting
+   *
+   * - Tests showed that this option should not be needed. (It also may sound scary to the user.)
+   * - Android settings explain that this setting is only needed if the was not Doze-optimized.
+   * - Our app should be Doze-optimized - which our tests indicated, too.
+   *
+   * else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+   * && powerManager != null && !powerManager.isIgnoringBatteryOptimizations(packageName)) {
+   *
+   * There are two native dialogs which can be popped up:
+   *
+   * 1) Request direct white-listing
+   * - this is not allowed in all cases and can end up in a denied play store release
+   * - this would required the following permissions:
+   * <uses-permission
+   * android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+   *
+   * 2) Open the settings page where the user hat to white-list the app himself
+   * final Intent intent = new Intent();
+   * intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+   * intent.setData(Uri.parse("package:" + packageName));
+   * fragmentRoot.getContext().startActivity(intent);
+   * }
+   */
+
   /**
    * Shows a [EnergySaferWarningDialog] when [.isEnergySaferActive] is true.
    *
-   *
    * Checks [.isEnergySaferActive] before showing the dialog.
    *
+   * @param context The `Context` required to check the system settings
+   * @param fragment The `Fragment` where the dialog should be shown
    * @return `True` if the dialog is shown
    */
-  // Used by implementing app
-  fun showEnergySaferWarningDialog(context: Context,
-                                   fragment: Fragment): Boolean {
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  @Deprecated("Alternative implementation recommended as this one is currently not being tested.")
+  fun showEnergySaferWarningDialog(context: Context, fragment: Fragment): Boolean {
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isEnergySaferActive(context)) {
       val fragmentManager = fragment.fragmentManager
       Validate.notNull(fragmentManager)
@@ -227,9 +206,32 @@ object TrackingSettings {
   }
 
   /**
+   * Shows a [EnergySaferWarningDialog] when [.isEnergySaferActive] is true.
+   *
+   * Checks [.isEnergySaferActive] before showing the dialog.
+   *
+   * @param activity Required to show the dialog
+   * @return `True` if the dialog is shown
+   */
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  fun showEnergySaferWarningDialog(activity: Activity?): Boolean {
+
+    if (activity == null) {
+      Log.w(Constants.TAG, "showEnergySaferWarningDialog: aborted, activity is null")
+      return false
+    }
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isEnergySaferActive(activity.applicationContext)) {
+      EnergySaferWarningDialog.create(activity).show()
+      return true
+    }
+    return false
+  }
+
+  /**
    * Shows a [BackgroundProcessingRestrictionWarningDialog] when
    * [.isBackgroundProcessingRestricted] is true.
-   *
    *
    * Checks [.isBackgroundProcessingRestricted] before showing the dialog.
    *
@@ -237,9 +239,11 @@ object TrackingSettings {
    * @param fragment The `Fragment` where the dialog should be shown
    * @return `True` if the dialog is shown
    */
-  // Used by implementing app
-  fun showRestrictedBackgroundProcessingWarningDialog(context: Context,
-                                                      fragment: Fragment): Boolean {
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  @Deprecated("Alternative implementation recommended as this one is currently not being tested.")
+  fun showRestrictedBackgroundProcessingWarningDialog(context: Context, fragment: Fragment): Boolean {
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isBackgroundProcessingRestricted(context)) {
       val fragmentManager = fragment.fragmentManager
       Validate.notNull(fragmentManager)
@@ -252,8 +256,32 @@ object TrackingSettings {
   }
 
   /**
-   * Shows a [ProblematicManufacturerWarningDialog] if [.isProblematicManufacturer] is true.
+   * Shows a [BackgroundProcessingRestrictionWarningDialog] when
+   * [.isBackgroundProcessingRestricted] is true.
    *
+   * Checks [.isBackgroundProcessingRestricted] before showing the dialog.
+   *
+   * @param activity Required to show the dialog
+   * @return `True` if the dialog is shown
+   */
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  fun showRestrictedBackgroundProcessingWarningDialog(activity: Activity?): Boolean {
+
+    if (activity == null) {
+      Log.w(Constants.TAG, "showRestrictedBackgroundProcessingWarningDialog: aborted, activity is null")
+      return false
+    }
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isBackgroundProcessingRestricted(activity.applicationContext)) {
+      BackgroundProcessingRestrictionWarningDialog.create(activity).show()
+      return true
+    }
+    return false
+  }
+
+  /**
+   * Shows a [ProblematicManufacturerWarningDialog] if [.isProblematicManufacturer] is true.
    *
    * This also checks if the user prefers not to see the dialog if he did not request guidance by himself.
    *
@@ -264,19 +292,48 @@ object TrackingSettings {
    * @param force `True` if the dialog should be shown no matter of the preferences state
    * @return `True` if the dialog is shown
    */
-  // Used by implementing app
-  fun showProblematicManufacturerDialog(context: Context,
-                                        fragment: Fragment,
-                                        force: Boolean, recipientEmail: String): Boolean {
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  @Deprecated("Alternative implementation recommended as this one is currently not being tested.")
+  fun showProblematicManufacturerDialog(context: Context, fragment: Fragment, force: Boolean, recipientEmail: String): Boolean {
+
     val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-    if (isProblematicManufacturer
-      && (force || !preferences.getBoolean(Constants.PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY, false))) {
+    val alreadyShown = preferences.getBoolean(Constants.PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY, false)
+    if (isProblematicManufacturer && (force || !alreadyShown)) {
       val fragmentManager = fragment.fragmentManager
       Validate.notNull(fragmentManager)
-      val dialog = ProblematicManufacturerWarningDialog(
-        recipientEmail)
+      val dialog = ProblematicManufacturerWarningDialog(recipientEmail)
       dialog.setTargetFragment(fragment, Constants.DIALOG_PROBLEMATIC_MANUFACTURER_WARNING_CODE)
       dialog.show(fragmentManager!!, "PROBLEMATIC_MANUFACTURER_WARNING_DIALOG")
+      return true
+    }
+    return false
+  }
+
+  /**
+   * Shows a [ProblematicManufacturerWarningDialog] if [.isProblematicManufacturer] is true.
+   *
+   * This also checks if the user prefers not to see the dialog if he did not request guidance by himself.
+   *
+   * @param activity Required to show the dialog
+   * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated
+   * template.
+   * @param force `True` if the dialog should be shown no matter of the preferences state
+   * @return `True` if the dialog is shown
+   */
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  fun showProblematicManufacturerDialog(activity: Activity?, force: Boolean, recipientEmail: String): Boolean {
+
+    if (activity == null) {
+      Log.w(Constants.TAG, "showProblematicManufacturerDialog: aborted, activity is null")
+      return false
+    }
+
+    val preferences = PreferenceManager.getDefaultSharedPreferences(activity.applicationContext)
+    val alreadyShown = preferences.getBoolean(Constants.PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY, false)
+    if (isProblematicManufacturer && (force || !alreadyShown)) {
+      ProblematicManufacturerWarningDialog.create(activity, recipientEmail).show()
       return true
     }
     return false
@@ -289,11 +346,15 @@ object TrackingSettings {
    * @param fragment The `Fragment` where the dialog should be shown
    * @return `True` if the dialog is shown
    */
-  @Deprecated("We recommend to use the alternative implementation as we currently don't test this one.")  // Used by implementing app
-  fun showGpsWarningDialog(context: Context, fragment: Fragment): Boolean {
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  @Deprecated("Alternative implementation recommended as this one is currently not being tested.")
+  fun showGnssWarningDialog(context: Context, fragment: Fragment): Boolean {
+
     if (isGpsEnabled(context)) {
       return false
     }
+
     val fragmentManager = fragment.fragmentManager
     Validate.notNull(fragmentManager)
     val dialog = GnssDisabledWarningDialog()
@@ -308,21 +369,20 @@ object TrackingSettings {
    * @param activity Required to show the dialog
    * @return `True` if the dialog is shown
    */
-  // Used by implementing app
-  fun showGpsWarningDialog(activity: Activity?): Boolean {
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  fun showGnssWarningDialog(activity: Activity?): Boolean {
+
     if (activity == null) {
-      Log.w(Constants.TAG, "showGpsWarningDialog: aborted, activity is null")
+      Log.w(Constants.TAG, "showGnssWarningDialog: aborted, activity is null")
       return false
     }
     val context = activity.applicationContext
     if (isGpsEnabled(context)) {
       return false
     }
-    val dialog = MaterialDialog(activity, dialogBehavior)
-    dialog.title(GnssDisabledWarningDialog.titleRes, null)
-    dialog.message(GnssDisabledWarningDialog.messageRes, null, null)
-    //dialog.positiveButton(GnssDisabledWarningDialog.positiveButtonRes, null, new DialogCallback() {})
-    dialog.show()
+
+    GnssDisabledWarningDialog.create(activity).show()
     return true
   }
 
@@ -333,14 +393,35 @@ object TrackingSettings {
    * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated
    * template.
    */
-  // Used by implementing app
-  fun showNoGuidanceNeededDialog(fragment: Fragment,
-                                 recipientEmail: String) {
+  @JvmStatic
+  @Deprecated("Alternative implementation recommended as this one is currently not being tested.")
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  fun showNoGuidanceNeededDialog(fragment: Fragment, recipientEmail: String) {
+
     val fragmentManager = fragment.fragmentManager
     Validate.notNull(fragmentManager)
     val dialog = NoGuidanceNeededDialog(recipientEmail)
     dialog.setTargetFragment(fragment, Constants.DIALOG_NO_GUIDANCE_NEEDED_DIALOG_CODE)
     dialog.show(fragmentManager!!, "NO_GUIDANCE_NEEDED_DIALOG")
+  }
+
+  /**
+   * Shows a [NoGuidanceNeededDialog].
+   *
+   * @param activity Required to show the dialog
+   * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated
+   * template.
+   */
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  fun showNoGuidanceNeededDialog(activity: Activity?, recipientEmail: String) {
+
+    if (activity == null) {
+      Log.w(Constants.TAG, "showNoGuidanceNeededDialog: aborted, activity is null")
+      return
+    }
+
+    NoGuidanceNeededDialog.create(activity, recipientEmail).show()
   }
 
   /**
@@ -353,15 +434,16 @@ object TrackingSettings {
    * template.
    * @return The intent
    */
-  // Used by implementing app
-  fun generateFeedbackEmailIntent(context: Context, extraText: String,
-                                  recipientEmail: String): Intent {
+  @JvmStatic
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  fun generateFeedbackEmailIntent(context: Context, extraText: String, recipientEmail: String): Intent {
+
     val appVersion = getAppVersion(context)
     val appAndDeviceInfo = prepareAppAndDeviceInformation(context, appVersion)
     val mailSubject = (context.getString(R.string.app_name) + " " + context.getString(R.string.feedback_email_subject) + " (" + appVersion + "-"
       + Build.VERSION.SDK_INT + ")")
-    val emailIntent: Intent
-    emailIntent = Intent(Intent.ACTION_SEND)
+
+    val emailIntent = Intent(Intent.ACTION_SEND)
     emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipientEmail))
     emailIntent.putExtra(Intent.EXTRA_SUBJECT, mailSubject)
     emailIntent.type = "plain/text"
@@ -376,6 +458,7 @@ object TrackingSettings {
    * @return The app version as string
    */
   private fun getAppVersion(context: Context): String {
+
     val packageManager = context.packageManager
     return try {
       packageManager.getPackageInfo(context.packageName, 0).versionName
@@ -392,7 +475,9 @@ object TrackingSettings {
    * @param appVersion The app version as string
    * @return Device and app information
    */
-  private fun prepareAppAndDeviceInformation(context: Context, appVersion: String): String { // Replace app version, commit id and device info dynamically
+  private fun prepareAppAndDeviceInformation(context: Context, appVersion: String): String {
+
+    // Replace app version, commit id and device info dynamically
     return (context.getString(R.string.feedback_version_text) + ": " + appVersion + "\n"
       + context.getString(R.string.feedback_device_text) + ": " + Build.MANUFACTURER + ", "
       + Build.MODEL + " (" + Build.DEVICE + ")\n" + context.getString(R.string.feedback_android_text) + ": "
@@ -402,21 +487,24 @@ object TrackingSettings {
   /**
    * Dismisses all [EnergySettingDialog]s.
    *
-   *
    * You can use this in your `Activity#onPause()` method to hide all dialogs from this library
    * as the user might have changed his settings while the app is paused so you should recheck the settings
    * in `Activity#onResume()` and only show the dialogs required then.
    *
    * @param fragmentManager The `FragmentManager` required to search for open dialogs.
    */
-  // Used by implementing apps
+  @JvmStatic
+  @Deprecated("Only works with deprecated DialogFragment implementations. Should not be needed for MaterialDialogs.")
+  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   fun dismissAllDialogs(fragmentManager: FragmentManager) {
+
     val fragments = fragmentManager.fragments
     for (fragment in fragments) {
       if (fragment is EnergySettingDialog) {
         fragment.dismissAllowingStateLoss()
       }
       val childFragmentManager = fragment.childFragmentManager
+      @Suppress("DEPRECATION") // Ok as this is called inside the method marked as deprecated
       dismissAllDialogs(childFragmentManager)
     }
   }
