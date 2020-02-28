@@ -20,11 +20,13 @@
  * Gradle's build file for this module.
  *
  * @author Armin Schnabel
- * @version 1.1.1
+ * @version 1.2.0
  * @since 1.0.0
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -55,9 +57,19 @@ android {
             returnDefaultValues = true
         }
     }
+
+    kotlinOptions {
+      jvmTarget = rootProject.ext.java_version
+    }
 }
 
 dependencies {
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "androidx.core:core-ktx:1.2.0"
+
+    // Other Android libraries
     implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
     // Dialogs without androidx/SupportFragment dependency (SR-app limitations)
     implementation 'com.afollestad.material-dialogs:core:3.1.1'
@@ -68,8 +80,6 @@ dependencies {
     // Dependencies for instrumentation tests
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.junitVersion"
     androidTestImplementation "androidx.test:rules:$rootProject.ext.rulesVersion"
-
-    // Local dependencies - use debug library for debug output in debug build
 
     // Dependencies for local unit tests
     // - If Junit symbols are not resolvable in IntelliJ, make sure Build Variant is set to debug

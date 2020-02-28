@@ -31,26 +31,41 @@ import androidx.annotation.NonNull;
  * Dialog to show a warning when the GPS is disabled.
  *
  * @author Armin Schnabel
- * @version 1.0.2
+ * @version 1.1.0
  * @since 1.0.0
  */
 public class GpsDisabledWarningDialog extends EnergySettingDialog {
+
+    /**
+     * The resource pointing to the text used as title.
+     */
+    final static int titleRes = R.string.dialog_gps_disabled_warning_title;
+    /**
+     * The resource pointing to the text used as message.
+     */
+    final static int messageRes = R.string.dialog_gps_disabled_warning;
+    /**
+     * The resource pointing to the text used as positive button which opens the settings.
+     */
+    final static int positiveButtonRes = R.string.dialog_button_open_settings;
+  /**
+   * The Android `Intent` to be started when the positive button was clicked (opens the location settings).
+   */
+  final static Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 
     @NonNull
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dialog_gps_disabled_warning_title)
-                .setMessage(R.string.dialog_gps_disabled_warning);
-        builder.setPositiveButton(R.string.dialog_button_open_settings, new DialogInterface.OnClickListener() {
+        builder.setTitle(titleRes)
+                .setMessage(messageRes);
+        builder.setPositiveButton(positiveButtonRes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(intent);
             }
         });
         return builder.create();
     }
-
 }
