@@ -1,7 +1,7 @@
 # This workflow ensures the building step works
 #
 # @author Armin Schnabel
-# @version 1.0.0
+# @version 1.0.1
 # @since 1.1.1
 name: Gradle Build
 
@@ -9,11 +9,11 @@ on:
   push:
     branches:
       - master
-      - dev
+      - 'release/**'
   pull_request:
     branches:
       - master
-      - dev
+      - 'release/**'
 
 jobs:
   build:
