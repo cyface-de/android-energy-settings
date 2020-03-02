@@ -30,10 +30,10 @@ To use it as a dependency you need to:
     github.user=YOUR_USERNAME
     github.token=YOUR_ACCESS_TOKEN
     ```
-    
+
     * Add the custom repository to your `build.gradle`:
 
-    ``` 
+    ```
     def properties = new Properties()
     properties.load(new FileInputStream("local.properties"))
 
@@ -67,12 +67,12 @@ API Usage Guide
 ------------------
 
 - [Check Energy Settings](#check-energy-settings)
-	- [GPS Enabled](#gps-enabled)
+	- [GNSS Enabled](#gnss-enabled)
 	- [Energy Safer Active](#energy-safer-active)
 	- [Restricted Background Processing Enabled](#restricted-background-processing-enabled)
 	- [Problematic Manufacturer Identified](#problematic-manufacturer-identified)
 - [Show Dialogs](#show-dialogs)
-	- [GPS Disabled Warning](#gps-disabled-warning)
+	- [GNSS Disabled Warning](#gnss-disabled-warning)
 	- [Energy Safer Warning](#energy-safer-warning)
 	- [Restricted Background Processing Warning](#restricted-background-processing-warning)
 	- [Problematic Manufacturer Warning](#problematic-manufacturer-warning)
@@ -85,10 +85,12 @@ API Usage Guide
 If you only want to ensure a specific setting is set, you can use the following APIs.
 For details about the specific settings, see the [Show Dialogs](#show-dialogs) section.
 
-#### GPS Enabled 
+#### GNSS Enabled
+
+To check if a GNSS service is enabled (e.g. GPS) use:
 
 ```
-if (!isGpsEnabled(context)) {
+if (!isGnssEnabled(context)) {
     // Your logic
 }
 ```
@@ -123,15 +125,23 @@ The show dialog methods below automatically check the specific energy setting if
 and only show the dialog if the setting is not correct. You can check whether the dialog
 was shown from the returned boolean value.
 
-#### GPS Disabled Warning
+Two implementation are available:
 
-If your tracking requires GPS location service you can use this dialog to check whether it's enabled
+1. `DialogFragment` implementation: Uses the Android `FragmentDialog` class.
+2. `MaterialDialog` implementation: Alternative when no SupportFragmentManger is available
+    (https://github.com/afollestad/material-dialogs)
+
+#### GNSS Disabled Warning
+
+If your tracking requires GNSS (like GPS) location service you can use this dialog to check whether it's enabled
 and warn the user with a dialog to enable this.
 
-The specific settings page can be opened via a *Settings* button at the end of the dialog. 
+The specific settings page can be opened via a *Settings* button at the end of the dialog.
 
 ```
-showGpsWarningDialog(context, fragment);
+showGnssWarningDialog(activity);
+// or: Android FragmentDialog implementation
+showGnssWarningDialog(context, fragment);
 ```
 
 #### Energy Safer Warning
@@ -145,6 +155,8 @@ In this case a dialog is opened, informing the user to Stop the energy safer mod
 The specific settings page can be opened via a *Settings* button at the end of the dialog.
 
 ```
+showEnergySaferWarningDialog(activity)
+// or: Android FragmentDialog implementation
 showEnergySaferWarningDialog(context, fragment)
 ```
 
@@ -158,6 +170,8 @@ In this case a dialog is opened, informing the user to disable this setting.
 The specific settings page can be opened via a *Settings* button at the end of the dialog.
 
 ```
+showRestrictedBackgroundProcessingWarningDialog(activity);
+// or: Android FragmentDialog implementation
 showRestrictedBackgroundProcessingWarningDialog(context, fragment);
 ```
 
@@ -177,6 +191,8 @@ If not, the user is shown a generic dialog and a help button which generates an 
 for a feedback email which is addressed to the email address provided as parameter.
 
 ```
+showProblematicManufacturerDialog(activity, true, "support@your-domain.com"))
+// or: Android FragmentDialog implementation
 showProblematicManufacturerDialog(context, fragment, true, "support@your-domain.com"))
 ```
 
@@ -191,6 +207,8 @@ for a feedback email which is addressed to the email address provided as paramet
 so the user can report an identified problem which was not found automatically by this library.
 
 ```
+showNoGuidanceNeededDialog(activity, "support@your-domain.com");
+// or: Android FragmentDialog implementation
 showNoGuidanceNeededDialog(fragment, "support@your-domain.com");
 ```
 
@@ -205,10 +223,12 @@ and only show the dialogs again if the settings are not correct, when the app is
 ```
 Override
 protected void onPause() {
+    // Only required when using the Android FragmentDialog implementations:
     TrackingSettings.dismissAllDialogs(fragmentManager);
+    
     super.onPause();
 }
-```  
+```
 
 
 Development Guide
@@ -222,7 +242,7 @@ To publish a new version you need to:
 
 1. Make sure you are authenticated to the repository:
 
-    * You need a Github account with write-access to this Github repository 
+    * You need a Github account with write-access to this Github repository
     * Create a [personal access token on Github](https://github.com/settings/tokens) with "write:packages" permissions
     * Create or adjust a `local.properties` file in the project root containing:
 
