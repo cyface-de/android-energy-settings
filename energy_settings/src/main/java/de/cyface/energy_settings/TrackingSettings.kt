@@ -148,7 +148,7 @@ object TrackingSettings {
    */
   @JvmStatic
   @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
-  fun isGpsEnabled(context: Context): Boolean {
+  fun isGnssEnabled(context: Context): Boolean {
 
     val manager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -351,7 +351,7 @@ object TrackingSettings {
   @Deprecated("Alternative implementation recommended as this one is currently not being tested.")
   fun showGnssWarningDialog(context: Context, fragment: Fragment): Boolean {
 
-    if (isGpsEnabled(context)) {
+    if (isGnssEnabled(context)) {
       return false
     }
 
@@ -378,7 +378,7 @@ object TrackingSettings {
       return false
     }
     val context = activity.applicationContext
-    if (isGpsEnabled(context)) {
+    if (isGnssEnabled(context)) {
       return false
     }
 
