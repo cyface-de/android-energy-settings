@@ -13,7 +13,7 @@
     <string name="dialog_button_open_settings">Einstellungen öffnen</string>
     <string name="dialog_button_help">Hilfe</string>
     <string name="dialog_energy_safer_warning_title">Energiesparmodus deaktivieren</string>
-    <string name="dialog_energy_safer_warning">Auf Ihrem Gerät ist die GPS Funktion im Energiesparmodus deaktiviert sobald sich das Display ausgeschaltet. Dadurch unterbricht das Tracking.\n\nBitte deaktivieren Sie daher während der Aufzeichnung den Energiesparmodus. Wir geben uns Mühe, den Energieverbrauch so gering wie möglich zu halten.</string>
+    <string name="dialog_energy_safer_warning">Auf Ihrem Gerät ist die GPS Funktion im Energiesparmodus deaktiviert sobald sich das Display ausschaltet. Dadurch unterbricht das Tracking.\n\nBitte deaktivieren Sie daher während der Aufzeichnung den Energiesparmodus. Wir geben uns Mühe, den Energieverbrauch so gering wie möglich zu halten.</string>
     <string name="dialog_background_processing_restriction_warning_title">Einschränkung der Hintergrundnutzung deaktivieren</string>
     <string name="dialog_background_processing_restriction_warning">Für diese Anwendung ist die Hintergrundnutzung eingeschränkt. Dadurch bricht das Tracking ab, sobald das Display ausschaltet oder die App in den Hintergrund geht.\n\nBitte deaktivieren Sie daher die Einschränkung für diese Anwendung:\n`Einstellungen öffnen` Taste > Erweitert > Akku > Hintergrundnutzung einschränken > Entfernen</string>
     <string name="dialog_gps_disabled_warning_title">GPS aktivieren</string>
