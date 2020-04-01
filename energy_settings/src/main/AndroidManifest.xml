@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.cyface.energy_settings" />
+<manifest package="de.cyface.energy_settings" />

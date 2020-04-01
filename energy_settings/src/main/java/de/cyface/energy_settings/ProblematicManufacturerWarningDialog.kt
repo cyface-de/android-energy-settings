@@ -33,7 +33,6 @@ import androidx.preference.PreferenceManager
 import com.afollestad.materialdialogs.MaterialDialog
 import de.cyface.energy_settings.GnssDisabledWarningDialog.Companion.create
 import de.cyface.energy_settings.ProblematicManufacturerWarningDialog.Companion.create
-import de.cyface.energy_settings.TrackingSettings.generateFeedbackEmailIntent
 import java.util.*
 
 /**
@@ -53,7 +52,7 @@ import java.util.*
  * 2. As [MaterialDialog]. Use the static [create] method which returns the dialog.
  *
  * @author Armin Schnabel
- * @version 2.0.0
+ * @version 2.0.1
  * @since 1.0.0
  *
  * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated template.
