@@ -40,7 +40,7 @@ import java.util.*
  * Offers checks and dialogs for energy settings required for background tracking.
  *
  * @author Armin Schnabel
- * @version 2.0.0
+ * @version 2.0.1
  * @since 1.0.0
  */
 object TrackingSettings {
@@ -64,7 +64,6 @@ object TrackingSettings {
    * @return `True` if an energy safer mode is currently active which very likely disables the GPS service
    */
   @JvmStatic
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   fun isEnergySaferActive(context: Context): Boolean {
 
