@@ -20,7 +20,7 @@
  * Top-level build file where you can add configuration options common to all sub-projects/modules.
  *
  * @author Armin Schnabel
- * @version 3.0.0
+ * @version 3.0.1
  * @since 1.0.0
  */
 
@@ -41,7 +41,7 @@ buildscript {
 
 ext {
     // This libraries version
-    cyfaceEnergySettingsVersion = "2.1.0"
+    cyfaceEnergySettingsVersion = "2.1.1"
 
     // Cyface dependencies
     cyfaceUtilsVersion = "1.4.0"
