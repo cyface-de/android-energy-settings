@@ -1,1 +1,7 @@
-<manifest package="de.cyface.energy_settings" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.cyface.energy_settings">
+
+  <!-- see https://stackoverflow.com/a/48641229/5815054 - e.g. P30 Pro (VOG-L29) requires -->
+  <!-- We saw a SecurityException because of this missing: CY-5110 -->
+  <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>
+</manifest>
