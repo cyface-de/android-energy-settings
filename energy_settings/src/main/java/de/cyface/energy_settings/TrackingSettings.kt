@@ -40,7 +40,7 @@ import java.util.*
  * Offers checks and dialogs for energy settings required for background tracking.
  *
  * @author Armin Schnabel
- * @version 2.0.1
+ * @version 2.0.2
  * @since 1.0.0
  */
 object TrackingSettings {
@@ -216,7 +216,7 @@ object TrackingSettings {
   @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   fun showEnergySaferWarningDialog(activity: Activity?): Boolean {
 
-    if (activity == null) {
+    if (activity == null || activity.isFinishing) {
       Log.w(Constants.TAG, "showEnergySaferWarningDialog: aborted, activity is null")
       return false
     }
@@ -267,7 +267,7 @@ object TrackingSettings {
   @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   fun showRestrictedBackgroundProcessingWarningDialog(activity: Activity?): Boolean {
 
-    if (activity == null) {
+    if (activity == null || activity.isFinishing) {
       Log.w(Constants.TAG, "showRestrictedBackgroundProcessingWarningDialog: aborted, activity is null")
       return false
     }
@@ -324,7 +324,7 @@ object TrackingSettings {
   @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   fun showProblematicManufacturerDialog(activity: Activity?, force: Boolean, recipientEmail: String): Boolean {
 
-    if (activity == null) {
+    if (activity == null || activity.isFinishing) {
       Log.w(Constants.TAG, "showProblematicManufacturerDialog: aborted, activity is null")
       return false
     }
@@ -372,7 +372,7 @@ object TrackingSettings {
   @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   fun showGnssWarningDialog(activity: Activity?): Boolean {
 
-    if (activity == null) {
+    if (activity == null || activity.isFinishing) {
       Log.w(Constants.TAG, "showGnssWarningDialog: aborted, activity is null")
       return false
     }
@@ -415,7 +415,7 @@ object TrackingSettings {
   @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
   fun showNoGuidanceNeededDialog(activity: Activity?, recipientEmail: String) {
 
-    if (activity == null) {
+    if (activity == null || activity.isFinishing) {
       Log.w(Constants.TAG, "showNoGuidanceNeededDialog: aborted, activity is null")
       return
     }
