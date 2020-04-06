@@ -52,7 +52,7 @@ import java.util.*
  * 2. As [MaterialDialog]. Use the static [create] method which returns the dialog.
  *
  * @author Armin Schnabel
- * @version 2.0.1
+ * @version 2.0.2
  * @since 1.0.0
  *
  * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated template.
@@ -272,8 +272,6 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
        * From comment in https://stackoverflow.com/a/48641229/5815054 - required for
        * com.coloros.safecenter/.startupapp.StartupAppListActivity
        * <uses-permission android:name="oppo.permission.OPPO_COMPONENT_SAFE"/>
-       * From comment in https://stackoverflow.com/a/48641229/5815054 - P30 Pro (VOG-L29) requires
-       * <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>
        * From https://stackoverflow.com/a/51726040/5815054
        * <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
        *
