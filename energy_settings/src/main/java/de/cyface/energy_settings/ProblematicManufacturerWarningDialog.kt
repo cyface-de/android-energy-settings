@@ -28,12 +28,14 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.collection.ArrayMap
 import androidx.preference.PreferenceManager
 import com.afollestad.materialdialogs.MaterialDialog
+import de.cyface.energy_settings.Constants.TAG
 import de.cyface.energy_settings.GnssDisabledWarningDialog.Companion.create
 import de.cyface.energy_settings.ProblematicManufacturerWarningDialog.Companion.create
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.LinkedHashMap
 
 /**
  * Dialog to show a warning when a phone manufacturer is identified which allows to prevent background tracking
@@ -52,7 +54,7 @@ import java.util.*
  * 2. As [MaterialDialog]. Use the static [create] method which returns the dialog.
  *
  * @author Armin Schnabel
- * @version 2.0.2
+ * @version 2.0.3
  * @since 1.0.0
  *
  * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated template.
@@ -189,28 +191,39 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
      *
      * @param context The [Context] to check if the intent is resolvable on this device
      * @return The intent to open the settings page and the resource id of the message string which describes what to do
-     * on the settings page. Returns `Null` if no intent was resolved.
+     * on the settings page. Returns `Null` if no intent was resolved. Always returns the first match,
+     * which means the intent which was added in a later Android version if there are multiple matches.
      */
     private fun getDeviceSpecificIntent(context: Context): Map.Entry<Intent, Int>? {
-      val intentMap: MutableMap<Intent, Int> = ArrayMap()
+      // (!) This needs to be an ordered map or else StartupAppControlActivity might be returned in favor
+      // of StartupNormalAppListActivity if both exist which leads to an error [MOV-989]
+      val intentMap: MutableMap<Intent, Int> = LinkedHashMap()
 
       /*
        * Huawei/Honor
        * - EMUI OS (https://de.wikipedia.org/wiki/EMUI#Versionen)
        *******************************************************************************************/
 
-      // "Protected Apps", EMUI <5, Android <7
-      intentMap[Intent().setComponent(ComponentName("com.huawei.systemmanager",
-        "com.huawei.systemmanager.optimize.process.ProtectActivity"))] = R.string.dialog_manufacturer_warning_huawei_protected_app
+      // "App-Start", e.g. EMUI 9, 10
 
-      // P20, EMUI 9, Android 9, 2018 - comment in https://stackoverflow.com/a/35220476/5815054
-      intentMap[Intent().setComponent(ComponentName("com.huawei.systemmanager",
-        "com.huawei.systemmanager.appcontrol.activity.StartupAppControlActivity"))] = R.string.dialog_manufacturer_warning_huawei_app_launch
+      // [MOV-989] On EMUI 10.0.0 (e.g. our P smart 2019) it finds both:
+      // 1. StartupNormalAppListActivity (which works on new EMUI versions)
+      // 2. StartupAppControlActivity (which crashes on new EMUI even with USE_COMPONENT permission)
+      // This is why we need to keep the intents here in an ordered map with (1) earlier in the map
+      // This way always (1) is returned before (2)
 
       // P20, EMUI 9, Android 9, 2019 - comment in https://stackoverflow.com/a/48641229/5815054
       // when adding the permissions above does not work with the intent above
       intentMap[Intent().setComponent(ComponentName("com.huawei.systemmanager",
         "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity"))] = R.string.dialog_manufacturer_warning_huawei_app_launch
+
+      // P20, EMUI 9, Android 9, 2018 - comment in https://stackoverflow.com/a/35220476/5815054
+      intentMap[Intent().setComponent(ComponentName("com.huawei.systemmanager",
+        "com.huawei.systemmanager.appcontrol.activity.StartupAppControlActivity"))] = R.string.dialog_manufacturer_warning_huawei_app_launch
+
+      // "Protected Apps", EMUI <5, Android <7
+      intentMap[Intent().setComponent(ComponentName("com.huawei.systemmanager",
+        "com.huawei.systemmanager.optimize.process.ProtectActivity"))] = R.string.dialog_manufacturer_warning_huawei_protected_app
 
       /*
        * Samsung
@@ -379,6 +392,7 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
        */
 
       // Search for a match in the list of known energy settings pages
+      // Return the first match. If not this leads to [MOV-989], see note above.
       intentMap.entries.forEach { entry ->
         if (context.packageManager.resolveActivity(entry.key,
             PackageManager.MATCH_DEFAULT_ONLY) != null) {
