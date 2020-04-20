@@ -2,6 +2,7 @@
     package="de.cyface.energy_settings">
 
   <!-- see https://stackoverflow.com/a/48641229/5815054 - e.g. P30 Pro (VOG-L29) requires -->
-  <!-- We saw a SecurityException because of this missing: CY-5110 -->
+  <!-- This does not fix the SecurityException on newer devices like Huawei EMUI 10.0.0.
+  See ProblematicManufacturerWarningDialog for more details how to fix this. -->
   <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>
 </manifest>
