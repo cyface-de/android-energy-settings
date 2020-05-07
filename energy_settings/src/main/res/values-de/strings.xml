@@ -9,53 +9,55 @@
     <string name="feedback_choose_email_app">Sende E-Mail mit:</string>
 
     <!-- Dialogs for Android settings which prevent tracking -->
-    <string name="dialog_button_do_not_show_again">Habe ich bereits erledigt</string>
+    <string name="dialog_button_do_not_show_again">Habe ich bereits erledigt.</string>
     <string name="dialog_button_open_settings">Einstellungen öffnen</string>
     <string name="dialog_button_help">Hilfe</string>
     <string name="dialog_energy_safer_warning_title">Energiesparmodus deaktivieren</string>
-    <string name="dialog_energy_safer_warning">Auf Ihrem Gerät ist die GPS Funktion im Energiesparmodus deaktiviert sobald sich das Display ausschaltet. Dadurch unterbricht das Tracking.\n\nBitte deaktivieren Sie daher während der Aufzeichnung den Energiesparmodus. Wir geben uns Mühe, den Energieverbrauch so gering wie möglich zu halten.</string>
+    <string name="dialog_energy_safer_warning">Auf deinem Gerät ist die GPS-Funktion im Energiesparmodus deaktiviert, sobald sich das Display ausschaltet. Dadurch unterbricht das Tracking.\n\nBitte deaktiviere daher während der Aufzeichnung den Energiesparmodus. Wir geben uns Mühe, den Energieverbrauch so gering wie möglich zu halten.</string>
     <string name="dialog_background_processing_restriction_warning_title">Einschränkung der Hintergrundnutzung deaktivieren</string>
-    <string name="dialog_background_processing_restriction_warning">Für diese Anwendung ist die Hintergrundnutzung eingeschränkt. Dadurch bricht das Tracking ab, sobald das Display ausschaltet oder die App in den Hintergrund geht.\n\nBitte deaktivieren Sie daher die Einschränkung für diese Anwendung:\n`Einstellungen öffnen` Taste > Erweitert > Akku > Hintergrundnutzung einschränken > Entfernen</string>
+    <string name="dialog_background_processing_restriction_warning">Für diese Anwendung ist die Hintergrundnutzung eingeschränkt. Dadurch bricht das Tracking ab, sobald das Display ausschaltet oder die App in den Hintergrund geht.\n\nBitte deaktiviere daher die Einschränkung für diese Anwendung:\n`Einstellungen öffnen` Taste > Erweitert > Akku > Hintergrundnutzung einschränken > Entfernen</string>
     <string name="dialog_gps_disabled_warning_title">GPS aktivieren</string>
-    <string name="dialog_gps_disabled_warning">Unser Tracking basiert auf GPS Positionsdaten. Eine solche Erfassung ist derzeit auf Ihrem Gerät deaktiviert.\n\nBitte aktivieren Sie den Standortdienst (GPS) in den Systemeinstellungen.</string>
-    <string name="dialog_no_guidance_needed_title">Keine Einrichtung Notwendig</string>
+    <string name="dialog_gps_disabled_warning">Unser Tracking basiert auf GPS-Positionsdaten. Eine solche Erfassung ist derzeit auf deinem Gerät deaktiviert.\n\nBitte aktiviere daher den Standortdienst (GPS) in den Systemeinstellungen.</string>
+    <string name="dialog_no_guidance_needed_title">Keine Einrichtung notwendig</string>
 
     <!-- Dialogs for manufacturer-/device specific settings -->
     <string name="dialog_problematic_manufacturer_warning_title">Herstellerspezifische Einschränkung</string>
 
-    <string name="dialog_manufacturer_warning_generic">Auf Ihrem Gerät sind möglicherweise herstellerspezifische
-        Einstellungen aktiviert die das Hintergrundtracking nach kurzer Zeit automatisch beenden.
-        \n\nBitte fügen Sie diese App als Ausnahme in den <b>Akku Einstellungen</b> Ihres Smartphones hinzu.
-        \n\n<i>Achtung: Einzelne Hersteller setzen diese Einstellungen bei Betriebssystem-Updates zurück</i></string>
+    <string name="dialog_manufacturer_warning_generic">Auf deinem Gerät sind möglicherweise herstellerspezifische
+        Einstellungen aktiviert, die das Hintergrundtracking nach kurzer Zeit automatisch beenden.
+        \n\nBitte füge diese App als Ausnahme in den <b>Akku-Einstellungen</b> deines Smartphones hinzu.
+        \n\n<i>Achtung: Einzelne Hersteller setzen diese Einstellungen bei Betriebssystem-Updates zurück.</i></string>
 
-    <string name="dialog_manufacturer_warning_huawei_app_launch">Huawei Geräte erlauben Apps standardmäßig kein Hintergrundtracking bei deaktiviertem Display.
-        \n\nBitte stellen Sie App Einstellungen \> Akku \> <b>App-Start</b> auf <b>Manuell Verwalten</b> und <b>aktivieren Sie dort alle Optionen</b>.</string>
+    <string name="dialog_manufacturer_warning_huawei_app_launch">Huawei-Geräte erlauben Apps standardmäßig kein Hintergrundtracking bei deaktiviertem Display.
+        \n\nBitte stelle die App-Einstellungen \> Akku \> <b>App-Start</b> auf <b>manuell verwalten</b> und <b>aktiviere dort alle Optionen</b>.</string>
 
-    <string name="dialog_manufacturer_warning_huawei_protected_app">Huawei Geräte erlauben Apps standardmäßig kein Hintergrundtracking bei deaktiviertem Display.
-        \n\nBitte gehen auf Einstellungen \> Erweiterte Einstellungen \> <b>Akkumanager</b> \> <b>Geschützte Apps</b> und aktiviere unsere App als geschützte App aus.</string>
+    <string name="dialog_manufacturer_warning_huawei_protected_app">Huawei-Geräte erlauben Apps standardmäßig kein Hintergrundtracking bei deaktiviertem Display.
+        \n\nBitte gehe zu Einstellungen \> Erweiterte Einstellungen \> <b>Akkumanager</b> \> <b>Geschützte Apps</b> und aktiviere unsere App als geschützte App.</string>
 
-    <string name="dialog_manufacturer_warning_samsung_smart_manager"> Auf Ihrem Samsung Gerät ist ein "Smart Manager" installiert. Dieser muss korrekt eingestellt sein da ansonsten das Hintergrundtracking bei deaktiviertem Display unterbrochen wird.
-        \n\nKorrekte Einstellung: Handy Einstellungen \> Smart Manager \> <b>Akku</b> \> <b>App-Energiesparmodus</b> \> Details \> Unsere App auswählen \> auf <b>Deaktiviert</b>.</string>
+    <string name="dialog_manufacturer_warning_samsung_smart_manager"> Auf deinem Samsung-Gerät ist ein "Smart Manager" installiert. Dieser muss korrekt eingestellt sein, da ansonsten das Hintergrundtracking bei deaktiviertem Display unterbrochen wird.
+        \n\nKorrekte Einstellung: Handy-Einstellungen \> Smart Manager \> <b>Akku</b> \> <b>App-Energiesparmodus</b> \> Details \> Unsere App auswählen \> auf <b>Deaktiviert</b> stellen.</string>
 
-    <string name="dialog_manufacturer_warning_samsung_device_care">Auf Ihrem Samsung Gerät ist \"Gerätewartung\" installiert. Dieser Dienst muss korrekt eingestellt sein da ansonsten das Hintergrundtracking bei deaktiviertem Display unterbrochen wird.
-        \n\nVersuchen Sie zunächst in der <b>Gerätewartung \> Akku</b> unsere App zu den <b>Nicht überwachten Apps</b>hinzuzufügen.
-        \n\nFalls das nicht klappt oder dieser Punkt nicht existiert sollte folgendes helfen:
+    <string name="dialog_manufacturer_warning_samsung_device_care">Auf deinem Samsung-Gerät ist \"Gerätewartung\" installiert. Dieser Dienst muss korrekt eingestellt sein, da ansonsten das Hintergrundtracking bei deaktiviertem Display unterbrochen wird.
+        \n\nVersuche zunächst in der <b>Gerätewartung \> Akku</b> unsere App zu den <b>nicht überwachten Apps</b>hinzuzufügen.
+        \n\nFalls das nicht klappt oder dieser Punkt nicht existiert, sollte Folgendes helfen:
         \nHandy Einstellungen \> Gerätewartung \> <b>Akku</b> \> oben rechts 3-Punkte-Button \> Einstellungen \> hier <b>alle Einstellungen außer "Benachrichtigungen" deaktivieren</b>.
-        Nun unter dem Punkt <b>Schlafende Apps</b> sicher gehen, dass unsere App nicht aufgelistet ist.</string>
+        Nun unter dem Punkt <b>schlafende Apps</b> sicher gehen, dass unsere App nicht aufgelistet ist.</string>
 
-    <string name="dialog_manufacturer_warning_sony_stamina">Auf Sony Geräten gibt es einen herstellerspezifischen Energiesparmodus namens <b>STAMINA</b>.
+    <string name="dialog_manufacturer_warning_sony_stamina">Auf Sony-Geräten gibt es einen herstellerspezifischen Energiesparmodus namens <b>STAMINA</b>.
         In diesem Modus wird das Hintergrundtracking automatisch vom System beendet.
-        \n\nFalls Sie Probleme mit der Aufzeichnung haben deaktivieren Sie bitte STAMINA komplett.</string>
+        \n\nFalls du Probleme mit der Aufzeichnung hast, deaktiviere bitte STAMINA komplett.</string>
 
-    <string name="dialog_manufacturer_warning_xiaomi_power_settings">Xiaomi Geräte erlauben Hintergrundtracking nur mit korrekten Einstellungen bei deaktiviertem Display.
-        \n\nBitte stellen Sie Einstellungen - Akku + Leistung - <b>App-Energiesparmodus</b> - unsere App auswählen - Energiesparmodus <b>auf "Keine Beschränkungen"</b>
-        \n\nund Einstellungen - Akku + Leistung - Sonstige Berechtigungen - <b>Starten im Hintergrund auf "erlaubt"</b>.</string>
+    <string name="dialog_manufacturer_warning_xiaomi_power_settings">Xiaomi-Geräte erlauben ein Hintergrundtracking nur mit korrekten Einstellungen bei deaktiviertem Display.
+        \n\nBitte stelle unter Einstellungen - Akku + Leistung - <b>App-Energiesparmodus</b> - unsere App auswählen - Energiesparmodus <b>auf "Keine Beschränkungen"</b>
+        \n\nund unter Einstellungen - Akku + Leistung - Sonstige Berechtigungen - <b>Starten im Hintergrund auf "erlaubt"</b>.</string>
 
-    <string name="dialog_manufacturer_warning_xiaomi_auto_start">Xiaomi Geräte erlauben Hintergrundtracking nur mit korrekten Einstellungen bei deaktiviertem Display.
-        \n\nBitte stellen Sie Einstellungen - Berechtigungen - <b>Auto-Start</b> - unsere App auswählen - "Erlaube App automatisch zu starten" auf <b>"erlaubt"</b>.</string>
+    <string name="dialog_manufacturer_warning_xiaomi_auto_start">Xiaomi-Geräte erlauben ein Hintergrundtracking nur mit korrekten Einstellungen bei deaktiviertem Display.
+        \n\nBitte stelle unter Einstellungen - Berechtigungen - <b>Auto-Start</b> - unsere App auswählen - "Erlaube App automatisch zu starten" auf <b>"erlaubt"</b>.</string>
 
-    <string name="dialog_no_guidance_needed">Von Ihrem Gerät sind uns keine herstellerspezifischen Einstellungen bekannt welche das Tracking verhindern.
-        \n\nSollten Sie trotzdem Probleme beim Tracken Ihrer Fahrt haben, könnte das an einer \"Optimierungs-App\" liegen,
+    <string name="dialog_no_guidance_needed">Von deinem Gerät sind uns keine herstellerspezifischen Einstellungen bekannt, welche das Tracking verhindern.
+        \n\nSolltest du trotzdem Probleme beim Tracken deiner Fahrt haben, könnte das an einer \"Optimierungs-App\" liegen,
         welche unseren Hintergrunddienst bei laufender Fahrt bzw. abgeschaltetem Display beendet.
-        \n\nGerne helfen wir Ihnen per E-Mail weiter. Drücken Sie hierfür auf <b>Hilfe</b>.</string>
+        \n\nGerne helfen wir dir per E-Mail weiter. Drücke hierfür auf <b>Hilfe</b> und wähle deine E-Mail App aus.
+        Deine Gerätedaten (Modell und Android Version) werden dann automatisch in die E-Mail Vorlage eingefügt.
+        Beschreibe den Fehler bitte so genau wie möglich.</string>
 </resources>
