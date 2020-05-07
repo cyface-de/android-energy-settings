@@ -9,7 +9,7 @@
     <string name="feedback_choose_email_app">Invia e-mail utilizzando:</string>
 
     <!-- Dialogs for Android settings which prevent tracking -->
-    <string name="dialog_button_do_not_show_again">Ho gia\' fatto questo</string>
+    <string name="dialog_button_do_not_show_again">Ho gia\' fatto questo.</string>
     <string name="dialog_button_open_settings">Apri impostazioni</string>
     <string name="dialog_button_help">Aiuto</string>
     <string name="dialog_energy_safer_warning_title">Disabilita modalità di risparmio energetico</string>
@@ -25,7 +25,7 @@
 
     <string name="dialog_manufacturer_warning_generic">Per impostazione predefinita, le impostazioni specifiche del produttore del dispositivo possono essere abilitate in modo da interrompere il monitoraggio in background dopo breve tempo.
         \n\nPer favore acconsentire all\'utilizzo di questa applicazione nelle <b>impostazioni della batteria</b> del telefono cellulare.
-        \n\n\n<i>Attenzione: Per alcuni produttori sarà necessario reimpostare queste impostazioni sugli aggiornamenti del sistema operativo</i></string>
+        \n\n\n<i>Attenzione: Per alcuni produttori sarà necessario reimpostare queste impostazioni sugli aggiornamenti del sistema operativo.</i></string>
 
     <string name="dialog_manufacturer_warning_huawei_app_launch">I dispositivi Huawei non consentono alle applicazioni di eseguire il monitoraggio in background per impostazione predefinita.
         {\n\nCambiare le impostazioni delle applicazioni \> Batteria \> <b>Avvio App</b> a <b>Gestisci manualmente</b> e attiva tutte le opzioni.</string>
@@ -56,5 +56,7 @@
 
     <string name="dialog_no_guidance_needed">Non conosciamo alcuna impostazione specifica del produttore del dispositivo che potrebbe impedire il funzionamento della funzione di tracciamento.
         \Se il tracciamento si interrompe comunque, questo potrebbe essere dovuto ad un\'applicazione di ottimizzazione che interrompe il nostro servizio in background durante un viaggio / quando il display è spento.
-        \In caso di bisogno di aiuto non esitate a contattarci per e-mail. Usa il pulsante <b>Aiuto</b> sotto.</string>
+        \In caso di bisogno di aiuto non esitate a contattarci per e-mail. Usa il pulsante <b>Aiuto</b> sotto e selezionate la tua applicazione e-mail.
+        I dati del vostro dispositivo (modello e versione Android) saranno quindi inseriti automaticamente nel modello di e-mail.
+        Si prega di descrivere l'errore nel modo più dettagliato possibile.</string>
 </resources>
