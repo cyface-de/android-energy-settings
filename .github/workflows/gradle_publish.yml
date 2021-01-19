@@ -28,3 +28,15 @@ jobs:
         echo "github.token=${{ secrets.GITHUB_TOKEN }}" >> local.properties
     - name: Publish with Gradle
       run: ./gradlew publish
+
+    # Automatically mark this tag as release on Github
+    - uses: actions/create-release@v1
+      id: create_release
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        draft: false
+        # Release tags of format `1.2.3-beta1 / -alpha1 / -test1` are considered a pre-release
+        prerelease: ${{ contains(github.ref, 'test') || contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
