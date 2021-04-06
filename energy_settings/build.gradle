@@ -70,7 +70,7 @@ dependencies {
 
     // Other Android libraries
     implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
-    implementation "androidx.preference:preference:$rootProject.ext.androidPreferencesVersion"
+    implementation "androidx.preference:preference-ktx:$rootProject.ext.androidPreferencesVersion"
 
     // To support Dialogs without androidx/SupportFragment dependencies
     implementation "com.afollestad.material-dialogs:core:$rootProject.ext.materialDialogsVersion"
