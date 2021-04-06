@@ -30,8 +30,7 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
-
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.1'
@@ -79,7 +78,7 @@ properties.load(new FileInputStream("local.properties"))
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven {
             url = uri("https://maven.pkg.github.com/cyface-de/android-utils")
             // Currently even for open-source projects authentication is required
