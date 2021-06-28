@@ -218,8 +218,13 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
         "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity"))] = R.string.dialog_manufacturer_warning_huawei_app_launch
 
       // P20, EMUI 9, Android 9, 2018 - comment in https://stackoverflow.com/a/35220476/5815054
-      intentMap[Intent().setComponent(ComponentName("com.huawei.systemmanager",
-        "com.huawei.systemmanager.appcontrol.activity.StartupAppControlActivity"))] = R.string.dialog_manufacturer_warning_huawei_app_launch
+      // [STAD-280] This check should not be necessary as `StartupNormalAppListActivity` should
+      // always be prioritised by the current code if both are found. However, on some Android 10
+      // devices it seems like this activity is still called. Thus, we completely disable it on Q+.
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+        intentMap[Intent().setComponent(ComponentName("com.huawei.systemmanager",
+                "com.huawei.systemmanager.appcontrol.activity.StartupAppControlActivity"))] = R.string.dialog_manufacturer_warning_huawei_app_launch
+      }
 
       // "Protected Apps", EMUI <5, Android <7
       intentMap[Intent().setComponent(ComponentName("com.huawei.systemmanager",
