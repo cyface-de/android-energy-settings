@@ -41,7 +41,7 @@ buildscript {
 
 ext {
     // This libraries version
-    cyfaceEnergySettingsVersion = "3.0.1"
+    cyfaceEnergySettingsVersion = "3.0.2"
 
     // Cyface dependencies
     cyfaceUtilsVersion = "2.0.2"
