@@ -31,7 +31,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.preference.PreferenceManager
-import de.cyface.utils.Validate
+import org.apache.commons.lang3.Validate
 import java.util.*
 
 /**
