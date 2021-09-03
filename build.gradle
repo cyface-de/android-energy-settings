@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cyface GmbH
+ * Copyright 2019-2021 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -20,13 +20,13 @@
  * Top-level build file where you can add configuration options common to all sub-projects/modules.
  *
  * @author Armin Schnabel
- * @version 3.0.0
+ * @version 3.1.0
  * @since 1.0.0
  */
 
 buildscript {
-    ext.kotlin_version = "1.4.32"
-    ext.java_version = JavaVersion.VERSION_1_8
+    ext.kotlin_version = "1.5.30"
+    ext.gradle_version = "7.0.2"
 
     repositories {
         google()
@@ -34,47 +34,47 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 ext {
     // This libraries version
-    cyfaceEnergySettingsVersion = "3.0.2"
+    cyfaceEnergySettingsVersion = "3.1.0"
 
     // Cyface dependencies
-    cyfaceUtilsVersion = "2.0.2"
+    cyfaceUtilsVersion = "3.2.1"
 
+    // Android SDK versions
     minSdkVersion = 21
     targetSdkVersion = 30
     compileSdkVersion = 30
     buildToolsVersion = '30.0.3'
 
-    androidxAnnotationVersion = "1.0.0"
-    androidxAppCompatVersion = "1.2.0"
+    // Android dependencies
+    androidxAnnotationVersion = "1.2.0"
+    androidxAppCompatVersion = "1.3.1"
     androidPreferencesVersion = "1.1.1"
 
+    // Other dependencies
     kotlinCoreVersion = "1.3.2"
     materialDialogsVersion = "3.1.1"
 
-    // testing
-    junitVersion = "1.1.2"
+    // Testing
+    junitVersion = "1.1.3"
     mockitoVersion = "3.3.3"
     hamcrestVersion = "1.3"
-    rulesVersion = "1.3.0"
+    rulesVersion = "1.4.0"
     robolectricVersion = "4.5.1"
     androidxTestCoreVersion = "1.1.0"
-
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-}
 
-// Load credentials
-def properties = new Properties()
-properties.load(new FileInputStream("local.properties"))
+    // Java version
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    kotlinTargetJavaVersion = "11"
+}
 
 allprojects {
     repositories {
@@ -85,8 +85,8 @@ allprojects {
             url = uri("https://maven.pkg.github.com/cyface-de/android-utils")
             // Currently even for open-source projects authentication is required
             credentials {
-                username = properties.getProperty("github.user")
-                password = properties.getProperty("github.token")
+                username = project.findProperty("githubUser")
+                password = project.findProperty("githubToken")
             }
         }
     }

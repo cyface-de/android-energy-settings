@@ -130,7 +130,7 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
     private val negativeButtonRes = R.string.dialog_button_do_not_show_again
 
     private fun isSony(): Boolean {
-      return Build.MANUFACTURER.toLowerCase(Locale.ROOT) == Constants.MANUFACTURER_SONY
+      return Build.MANUFACTURER.lowercase(Locale.ROOT) == Constants.MANUFACTURER_SONY
     }
 
     /**
