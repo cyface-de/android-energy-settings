@@ -31,8 +31,9 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.preference.PreferenceManager
-import org.apache.commons.lang3.Validate
-import java.util.*
+import de.cyface.utils.Validate
+import de.cyface.energy_settings.Constants
+import java.util.Locale
 
 /**
  * Holds the API for this energy setting library.
@@ -109,7 +110,7 @@ object TrackingSettings {
   val isProblematicManufacturer: Boolean
     get() {
 
-      return when (Build.MANUFACTURER.toLowerCase(Locale.ROOT)) {
+      return when (Build.MANUFACTURER.lowercase(Locale.ROOT)) {
         Constants.MANUFACTURER_HUAWEI, Constants.MANUFACTURER_HONOR, Constants.MANUFACTURER_SAMSUNG,
         Constants.MANUFACTURER_XIAOMI, Constants.MANUFACTURER_SONY -> true
         /* Sony STAMINA
