@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cyface GmbH
+ * Copyright 2019-2021 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -20,15 +20,11 @@
  * Gradle's publish file for this module.
  *
  * @author Armin Schnabel
- * @version 1.0.0
+ * @version 2.0.0
  * @since 1.0.4
  */
 
 apply plugin: 'maven-publish'
-
-// Load credentials
-def properties = new Properties()
-properties.load(new FileInputStream("local.properties"))
 
 publishing {
     // Authenticate at the repository
@@ -36,8 +32,8 @@ publishing {
         maven {
             url = uri("https://maven.pkg.github.com/cyface-de/android-energy-settings")
             credentials {
-                username = properties.getProperty("github.user")
-                password = properties.getProperty("github.token")
+                username = project.findProperty("githubUser")
+                password = project.findProperty("githubToken")
             }
         }
     }
