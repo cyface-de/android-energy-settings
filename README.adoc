@@ -21,20 +21,17 @@ To use it as a dependency in your app you need to:
 . Make sure you are authenticated to the repository:
 ** You need a Github account with read-access to this Github repository
 ** Create a https://github.com/settings/tokens[personal access token on Github] with "read:packages" permissions
-** Create or adjust a `local.properties` file in the project root containing:
+** Copy `gradle.properties.template` to `gradle.properties` and adjust:
 
 +
 ....
-github.user=YOUR_USERNAME
-github.token=YOUR_ACCESS_TOKEN
+githubUser=YOUR_USERNAME
+githubToken=YOUR_ACCESS_TOKEN
 ....
 ** Add the custom repository to your `build.gradle`:
 
 +
 ....
-def properties = new Properties()
-properties.load(new FileInputStream("local.properties"))
-
 repositories {
     // Other maven repositories, e.g.:
     google()
@@ -44,8 +41,8 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/cyface-de/android-energy-settings")
         credentials {
-            username = properties.getProperty("github.user")
-            password = properties.getProperty("github.token")
+            username = project.findProperty("githubUser")
+            password = project.findProperty("githubToken")
         }
     }
 }
@@ -275,11 +272,11 @@ See https://github.com/cyface-de/android-backend#release-a-new-version[Cyface An
 . Make sure you are authenticated to the repository:
 * You need a Github account with write-access to this Github repository
 * Create a https://github.com/settings/tokens[personal access token on Github] with "write:packages" permissions
-* Create or adjust a `local.properties` file in the project root containing:
+* Copy `gradle.properties.template` to `gradle.properties` and adjust:
 +
 ....
-github.user=YOUR_USERNAME
-github.token=YOUR_ACCESS_TOKEN
+githubUser=YOUR_USERNAME
+githubToken=YOUR_ACCESS_TOKEN
 ....
 . Execute the publish command `./gradlew publishAll`
 
