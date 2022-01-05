@@ -44,7 +44,7 @@ ext {
     cyfaceEnergySettingsVersion = "3.1.0"
 
     // Cyface dependencies
-    cyfaceUtilsVersion = "3.2.1"
+    cyfaceUtilsVersion = "3.2.2"
 
     // Android SDK versions
     minSdkVersion = 21
