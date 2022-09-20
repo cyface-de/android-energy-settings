@@ -137,7 +137,7 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
      * Saves the user's preference to disable auto-popup of this dialog
      */
     private fun onNegativeButtonCall(context: Context?) {
-      val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+      val preferences = PreferenceManager.getDefaultSharedPreferences(context!!)
       preferences.edit().putBoolean(Constants.PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY, true).apply()
     }
 
