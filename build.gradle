@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 Cyface GmbH
+ * Copyright 2019-2022 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -20,7 +20,7 @@
  * Top-level build file where you can add configuration options common to all sub-projects/modules.
  *
  * @author Armin Schnabel
- * @version 3.1.0
+ * @version 3.1.1
  * @since 1.0.0
  */
 
