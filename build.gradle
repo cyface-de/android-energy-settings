@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 Cyface GmbH
+ * Copyright 2019-2022 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -20,13 +20,13 @@
  * Top-level build file where you can add configuration options common to all sub-projects/modules.
  *
  * @author Armin Schnabel
- * @version 3.1.0
+ * @version 3.1.1
  * @since 1.0.0
  */
 
 buildscript {
-    ext.kotlin_version = "1.6.10"
-    ext.gradle_version = "7.0.4"
+    ext.kotlin_version = "1.7.10"
+    ext.gradle_version = "7.3.0"
 
     repositories {
         google()
@@ -44,29 +44,29 @@ ext {
     cyfaceEnergySettingsVersion = "3.1.1"
 
     // Cyface dependencies
-    cyfaceUtilsVersion = "3.2.2"
+    cyfaceUtilsVersion = "3.3.0"
 
     // Android SDK versions
-    minSdkVersion = 21
-    targetSdkVersion = 30
-    compileSdkVersion = 30
-    buildToolsVersion = '30.0.3'
+    minSdkVersion = 21 // device support
+    targetSdkVersion = 31 // behavioral changes, follow migration guide & test the app against this
+    compileSdkVersion = 33 // allows newest APIs to be used and to see deprecations, use latest
+    buildToolsVersion = '33.0.0' // optional, if defined, use latest (SDK Manager > SDK Tools)
 
     // Android dependencies
     androidxAnnotationVersion = "1.2.0"
-    androidxAppCompatVersion = "1.3.1" // 1.4.0 leads to an error in `gradle verifyReleaseResources`
-    androidPreferencesVersion = "1.1.1"
+    androidxAppCompatVersion = "1.5.1"
+    androidPreferencesVersion = '1.2.0'
 
     // Other dependencies
-    kotlinCoreVersion = "1.6.0" // 1.7.0 leads to an error in `gradle verifyReleaseResources`
-    materialDialogsVersion = "3.1.1"
+    kotlinCoreVersion = '1.9.0' // 1.7.0 leads to an error in `gradle verifyReleaseResources`
+    materialDialogsVersion = '3.3.0'
 
     // Testing
     junitVersion = "1.1.3"
-    mockitoVersion = "3.3.3"
+    mockitoVersion = '4.8.0'
     hamcrestVersion = "1.3"
     rulesVersion = "1.4.0"
-    robolectricVersion = "4.6.1"
+    robolectricVersion = "4.8.2"
     androidxTestCoreVersion = "1.1.0"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

@@ -284,7 +284,7 @@ githubToken=YOUR_ACCESS_TOKEN
 [[license]]
 == License
 
-Copyright 2019-2021 Cyface GmbH
+Copyright 2019-2022 Cyface GmbH
 
 This file is part of the Cyface Energy Settings library for Android.
 
