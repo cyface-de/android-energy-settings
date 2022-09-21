@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cyface GmbH
+ * Copyright 2019-2022 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -32,7 +32,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.preference.PreferenceManager
 import de.cyface.utils.Validate
-import de.cyface.energy_settings.Constants
 import java.util.Locale
 
 /**
@@ -41,7 +40,7 @@ import java.util.Locale
  * Offers checks and dialogs for energy settings required for background tracking.
  *
  * @author Armin Schnabel
- * @version 2.0.2
+ * @version 2.0.3
  * @since 1.0.0
  */
 object TrackingSettings {
@@ -106,7 +105,7 @@ object TrackingSettings {
    * @return `True` if such a manufacturer is identified
    */
   @JvmStatic
-  @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
+  @Suppress("MemberVisibilityCanBePrivate", "SpellCheckingInspection") // Used by implementing app
   val isProblematicManufacturer: Boolean
     get() {
 

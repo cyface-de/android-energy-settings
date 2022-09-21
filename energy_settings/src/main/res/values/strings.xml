@@ -20,6 +20,7 @@
     <string name="dialog_background_processing_restriction_warning">The Background processing is restricted for this app. Because of this the tracking stops when the display is turned off or when the app is minimized.\n\nPlease disable this restriction for this app:\n`Open Settings` Button > Advanced > Battery > Background restriction > Remove</string>
     <string name="dialog_gps_disabled_warning_title">Enable GPS</string>
     <string name="dialog_gps_disabled_warning">The tracking is based on GPS position data. This feature is currently disabled on your device.\n\nPlease enable the location service (GPS) in the system settings.</string>
+    <string name="dialog_gps_disabled_warning_old_devices">The tracking is based on GPS position data. This feature is currently disabled on your device.\n\nPlease enable the location service (GPS) in the system settings.\n\nThe "Battery saving" mode must not be activated, as this disables GPS.</string>
     <string name="dialog_no_guidance_needed_title">No Setup required</string>
 
     <!-- Dialogs for manufacturer-/device specific settings -->

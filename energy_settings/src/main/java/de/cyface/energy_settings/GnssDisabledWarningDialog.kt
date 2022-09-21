@@ -30,9 +30,9 @@ import de.cyface.energy_settings.GnssDisabledWarningDialog.Companion.create
 /**
  * Dialog to show a warning when the GNSS (e.g. GPS) is disabled.
  *
- * Two implementation are available:
+ * Two implementations are available:
  *
- * 1. As `DialogFragment`. Use the constructor and use the dialog. Calls [onCreateDialog] internally.
+ * 1. As `DialogFragment`. Use the constructor and the dialog. Calls [onCreateDialog] internally.
  * 2. As [MaterialDialog]. Use the static [create] method which returns the dialog.
  *
  * @author Armin Schnabel
@@ -75,7 +75,11 @@ internal class GnssDisabledWarningDialog : EnergySettingDialog() {
 
       val dialog = MaterialDialog(activity, DIALOG_BEHAVIOUR)
       dialog.title(titleRes)
-      dialog.message(messageRes)
+      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+        dialog.message(messageRes)
+      } else {
+        dialog.message(R.string.dialog_gps_disabled_warning_old_devices)
+      }
       dialog.positiveButton(positiveButtonRes) {
         activity.startActivity(intent)
       }

@@ -18,6 +18,7 @@
     <string name="dialog_background_processing_restriction_warning">L\'elaborazione in background è limitata per questa applicazione. Per questo motivo il monitoraggio si ferma quando il display è spento o quando l\'applicazione è minimizzata.\n\n\nDisattivare questa restrizione per questa applicazione:\n\'Open Settings\` Button > Advanced > Battery > Background restriction > Remove</string>
     <string name="dialog_gps_disabled_warning_title">Abilita GPS</string>
     <string name="dialog_gps_disabled_warning">La localizzazione si basa sui dati di posizione GPS. Questa funzione è attualmente disabilitata sul dispositivo.\n\nAttivare il servizio di localizzazione (GPS) nelle impostazioni di sistema.</string>
+    <string name="dialog_gps_disabled_warning_old_devices">La localizzazione si basa sui dati di posizione GPS. Questa funzione è attualmente disabilitata sul dispositivo.\n\nAttivare il servizio di localizzazione (GPS) nelle impostazioni di sistema.\n\nLa modalità "Risparmio della batteria" non deve essere attivata, in quanto disattiva il GPS.</string>
     <string name="dialog_no_guidance_needed_title">Nessuna istallazione richiesta</string>
 
     <!-- Dialogs for manufacturer-/device specific settings -->

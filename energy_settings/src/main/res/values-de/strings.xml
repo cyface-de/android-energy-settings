@@ -18,6 +18,7 @@
     <string name="dialog_background_processing_restriction_warning">Für diese Anwendung ist die Hintergrundnutzung eingeschränkt. Dadurch bricht das Tracking ab, sobald das Display ausschaltet oder die App in den Hintergrund geht.\n\nBitte deaktiviere daher die Einschränkung für diese Anwendung:\n`Einstellungen öffnen` Taste > Erweitert > Akku > Hintergrundnutzung einschränken > Entfernen</string>
     <string name="dialog_gps_disabled_warning_title">GPS aktivieren</string>
     <string name="dialog_gps_disabled_warning">Unser Tracking basiert auf GPS-Positionsdaten. Eine solche Erfassung ist derzeit auf deinem Gerät deaktiviert.\n\nBitte aktiviere daher den Standortdienst (GPS) in den Systemeinstellungen.</string>
+    <string name="dialog_gps_disabled_warning_old_devices">Unser Tracking basiert auf GPS-Positionsdaten. Eine solche Erfassung ist derzeit auf deinem Gerät deaktiviert.\n\nBitte aktiviere daher den Standortdienst (GPS) in den Systemeinstellungen.\n\nDer Modus "Stromsparfunktion" darf nicht aktiviert sein, da dieser GPS deaktiviert. </string>
     <string name="dialog_no_guidance_needed_title">Keine Einrichtung notwendig</string>
 
     <!-- Dialogs for manufacturer-/device specific settings -->
