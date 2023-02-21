@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cyface GmbH
+ * Copyright 2019-2023 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -20,7 +20,7 @@
  * Gradle's build file for this module.
  *
  * @author Armin Schnabel
- * @version 1.2.0
+ * @version 1.3.0
  * @since 1.0.0
  */
 
@@ -62,18 +62,9 @@ android {
         sourceCompatibility rootProject.ext.sourceCompatibility
         targetCompatibility rootProject.ext.targetCompatibility
     }
-
-    kotlinOptions {
-      jvmTarget = rootProject.ext.kotlinTargetJavaVersion
-    }
 }
 
 dependencies {
-
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "androidx.core:core-ktx:$rootProject.ext.kotlinCoreVersion"
-
     // Other Android libraries
     implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
     implementation "androidx.preference:preference-ktx:$rootProject.ext.androidPreferencesVersion"
