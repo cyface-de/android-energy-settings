@@ -30,7 +30,7 @@ kotlin.code.style=official
 android.nonTransitiveRClass=true
 
 android.builder.sdkDownload=true
-android.enableJetifier=true
+android.enableJetifier=false
 
 # Secrets
 
