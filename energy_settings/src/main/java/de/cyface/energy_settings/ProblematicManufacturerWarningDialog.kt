@@ -34,7 +34,6 @@ import de.cyface.energy_settings.Constants.TAG
 import de.cyface.energy_settings.GnssDisabledWarningDialog.Companion.create
 import de.cyface.energy_settings.ProblematicManufacturerWarningDialog.Companion.create
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
 
 /**
@@ -78,7 +77,7 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
     // Context-less scenario
     val context = context
     if (context == null) {
-      Log.w(Constants.TAG, "No ProblematicManufacturerWarningDialog shown, context is null.")
+      Log.w(TAG, "No ProblematicManufacturerWarningDialog shown, context is null.")
       builder.setMessage(messageRes)
       return builder.create()
     }
@@ -163,7 +162,7 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
       // Context-less scenario
       val context = activity.applicationContext
       if (context == null) {
-        Log.w(Constants.TAG, "No ProblematicManufacturerWarningDialog shown, context is null.")
+        Log.w(TAG, "No ProblematicManufacturerWarningDialog shown, context is null.")
         dialog.message(messageRes)
         return dialog
       }
@@ -398,7 +397,7 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
 
       // Search for a match in the list of known energy settings pages
       // Return the first match. If not this leads to [MOV-989], see note above.
-      intentMap.entries.forEach { entry ->
+      for(entry in intentMap.entries) {
         if (context.packageManager.resolveActivity(entry.key,
             PackageManager.MATCH_DEFAULT_ONLY) != null) {
           return entry
