@@ -20,13 +20,13 @@
  * Top-level build file where you can add configuration options common to all sub-projects/modules.
  *
  * @author Armin Schnabel
- * @version 3.2.0
+ * @version 3.2.1
  * @since 1.0.0
  */
 
 buildscript {
     ext.gradle_version = "7.3.0"
-    ext.kotlin_version = "1.7.10"
+    ext.kotlin_version = "1.8.0"
 
     repositories {
         google()
@@ -44,7 +44,7 @@ ext {
     cyfaceEnergySettingsVersion = "0.0.0" // Automatically overwritten by CI
 
     // Cyface dependencies
-    cyfaceUtilsVersion = "3.3.0"
+    cyfaceUtilsVersion = "3.3.4"
 
     // Android SDK versions
     minSdkVersion = 21 // device support
