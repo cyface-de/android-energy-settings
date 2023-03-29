@@ -44,7 +44,7 @@ ext {
     cyfaceEnergySettingsVersion = "0.0.0" // Automatically overwritten by CI
 
     // Cyface dependencies
-    cyfaceUtilsVersion = "3.3.4"
+    cyfaceUtilsVersion = "3.3.5"
 
     // Android SDK versions
     minSdkVersion = 21 // device support
@@ -53,7 +53,7 @@ ext {
     buildToolsVersion = '33.0.0' // optional, if defined, use latest (SDK Manager > SDK Tools)
 
     // Android dependencies
-    androidxAnnotationVersion = "1.4.0"
+    androidxAnnotationVersion = "1.6.0"
     androidxAppCompatVersion = "1.6.1"
     androidPreferencesVersion = '1.2.0'
 
