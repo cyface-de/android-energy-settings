@@ -53,7 +53,7 @@ import kotlin.collections.LinkedHashMap
  * 2. As [MaterialDialog]. Use the static [create] method which returns the dialog.
  *
  * @author Armin Schnabel
- * @version 2.0.4
+ * @version 2.1.0
  * @since 1.0.0
  *
  * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated template.
@@ -205,6 +205,11 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
 
       // "App-Start", e.g. EMUI 9, 10
 
+      // [STAD-492] Since 2021 Huawei started to deny opening the Huawei "App Launch" setting via intent.
+      // A SecurityException is thrown. I.e. the user now as to navigate on it's own to the settings.
+      // On our test devices this cannot be reproduced but we see this frequently now in the Play Console.
+      // But as we only see the crashes in Android 10, we leave `< Build.VERSION_CODES.Q` as it is.
+
       // [MOV-989] On EMUI 10.0.0 (e.g. our P smart 2019) it finds both:
       // 1. StartupNormalAppListActivity (which works on new EMUI versions)
       // 2. StartupAppControlActivity (which crashes on new EMUI even with USE_COMPONENT permission)
@@ -213,8 +218,8 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
 
       // P20, EMUI 9, Android 9, 2019 - comment in https://stackoverflow.com/a/48641229/5815054
       // when adding the permissions above does not work with the intent above
-      intentMap[Intent().setComponent(ComponentName("com.huawei.systemmanager",
-        "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity"))] = R.string.dialog_manufacturer_warning_huawei_app_launch
+      /*intentMap[Intent().setComponent(ComponentName("com.huawei.systemmanager",
+        "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity"))] = R.string.dialog_manufacturer_warning_huawei_app_launch*/
 
       // P20, EMUI 9, Android 9, 2018 - comment in https://stackoverflow.com/a/35220476/5815054
       // [STAD-280] This check should not be necessary as `StartupNormalAppListActivity` should
