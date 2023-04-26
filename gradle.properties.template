@@ -32,6 +32,9 @@ android.nonTransitiveRClass=true
 android.builder.sdkDownload=true
 android.enableJetifier=false
 
+# Needs to point to JDK 17 (embedded in android-studio now)
+org.gradle.java.home=
+
 # Secrets
 
 githubUser=
