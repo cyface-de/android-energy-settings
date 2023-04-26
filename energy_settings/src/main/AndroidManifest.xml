@@ -1,6 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.cyface.energy_settings">
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
   <!-- see https://stackoverflow.com/a/48641229/5815054 - e.g. P30 Pro (VOG-L29) requires -->
   <!-- This does not fix the SecurityException on newer devices like Huawei EMUI 10.0.0.
   See ProblematicManufacturerWarningDialog for more details how to fix this. -->
