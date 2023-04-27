@@ -25,7 +25,7 @@
  */
 
 buildscript {
-    ext.gradle_version = "8.0.0"
+    ext.gradle_version = "7.4.2"
     ext.kotlin_version = "1.8.20"
 
     repositories {
@@ -44,7 +44,7 @@ ext {
     cyfaceEnergySettingsVersion = "0.0.0" // Automatically overwritten by CI
 
     // Cyface dependencies
-    cyfaceUtilsVersion = "3.3.6"
+    cyfaceUtilsVersion = "3.3.7"
 
     // Android SDK versions
     minSdkVersion = 21 // device support
@@ -70,9 +70,9 @@ ext {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
     // Java version
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-    kotlinTargetJavaVersion = "17"
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    kotlinTargetJavaVersion = "11"
 }
 
 allprojects {
