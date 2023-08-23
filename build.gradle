@@ -20,7 +20,7 @@
  * Top-level build file where you can add configuration options common to all sub-projects/modules.
  *
  * @author Armin Schnabel
- * @version 3.2.1
+ * @version 3.2.2
  * @since 1.0.0
  */
 
@@ -44,18 +44,18 @@ ext {
     cyfaceEnergySettingsVersion = "0.0.0" // Automatically overwritten by CI
 
     // Cyface dependencies
-    cyfaceUtilsVersion = "3.5.0"
+    cyfaceUtilsVersion = "3.5.1"
 
     // Android SDK versions
     minSdkVersion = 21 // device support
-    targetSdkVersion = 31 // behavioral changes, follow migration guide & test the app against this
+    targetSdkVersion = 33 // behavioral changes, follow migration guide & test the app against this
     compileSdkVersion = 33 // allows newest APIs to be used and to see deprecations, use latest
-    buildToolsVersion = '33.0.0' // optional, if defined, use latest (SDK Manager > SDK Tools)
+    buildToolsVersion = '34.0.0' // optional, if defined, use latest (SDK Manager > SDK Tools)
 
     // Android dependencies
     androidxAnnotationVersion = "1.6.0"
     androidxAppCompatVersion = "1.6.1"
-    androidPreferencesVersion = '1.2.0'
+    androidPreferencesVersion = '1.2.1'
 
     // Other dependencies
     materialDialogsVersion = '3.3.0'
