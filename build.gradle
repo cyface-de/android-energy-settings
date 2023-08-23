@@ -55,7 +55,7 @@ ext {
     // Android dependencies
     androidxAnnotationVersion = "1.6.0"
     androidxAppCompatVersion = "1.6.1"
-    androidPreferencesVersion = '1.2.0'
+    androidPreferencesVersion = '1.2.1'
 
     // Other dependencies
     materialDialogsVersion = '3.3.0'
