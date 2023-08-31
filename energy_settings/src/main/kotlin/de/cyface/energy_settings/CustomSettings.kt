@@ -18,9 +18,8 @@
  */
 package de.cyface.energy_settings
 
-import android.content.Context
-import androidx.core.content.edit
-import de.cyface.energy_settings.Constants.PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Custom settings used by this library.
@@ -33,20 +32,29 @@ import de.cyface.energy_settings.Constants.PREFERENCES_MANUFACTURER_WARNING_SHOW
  *
  * @author Armin Schnabel
  * @version 2.0.0
- * @since 3.4.0
+ * @since 3.3.4
  */
-class CustomPreferences(context: Context) {
+class CustomSettings {
 
-    fun saveWarningShown(warningShown: Boolean) {
-        //FIXME
-        /*preferences.edit {
-            putBoolean(PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY, warningShown)
-            apply()
-        }*/
+    /**
+     * Saves whether the user marked the manufacturer-specific warning as "don't show again".
+     *
+     * @param value The boolean value to save.
+     */
+    @Suppress("unused") // Part of the API
+    suspend fun setManufacturerWarningShown(value: Boolean) {
+        TrackingSettings.dataStore.updateData { currentSettings ->
+            currentSettings.toBuilder()
+                .setManufacturerWarningShown(value)
+                .build()
+        }
     }
 
-    fun getWarningShown(): Boolean {
-        return true // FIXME
-        //return preferences.getBoolean(PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY, false)
-    }
+    /**
+     * @return Whether user marked the manufacturer-specific warning as "don't show again".
+     */
+    val manufacturerWarningShownFlow: Flow<Boolean> = TrackingSettings.dataStore.data
+        .map { settings ->
+            settings.manufacturerWarningShown
+        }
 }

@@ -28,9 +28,14 @@ import android.os.Build
 import android.os.PowerManager
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.datastore.core.DataStore
+import androidx.datastore.core.DataStoreFactory
+import androidx.datastore.dataStoreFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import de.cyface.utils.Validate
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import java.util.Locale
 
 /**
@@ -38,11 +43,32 @@ import java.util.Locale
  *
  * Offers checks and dialogs for energy settings required for background tracking.
  *
+ * Attention: You need to call [initialize] before you use this object, e.g. in Activity.onCreate.
+ *
  * @author Armin Schnabel
  * @version 2.0.3
  * @since 1.0.0
  */
 object TrackingSettings {
+
+    /**
+     * Custom settings used by this library.
+     */
+    private val settings: CustomSettings = CustomSettings()
+
+    /**
+     * The data store with single-process support.
+     */
+    lateinit var dataStore: DataStore<Settings>
+
+    @JvmStatic
+    fun initialize(context: Context) {
+        val dataStoreFile = context.dataStoreFile("energy_settings.pb")
+        dataStore = DataStoreFactory.create(
+            serializer = SettingsSerializer,
+            produceFile = { dataStoreFile }
+        )
+    }
 
     /**
      * Checks whether the energy safer mode is active *at this moment*.
@@ -311,9 +337,12 @@ object TrackingSettings {
         force: Boolean,
         recipientEmail: String
     ): Boolean {
-
-        val preferences = CustomPreferences(context)
-        if (isProblematicManufacturer && (force || !preferences.getWarningShown())) {
+        // FIXME: consider async-preloading data at least, see:
+        // https://developer.android.com/topic/libraries/architecture/datastore#synchronous
+        val warningShown = runBlocking { // FIXME
+            settings.manufacturerWarningShownFlow.first() // FIXME
+        }
+        if (isProblematicManufacturer && (force || !warningShown)) {
             val fragmentManager = fragment.fragmentManager
             Validate.notNull(fragmentManager)
             val dialog = ProblematicManufacturerWarningDialog(recipientEmail)
@@ -351,8 +380,11 @@ object TrackingSettings {
             return false
         }
 
-        val preferences = CustomPreferences(activity.applicationContext)
-        if (isProblematicManufacturer && (force || !preferences.getWarningShown())) {
+        val warningShown = runBlocking { // FIXME
+            settings.manufacturerWarningShownFlow.first() // FIXME
+        }
+
+        if (isProblematicManufacturer && (force || !warningShown)) {
             ProblematicManufacturerWarningDialog.create(activity, recipientEmail).show()
             return true
         }

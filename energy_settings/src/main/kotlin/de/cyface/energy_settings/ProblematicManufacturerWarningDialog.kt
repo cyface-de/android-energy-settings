@@ -32,6 +32,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import de.cyface.energy_settings.Constants.TAG
 import de.cyface.energy_settings.GnssDisabledWarningDialog.Companion.create
 import de.cyface.energy_settings.ProblematicManufacturerWarningDialog.Companion.create
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 /**
@@ -67,7 +69,9 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
 
         // Allow the user to express its preference to disable auto-popup of this dialog
         builder.setNegativeButton(negativeButtonRes) { _, _ ->
-            onNegativeButtonCall(context)
+            GlobalScope.launch { // FIXME
+                onNegativeButtonCall(context)
+            }
         }
 
         // Show Sony STAMINA specific dialog (no manufacturer specific intent name known yet)
@@ -166,8 +170,8 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
         /**
          * Saves the user's preference to disable auto-popup of this dialog
          */
-        private fun onNegativeButtonCall(context: Context?) {
-            CustomPreferences(context!!).saveWarningShown(true)
+        private suspend fun onNegativeButtonCall(context: Context?) {
+            CustomSettings().setManufacturerWarningShown(true)
         }
 
         /**
@@ -183,7 +187,9 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
 
             // Allow the user to express its preference to disable auto-popup of this dialog
             dialog.negativeButton(negativeButtonRes) {
-                onNegativeButtonCall(activity.applicationContext)
+                GlobalScope.launch { // FIXME
+                    onNegativeButtonCall(activity.applicationContext)
+                }
             }
 
             // Show Sony STAMINA specific dialog (no manufacturer specific intent name known yet)
