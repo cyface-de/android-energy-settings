@@ -1,0 +1,53 @@
+/*
+ * Copyright 2023 Cyface GmbH
+ *
+ * This file is part of the Cyface Utils for Android.
+ *
+ * The Cyface Utils for Android is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The Cyface Utils for Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with the Cyface Utils for Android. If not, see <http://www.gnu.org/licenses/>.
+ */
+syntax = "proto3";
+
+option java_package = "de.cyface.utils";
+option java_multiple_files = true;
+
+/**
+ * The data types for the values stored in the `AppPreferences`.
+ *
+ * See https://protobuf.dev/programming-guides/proto3/
+ *
+ * Attention: The classes are generated from the file at compile time. Don't forget to rebuild.
+ *
+ * @author: Armin Schnabel
+ * @since: 4.0.0
+ * @version: 1.0.0
+ */
+message Settings {
+  // Whether the map should be automatically centered while moving
+  bool center_map = 1;
+
+  // Whether the app should be able to upload measurementsA.
+  bool upload_enabled = 2;
+
+  // The maximum frequency with which the IMU sensors should collect data, e.g. 100 Hz.
+  int32 sensor_frequency = 3;
+
+  // Whether the app should report to the error monitoring service.
+  bool report_errors = 4;
+
+  // The currently selected modality, e.g. 'CAR'.
+  string modality = 5;
+
+  // The API version of the terms accepted by the user, e.g. 5.
+  int32 accepted_terms = 6;
+}

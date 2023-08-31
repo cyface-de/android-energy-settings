@@ -20,7 +20,7 @@
  * Top-level build file where you can add configuration options common to all sub-projects/modules.
  *
  * @author Armin Schnabel
- * @version 3.2.2
+ * @version 3.3.0
  * @since 1.0.0
  */
 
@@ -37,6 +37,11 @@ buildscript {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
+}
+
+plugins {
+    // To generate Proto DataStore
+    id 'com.google.protobuf' version '0.8.19' apply false // Maybe keep in sync with other usages
 }
 
 ext {
@@ -56,9 +61,11 @@ ext {
     androidxAnnotationVersion = "1.6.0"
     androidxAppCompatVersion = "1.6.1"
     androidPreferencesVersion = '1.2.1'
+    datastoreVersion = "1.1.0-alpha04" // only 1.1.0 supports multi-process datastore
 
     // Other dependencies
     materialDialogsVersion = '3.3.0'
+    protobufVersion = '3.22.2' // For Proto Datastore. Maybe keep in sync with other versions.
 
     // Testing
     junitVersion = "1.1.5"
