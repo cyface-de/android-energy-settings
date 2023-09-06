@@ -73,7 +73,6 @@ android {
 dependencies {
     // Proto DataStore with SingleProcess support to store settings
     implementation "androidx.datastore:datastore:${datastoreVersion}"
-    //implementation "androidx.datastore:datastore-core-android:${datastoreVersion}"
     implementation  "com.google.protobuf:protobuf-javalite:${protobufVersion}"
 
     // Other Android libraries

@@ -54,10 +54,16 @@ object TrackingSettings {
     /**
      * Custom settings used by this library.
      */
-    private val settings: CustomSettings = CustomSettings()
+    private lateinit var settings: CustomSettings
 
     /**
      * The data store with single-process support.
+     *
+     * Attention:
+     * - Never mix SingleProcessDataStore with MultiProcessDataStore for the same file.
+     * - We use SingleProcessDataStore, so don't access preferences from multiple processes.
+     * - Only create one instance of `DataStore` per file in the same process.
+     * - We use ProtoBuf to ensure type safety. Rebuild after changing the .proto file.
      */
     lateinit var dataStore: DataStore<Settings>
 
@@ -68,6 +74,7 @@ object TrackingSettings {
             serializer = SettingsSerializer,
             produceFile = { dataStoreFile }
         )
+        settings = CustomSettings() // Depends on dataStore to be initialized
     }
 
     /**

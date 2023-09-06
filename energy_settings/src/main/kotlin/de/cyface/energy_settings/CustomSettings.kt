@@ -24,12 +24,6 @@ import kotlinx.coroutines.flow.map
 /**
  * Custom settings used by this library.
  *
- * Attention:
- * - Never mix SingleProcessDataStore with MultiProcessDataStore for the same file.
- * - We use SingleProcessDataStore, so don't access preferences from multiple processes.
- * - Only create one instance of `DataStore` per file in the same process.
- * - We use ProtoBuf to ensure type safety. Rebuild after changing the .proto file.
- *
  * @author Armin Schnabel
  * @version 2.0.0
  * @since 3.3.4
