@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cyface GmbH
+ * Copyright 2019-2023 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -22,13 +22,12 @@ package de.cyface.energy_settings
  * Holds constants required by multiple classes.
  *
  * @author Armin Schnabel
- * @version 1.0.1
+ * @version 1.1.0
  * @since 1.0.0
  */
 @Suppress("SpellCheckingInspection")
 object Constants {
     const val TAG = "de.cyface.es"
-    private const val PACKAGE = "de.cyface.energy_settings"
 
     // Dialog codes to identify the different dialogs
     const val DIALOG_ENERGY_SAFER_WARNING_CODE = 2019071101
@@ -36,9 +35,6 @@ object Constants {
     const val DIALOG_PROBLEMATIC_MANUFACTURER_WARNING_CODE = 2019071103
     const val DIALOG_GPS_DISABLED_WARNING_CODE = 2019071104
     const val DIALOG_NO_GUIDANCE_NEEDED_DIALOG_CODE = 2019071105
-
-    // Preference key for shared preferences
-    const val PREFERENCES_MANUFACTURER_WARNING_SHOWN_KEY = "$PACKAGE.manufacturer_warning_shown"
 
     // Manufacturer names
     const val MANUFACTURER_HUAWEI = "huawei"

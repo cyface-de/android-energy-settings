@@ -33,6 +33,10 @@ option java_multiple_files = true;
  * @version: 1.0.0
  */
 message Settings {
+  // Version of this datastore. It helps to support default values and to migrate data. When the
+  // datastore is newly created, it's 0, after default values are set it's 1, then migration happens.
+  uint32 version = 1;
+
   // Whether the user marked the manufacturer-specific warning as "don't show again".
-  bool manufacturer_warning_shown = 1;
+  bool manufacturer_warning_shown = 2;
 }

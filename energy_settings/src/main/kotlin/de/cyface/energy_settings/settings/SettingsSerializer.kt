@@ -16,11 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with the Cyface Energy Settings for Android. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.cyface.energy_settings
+package de.cyface.energy_settings.settings
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.google.protobuf.InvalidProtocolBufferException
+import de.cyface.energy_settings.Settings
 import java.io.InputStream
 import java.io.OutputStream
 

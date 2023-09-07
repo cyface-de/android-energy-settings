@@ -32,6 +32,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import de.cyface.energy_settings.Constants.TAG
 import de.cyface.energy_settings.GnssDisabledWarningDialog.Companion.create
 import de.cyface.energy_settings.ProblematicManufacturerWarningDialog.Companion.create
+import de.cyface.energy_settings.settings.CustomSettings
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.Locale

@@ -33,6 +33,8 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import de.cyface.energy_settings.settings.CustomSettings
+import de.cyface.energy_settings.settings.SettingsSerializer
 import de.cyface.utils.Validate
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -56,8 +58,12 @@ object TrackingSettings {
      */
     private lateinit var settings: CustomSettings
 
+    // FIXME: see if we can also mice the datastore to CustomSettings like everywhere else.
     /**
      * The data store with single-process support.
+     *
+     * We don't use multi-process support as this should usually only run in the ui process.
+     * I.e. there is no need for that overhead.
      *
      * Attention:
      * - Never mix SingleProcessDataStore with MultiProcessDataStore for the same file.
@@ -69,10 +75,16 @@ object TrackingSettings {
 
     @JvmStatic
     fun initialize(context: Context) {
-        val dataStoreFile = context.dataStoreFile("energy_settings.pb")
+        val appContext = context.applicationContext
+        val dataStoreFile = appContext.dataStoreFile("energy_settings.pb")
         dataStore = DataStoreFactory.create(
             serializer = SettingsSerializer,
-            produceFile = { dataStoreFile }
+            produceFile = { dataStoreFile },
+            // TODO [RFR-788]: Add a test to ensure version is not set to 1 if no SharedPreferences file exist
+            // TODO [RFR-788]: Add a test which ensures preferences migration works and not default values are used
+            // TODO [RFR-788]: Add a test where the version is already 1 and SharedPreferences file is found
+            // TODO [RFR-788]: Add a test where the version is 1 and ensure no migration is executed / defaults are set
+            migrations = listOf(PreferencesMigrationFactory.create(appContext))
         )
         settings = CustomSettings() // Depends on dataStore to be initialized
     }

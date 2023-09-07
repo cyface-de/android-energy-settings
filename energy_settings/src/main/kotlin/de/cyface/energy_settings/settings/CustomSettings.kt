@@ -16,8 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with the Cyface Energy Settings for Android. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.cyface.energy_settings
+package de.cyface.energy_settings.settings
 
+import de.cyface.energy_settings.TrackingSettings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
