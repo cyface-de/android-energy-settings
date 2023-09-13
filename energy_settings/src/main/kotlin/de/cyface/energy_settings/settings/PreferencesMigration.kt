@@ -57,7 +57,11 @@ object PreferencesMigrationFactory {
         settings: Settings
     ): Settings {
         return settings.toBuilder()
-            .setVersion(1) // Ensure the migrated values below are used instead of default values.
+            // Setting version to 1 as it would else default to Protobuf default of 0 which would
+            // trigger the StoreMigration from 0 -> 1 which ignores previous settings.
+            // This way the last supported version of SharedPreferences is hard-coded here and
+            // then the migration steps in StoreMigration starting at version 1 continues from here.
+            .setVersion(1)
             .setManufacturerWarningShown(preferences.getBoolean(MANUFACTURER_WARNING_KEY, false))
             .build()
     }

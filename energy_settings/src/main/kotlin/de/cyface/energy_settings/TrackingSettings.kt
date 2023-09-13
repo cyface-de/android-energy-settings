@@ -34,7 +34,9 @@ import androidx.datastore.dataStoreFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import de.cyface.energy_settings.settings.CustomSettings
+import de.cyface.energy_settings.settings.PreferencesMigrationFactory
 import de.cyface.energy_settings.settings.SettingsSerializer
+import de.cyface.energy_settings.settings.StoreMigration
 import de.cyface.utils.Validate
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -84,7 +86,10 @@ object TrackingSettings {
             // TODO [RFR-788]: Add a test which ensures preferences migration works and not default values are used
             // TODO [RFR-788]: Add a test where the version is already 1 and SharedPreferences file is found
             // TODO [RFR-788]: Add a test where the version is 1 and ensure no migration is executed / defaults are set
-            migrations = listOf(PreferencesMigrationFactory.create(appContext))
+            migrations = listOf(
+                PreferencesMigrationFactory.create(appContext),
+                StoreMigration()
+            )
         )
         settings = CustomSettings() // Depends on dataStore to be initialized
     }
