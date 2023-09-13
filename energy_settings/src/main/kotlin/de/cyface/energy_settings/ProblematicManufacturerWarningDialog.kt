@@ -32,7 +32,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import de.cyface.energy_settings.Constants.TAG
 import de.cyface.energy_settings.GnssDisabledWarningDialog.Companion.create
 import de.cyface.energy_settings.ProblematicManufacturerWarningDialog.Companion.create
-import de.cyface.energy_settings.settings.CustomSettings
+import de.cyface.energy_settings.settings.EnergySettings
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -172,7 +172,7 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
          * Saves the user's preference to disable auto-popup of this dialog
          */
         private suspend fun onNegativeButtonCall(context: Context?) {
-            CustomSettings().setManufacturerWarningShown(true)
+            EnergySettings().setManufacturerWarningShown(true)
         }
 
         /**

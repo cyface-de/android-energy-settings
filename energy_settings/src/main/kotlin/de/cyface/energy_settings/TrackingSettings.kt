@@ -33,7 +33,7 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import de.cyface.energy_settings.settings.CustomSettings
+import de.cyface.energy_settings.settings.EnergySettings
 import de.cyface.energy_settings.settings.PreferencesMigrationFactory
 import de.cyface.energy_settings.settings.SettingsSerializer
 import de.cyface.energy_settings.settings.StoreMigration
@@ -58,7 +58,7 @@ object TrackingSettings {
     /**
      * Custom settings used by this library.
      */
-    private lateinit var settings: CustomSettings
+    private lateinit var settings: EnergySettings
 
     // FIXME: see if we can also mice the datastore to CustomSettings like everywhere else.
     /**
@@ -91,7 +91,8 @@ object TrackingSettings {
                 StoreMigration()
             )
         )
-        settings = CustomSettings() // Depends on dataStore to be initialized
+        settings =
+            EnergySettings() // Depends on dataStore to be initialized
     }
 
     /**

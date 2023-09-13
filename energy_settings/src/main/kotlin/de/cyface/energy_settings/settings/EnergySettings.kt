@@ -23,13 +23,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 /**
- * Custom settings used by this library.
+ * Settings used by this library.
  *
  * @author Armin Schnabel
  * @version 2.0.0
  * @since 3.3.4
  */
-class CustomSettings {
+class EnergySettings {
 
     /**
      * Saves whether the user marked the manufacturer-specific warning as "don't show again".
