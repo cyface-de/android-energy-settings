@@ -25,6 +25,10 @@ import kotlinx.coroutines.flow.map
 /**
  * Settings used by this library.
  *
+ * We currently don't use a repository to abstract the interface of the data types from the data
+ * source. The reason for this is the class is very simple and we don't plan multiple data sources.
+ * If this changes, consider using the standard Android Architecture, see `MeasurementRepository`.
+ *
  * @author Armin Schnabel
  * @version 2.0.0
  * @since 3.3.4

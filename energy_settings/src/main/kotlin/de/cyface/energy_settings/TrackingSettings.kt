@@ -82,10 +82,6 @@ object TrackingSettings {
         dataStore = DataStoreFactory.create(
             serializer = SettingsSerializer,
             produceFile = { dataStoreFile },
-            // TODO [RFR-788]: Add a test to ensure version is not set to 1 if no SharedPreferences file exist
-            // TODO [RFR-788]: Add a test which ensures preferences migration works and not default values are used
-            // TODO [RFR-788]: Add a test where the version is already 1 and SharedPreferences file is found
-            // TODO [RFR-788]: Add a test where the version is 1 and ensure no migration is executed / defaults are set
             migrations = listOf(
                 PreferencesMigrationFactory.create(appContext),
                 StoreMigration()
