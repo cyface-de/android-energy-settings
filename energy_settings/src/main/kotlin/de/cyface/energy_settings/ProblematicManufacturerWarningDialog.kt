@@ -28,10 +28,13 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.afollestad.materialdialogs.MaterialDialog
 import de.cyface.energy_settings.Constants.TAG
 import de.cyface.energy_settings.GnssDisabledWarningDialog.Companion.create
 import de.cyface.energy_settings.ProblematicManufacturerWarningDialog.Companion.create
+import de.cyface.energy_settings.settings.EnergySettings
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 /**
@@ -51,12 +54,18 @@ import java.util.Locale
  * 2. As [MaterialDialog]. Use the static [create] method which returns the dialog.
  *
  * @author Armin Schnabel
- * @version 2.1.0
+ * @version 3.0.0
  * @since 1.0.0
  *
- * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated template.
+ * @property recipientEmail The e-mail address to which the feedback email should be addressed to in the generated template.
+ * @property scope The scope to execute async code in.
+ * @property settings The settings which contain the user preferences.
  */
-internal class ProblematicManufacturerWarningDialog(private val recipientEmail: String) :
+internal class ProblematicManufacturerWarningDialog(
+    private val recipientEmail: String,
+    private val scope: LifecycleCoroutineScope,
+    private val settings: EnergySettings
+) :
     EnergySettingDialog() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -67,7 +76,9 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
 
         // Allow the user to express its preference to disable auto-popup of this dialog
         builder.setNegativeButton(negativeButtonRes) { _, _ ->
-            onNegativeButtonCall(context)
+            scope.launch {
+                onNegativeButtonCall(settings)
+            }
         }
 
         // Show Sony STAMINA specific dialog (no manufacturer specific intent name known yet)
@@ -165,17 +176,27 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
 
         /**
          * Saves the user's preference to disable auto-popup of this dialog
+         *
+         * @param settings The settings which contain the user preferences.
          */
-        private fun onNegativeButtonCall(context: Context?) {
-            CustomPreferences(context!!).saveWarningShown(true)
+        private suspend fun onNegativeButtonCall(settings: EnergySettings) {
+            settings.setManufacturerWarningShown(true)
         }
 
         /**
          * Alternative, `FragmentManager`-less implementation.
          *
          * @param activity Required to show the dialog
+         * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated template.
+         * @param settings The settings which contain the user preferences.
+         * @param scope The scope to execute async code in.
          */
-        fun create(activity: Activity, recipientEmail: String): MaterialDialog {
+        fun create(
+            activity: Activity,
+            recipientEmail: String,
+            settings: EnergySettings,
+            scope: LifecycleCoroutineScope
+        ): MaterialDialog {
 
             // Generate dialog
             val dialog = MaterialDialog(activity, DIALOG_BEHAVIOUR)
@@ -183,7 +204,9 @@ internal class ProblematicManufacturerWarningDialog(private val recipientEmail: 
 
             // Allow the user to express its preference to disable auto-popup of this dialog
             dialog.negativeButton(negativeButtonRes) {
-                onNegativeButtonCall(activity.applicationContext)
+                scope.launch {
+                    onNegativeButtonCall(settings)
+                }
             }
 
             // Show Sony STAMINA specific dialog (no manufacturer specific intent name known yet)

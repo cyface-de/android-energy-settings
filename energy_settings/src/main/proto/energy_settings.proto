@@ -1,0 +1,42 @@
+/*
+ * Copyright 2023 Cyface GmbH
+ *
+ * This file is part of the Cyface Energy Settings for Android.
+ *
+ * The Cyface Energy Settings for Android is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The Cyface Energy Settings for Android is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with the Cyface Energy Settings for Android. If not, see <http://www.gnu.org/licenses/>.
+ */
+syntax = "proto3";
+
+option java_package = "de.cyface.energy_settings";
+option java_multiple_files = true;
+
+/**
+ * The data types for the values stored in the `CustomSettings`.
+ *
+ * See https://protobuf.dev/programming-guides/proto3/
+ *
+ * Attention: The classes are generated from the file at compile time. Don't forget to rebuild.
+ *
+ * @author: Armin Schnabel
+ * @since: 3.4.0
+ * @version: 1.0.0
+ */
+message Settings {
+  // Version of this datastore. It helps to support default values and to migrate data. When the
+  // datastore is newly created, it's 0, after default values are set it's 1, then migration happens.
+  uint32 version = 1;
+
+  // Whether the user marked the manufacturer-specific warning as "don't show again".
+  bool manufacturer_warning_shown = 2;
+}
