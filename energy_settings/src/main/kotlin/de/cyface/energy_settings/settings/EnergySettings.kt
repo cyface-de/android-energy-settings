@@ -18,7 +18,11 @@
  */
 package de.cyface.energy_settings.settings
 
-import de.cyface.energy_settings.TrackingSettings
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.core.DataStoreFactory
+import androidx.datastore.dataStoreFile
+import de.cyface.energy_settings.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -32,8 +36,35 @@ import kotlinx.coroutines.flow.map
  * @author Armin Schnabel
  * @version 2.0.0
  * @since 3.3.4
+ * @param context The context to access the settings from.
  */
-class EnergySettings {
+class EnergySettings(context: Context) {
+
+    /**
+     * This avoids leaking the context when this object outlives the Activity of Fragment.
+     */
+    private val appContext = context.applicationContext
+
+    /**
+     * The data store with single-process support.
+     *
+     * We don't use multi-process support as this should usually only run in the ui process.
+     * I.e. there is no need for that overhead.
+     *
+     * Attention:
+     * - Never mix SingleProcessDataStore with MultiProcessDataStore for the same file.
+     * - We use SingleProcessDataStore, so don't access preferences from multiple processes.
+     * - Only create one instance of `DataStore` per file in the same process.
+     * - We use ProtoBuf to ensure type safety. Rebuild after changing the .proto file.
+     */
+    private var dataStore: DataStore<Settings> = DataStoreFactory.create(
+        serializer = SettingsSerializer,
+        produceFile = { appContext.dataStoreFile("energy_settings.pb") },
+        migrations = listOf(
+            PreferencesMigrationFactory.create(appContext),
+            StoreMigration()
+        )
+    )
 
     /**
      * Saves whether the user marked the manufacturer-specific warning as "don't show again".
@@ -42,7 +73,7 @@ class EnergySettings {
      */
     @Suppress("unused") // Part of the API
     suspend fun setManufacturerWarningShown(value: Boolean) {
-        TrackingSettings.dataStore.updateData { currentSettings ->
+        dataStore.updateData { currentSettings ->
             currentSettings.toBuilder()
                 .setManufacturerWarningShown(value)
                 .build()
@@ -52,7 +83,7 @@ class EnergySettings {
     /**
      * @return Whether user marked the manufacturer-specific warning as "don't show again".
      */
-    val manufacturerWarningShownFlow: Flow<Boolean> = TrackingSettings.dataStore.data
+    val manufacturerWarningShownFlow: Flow<Boolean> = dataStore.data
         .map { settings ->
             settings.manufacturerWarningShown
         }

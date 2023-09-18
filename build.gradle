@@ -61,7 +61,7 @@ ext {
     androidxAnnotationVersion = "1.6.0"
     androidxAppCompatVersion = "1.6.1"
     androidPreferencesVersion = '1.2.1'
-    datastoreVersion = "1.1.0-alpha04" // only 1.1.0 supports multi-process datastore
+    datastoreVersion = "1.1.0-alpha05" // only 1.1.0 supports multi-process datastore
 
     // Other dependencies
     materialDialogsVersion = '3.3.0'

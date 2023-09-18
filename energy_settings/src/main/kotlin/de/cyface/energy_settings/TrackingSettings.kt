@@ -28,15 +28,12 @@ import android.os.Build
 import android.os.PowerManager
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.datastore.core.DataStore
-import androidx.datastore.core.DataStoreFactory
-import androidx.datastore.dataStoreFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
+import de.cyface.energy_settings.TrackingSettings.initialize
 import de.cyface.energy_settings.settings.EnergySettings
-import de.cyface.energy_settings.settings.PreferencesMigrationFactory
-import de.cyface.energy_settings.settings.SettingsSerializer
-import de.cyface.energy_settings.settings.StoreMigration
 import de.cyface.utils.Validate
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -50,7 +47,7 @@ import java.util.Locale
  * Attention: You need to call [initialize] before you use this object, e.g. in Activity.onCreate.
  *
  * @author Armin Schnabel
- * @version 2.0.3
+ * @version 2.1.0
  * @since 1.0.0
  */
 object TrackingSettings {
@@ -60,35 +57,9 @@ object TrackingSettings {
      */
     private lateinit var settings: EnergySettings
 
-    // FIXME: see if we can also mice the datastore to CustomSettings like everywhere else.
-    /**
-     * The data store with single-process support.
-     *
-     * We don't use multi-process support as this should usually only run in the ui process.
-     * I.e. there is no need for that overhead.
-     *
-     * Attention:
-     * - Never mix SingleProcessDataStore with MultiProcessDataStore for the same file.
-     * - We use SingleProcessDataStore, so don't access preferences from multiple processes.
-     * - Only create one instance of `DataStore` per file in the same process.
-     * - We use ProtoBuf to ensure type safety. Rebuild after changing the .proto file.
-     */
-    lateinit var dataStore: DataStore<Settings>
-
     @JvmStatic
     fun initialize(context: Context) {
-        val appContext = context.applicationContext
-        val dataStoreFile = appContext.dataStoreFile("energy_settings.pb")
-        dataStore = DataStoreFactory.create(
-            serializer = SettingsSerializer,
-            produceFile = { dataStoreFile },
-            migrations = listOf(
-                PreferencesMigrationFactory.create(appContext),
-                StoreMigration()
-            )
-        )
-        settings =
-            EnergySettings() // Depends on dataStore to be initialized
+        settings = EnergySettings(context)
     }
 
     /**
@@ -358,15 +329,19 @@ object TrackingSettings {
         force: Boolean,
         recipientEmail: String
     ): Boolean {
-        // FIXME: consider async-preloading data at least, see:
+        // TODO: consider async-preloading data at least, see:
         // https://developer.android.com/topic/libraries/architecture/datastore#synchronous
-        val warningShown = runBlocking { // FIXME
-            settings.manufacturerWarningShownFlow.first() // FIXME
+        val warningShown = runBlocking {
+            settings.manufacturerWarningShownFlow.first()
         }
         if (isProblematicManufacturer && (force || !warningShown)) {
             val fragmentManager = fragment.fragmentManager
             Validate.notNull(fragmentManager)
-            val dialog = ProblematicManufacturerWarningDialog(recipientEmail)
+            val dialog = ProblematicManufacturerWarningDialog(
+                recipientEmail,
+                fragment.lifecycleScope,
+                settings
+            )
             dialog.setTargetFragment(
                 fragment,
                 Constants.DIALOG_PROBLEMATIC_MANUFACTURER_WARNING_CODE
@@ -386,6 +361,7 @@ object TrackingSettings {
      * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated
      * template.
      * @param force `True` if the dialog should be shown no matter of the preferences state
+     * @param scope The scope to execute async code in.
      * @return `True` if the dialog is shown
      */
     @JvmStatic
@@ -393,7 +369,8 @@ object TrackingSettings {
     fun showProblematicManufacturerDialog(
         activity: Activity?,
         force: Boolean,
-        recipientEmail: String
+        recipientEmail: String,
+        scope: LifecycleCoroutineScope
     ): Boolean {
 
         if (activity == null || activity.isFinishing) {
@@ -401,12 +378,13 @@ object TrackingSettings {
             return false
         }
 
-        val warningShown = runBlocking { // FIXME
-            settings.manufacturerWarningShownFlow.first() // FIXME
+        val warningShown = runBlocking {
+            settings.manufacturerWarningShownFlow.first()
         }
 
         if (isProblematicManufacturer && (force || !warningShown)) {
-            ProblematicManufacturerWarningDialog.create(activity, recipientEmail).show()
+            ProblematicManufacturerWarningDialog.create(activity, recipientEmail, settings, scope)
+                .show()
             return true
         }
         return false
