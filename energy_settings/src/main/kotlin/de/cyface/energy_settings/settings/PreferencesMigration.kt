@@ -19,8 +19,10 @@
 package de.cyface.energy_settings.settings
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.migrations.SharedPreferencesMigration
 import androidx.datastore.migrations.SharedPreferencesView
+import de.cyface.energy_settings.Constants.TAG
 import de.cyface.energy_settings.Settings
 
 /**
@@ -56,6 +58,7 @@ object PreferencesMigrationFactory {
         preferences: SharedPreferencesView,
         settings: Settings
     ): Settings {
+        Log.i(TAG, "Migrating from shared preferences to version 1")
         return settings.toBuilder()
             // Setting version to 1 as it would else default to Protobuf default of 0 which would
             // trigger the StoreMigration from 0 -> 1 which ignores previous settings.
