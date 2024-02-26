@@ -53,7 +53,7 @@ ext {
 
     // Android SDK versions
     minSdkVersion = 21 // device support
-    targetSdkVersion = 33 // behavioral changes, follow migration guide & test the app against this
+    targetSdkVersion = 34 // behavioral changes, follow migration guide & test the app against this
     compileSdkVersion = 34 // allows newest APIs to be used and to see deprecations, use latest
     buildToolsVersion = '34.0.0' // optional, if defined, use latest (SDK Manager > SDK Tools)
 
