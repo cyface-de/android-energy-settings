@@ -49,7 +49,7 @@ ext {
     cyfaceEnergySettingsVersion = "0.0.0" // Automatically overwritten by CI
 
     // Cyface dependencies
-    cyfaceUtilsVersion = "4.0.4"
+    cyfaceUtilsVersion = "4.0.5"
 
     // Android SDK versions
     minSdkVersion = 21 // device support
