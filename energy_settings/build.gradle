@@ -31,7 +31,6 @@ apply plugin: 'com.google.protobuf' // For Proto DataStore
 android {
     namespace "de.cyface.energy_settings"
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
