@@ -25,8 +25,8 @@
  */
 
 buildscript {
-    ext.gradle_version = "7.4.2"
-    ext.kotlin_version = "1.9.0"
+    ext.gradle_version = "8.2.2"
+    ext.kotlin_version = "1.9.22"
 
     repositories {
         google()
@@ -41,7 +41,7 @@ buildscript {
 
 plugins {
     // To generate Proto DataStore
-    id 'com.google.protobuf' version '0.8.19' apply false // Maybe keep in sync with other usages
+    id 'com.google.protobuf' version '0.9.4' apply false // Maybe keep in sync with other usages
 }
 
 ext {
@@ -49,13 +49,12 @@ ext {
     cyfaceEnergySettingsVersion = "0.0.0" // Automatically overwritten by CI
 
     // Cyface dependencies
-    cyfaceUtilsVersion = "4.0.6"
+    cyfaceUtilsVersion = "4.0.7"
 
     // Android SDK versions
     minSdkVersion = 21 // device support
     targetSdkVersion = 34 // behavioral changes, follow migration guide & test the app against this
     compileSdkVersion = 34 // allows newest APIs to be used and to see deprecations, use latest
-    buildToolsVersion = '34.0.0' // optional, if defined, use latest (SDK Manager > SDK Tools)
 
     // Android dependencies
     androidxAnnotationVersion = "1.6.0"
@@ -78,9 +77,9 @@ ext {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
     // Java version
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-    kotlinTargetJavaVersion = "11"
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    kotlinTargetJavaVersion = "17"
 }
 
 allprojects {
