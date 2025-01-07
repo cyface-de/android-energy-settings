@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2023 Cyface GmbH
+ * Copyright 2019-2025 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -20,7 +20,7 @@
  * Gradle's build file for this module.
  *
  * @author Armin Schnabel
- * @version 1.4.0
+ * @version 1.5.0
  * @since 1.0.0
  */
 
@@ -76,7 +76,7 @@ dependencies {
 
     // Other Android libraries
     implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
-    implementation "androidx.preference:preference-ktx:$rootProject.ext.androidPreferencesVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.ext.lifecycleVersion"
 
     // To support Dialogs without androidx/SupportFragment dependencies
     implementation "com.afollestad.material-dialogs:core:$rootProject.ext.materialDialogsVersion"
