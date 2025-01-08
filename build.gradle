@@ -49,7 +49,7 @@ ext {
     cyfaceEnergySettingsVersion = "0.0.0" // Automatically overwritten by CI
 
     // Cyface dependencies
-    cyfaceUtilsVersion = "4.0.8"
+    cyfaceUtilsVersion = "4.0.9"
 
     // Android SDK versions
     minSdkVersion = 21 // device support
@@ -60,8 +60,7 @@ ext {
     androidxAnnotationVersion = "1.6.0"
     androidxAppCompatVersion = "1.7.0"
     lifecycleVersion = "2.8.7"
-    // 1.1.0-alpha05: ':persistence:mergeExtDexDebugAndroidTest' fails (transitive dependency)
-    datastoreVersion = "1.1.0-alpha04" // only 1.1.0 supports multi-process datastore
+    datastoreVersion = "1.1.1"
 
     // Other dependencies
     materialDialogsVersion = '3.3.0'
