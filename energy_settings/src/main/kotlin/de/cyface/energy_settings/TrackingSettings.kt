@@ -59,7 +59,7 @@ object TrackingSettings {
 
     @JvmStatic
     fun initialize(context: Context) {
-        settings = EnergySettings(context)
+        settings = EnergySettings.getInstance(context)
     }
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Cyface GmbH
+ * Copyright 2023-2025 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -34,11 +34,28 @@ import kotlinx.coroutines.flow.map
  * If this changes, consider using the standard Android Architecture, see `MeasurementRepository`.
  *
  * @author Armin Schnabel
- * @version 2.0.0
+ * @version 3.0.0
  * @since 3.3.4
  * @param context The context to access the settings from.
  */
-class EnergySettings(context: Context) {
+class EnergySettings private constructor(context: Context) {
+
+    /**
+     * Use Singleton to ensure only one instance per process is created. [LEIP-294]
+     *
+     * It should be okay to use a Singleton as this is also suggested in the documentation:
+     * https://developer.android.com/topic/libraries/architecture/datastore#multiprocess
+     */
+    companion object {
+        @Volatile
+        private var instance: EnergySettings? = null
+
+        fun getInstance(context: Context): EnergySettings {
+            return instance ?: synchronized(this) {
+                instance ?: EnergySettings(context.applicationContext).also { instance = it }
+            }
+        }
+    }
 
     /**
      * This avoids leaking the context when this object outlives the Activity of Fragment.
