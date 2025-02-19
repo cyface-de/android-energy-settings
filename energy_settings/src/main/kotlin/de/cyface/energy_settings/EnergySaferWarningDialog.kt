@@ -44,7 +44,6 @@ import de.cyface.energy_settings.GnssDisabledWarningDialog.Companion.create
  * @since 1.0.0
  */
 internal class EnergySaferWarningDialog : EnergySettingDialog() {
-
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     val builder = AlertDialog.Builder(activity)
     builder.setTitle(titleRes).setMessage(messageRes)

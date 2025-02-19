@@ -35,7 +35,6 @@ import com.afollestad.materialdialogs.MaterialDialog
  * @since 1.1.0
  */
 internal abstract class EnergySettingDialog : DialogFragment() {
-
   companion object {
     /**
      * For all instances of [MaterialDialog].
@@ -55,7 +54,11 @@ internal abstract class EnergySettingDialog : DialogFragment() {
      * The Android `Intent` to be started when the positive button was clicked (opens feedback email).
      */
     fun intent(context: Context, recipientEmail: String): Intent {
-      return TrackingSettings.generateFeedbackEmailIntent(context, context.getString(feedbackErrorDescriptionRes), recipientEmail)
+      return TrackingSettings.generateFeedbackEmailIntent(
+        context,
+        context.getString(feedbackErrorDescriptionRes),
+        recipientEmail
+      )
     }
   }
 }

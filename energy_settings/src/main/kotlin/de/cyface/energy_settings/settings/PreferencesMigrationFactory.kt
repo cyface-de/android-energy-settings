@@ -32,7 +32,6 @@ import de.cyface.energy_settings.Settings
  * @since 4.3.0
  */
 object PreferencesMigrationFactory {
-
     /**
      * The filename, keys and defaults of the preferences, historically.
      *
