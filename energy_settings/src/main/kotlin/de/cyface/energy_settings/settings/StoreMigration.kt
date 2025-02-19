@@ -57,7 +57,6 @@ class StoreMigration : DataMigration<Settings> {
         val builder = currentData.toBuilder()
         when (currentVersion) {
             0 -> {
-                @Suppress("UsePropertyAccessSyntax")
                 builder
                     .setVersion(targetVersion)
                     .setManufacturerWarningShown(false)

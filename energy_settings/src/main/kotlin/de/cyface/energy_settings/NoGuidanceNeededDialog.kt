@@ -42,7 +42,6 @@ import de.cyface.energy_settings.NoGuidanceNeededDialog.Companion.create
  * template.
  */
 internal class NoGuidanceNeededDialog(private val recipientEmail: String) : EnergySettingDialog() {
-
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     val builder = AlertDialog.Builder(activity)
     builder.setTitle(titleRes).setMessage(messageRes)
@@ -80,7 +79,12 @@ internal class NoGuidanceNeededDialog(private val recipientEmail: String) : Ener
       dialog.title(titleRes)
       dialog.message(messageRes)
       dialog.positiveButton(positiveButtonRes) {
-        activity.startActivity(Intent.createChooser(intent(activity.applicationContext, recipientEmail), activity.getString(chooseEmailAppRes)))
+        activity.startActivity(
+          Intent.createChooser(
+            intent(activity.applicationContext, recipientEmail),
+            activity.getString(chooseEmailAppRes)
+          )
+        )
       }
       return dialog
     }

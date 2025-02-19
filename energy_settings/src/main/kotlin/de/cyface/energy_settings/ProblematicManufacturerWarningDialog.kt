@@ -57,7 +57,8 @@ import java.util.Locale
  * @version 3.0.0
  * @since 1.0.0
  *
- * @property recipientEmail The e-mail address to which the feedback email should be addressed to in the generated template.
+ * @property recipientEmail The e-mail address to which the feedback email should be addressed to
+ * in the generated template.
  * @property scope The scope to execute async code in.
  * @property settings The settings which contain the user preferences.
  */
@@ -65,11 +66,8 @@ internal class ProblematicManufacturerWarningDialog(
     private val recipientEmail: String,
     private val scope: LifecycleCoroutineScope,
     private val settings: EnergySettings
-) :
-    EnergySettingDialog() {
-
+) : EnergySettingDialog() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
         // Generate dialog
         val builder = AlertDialog.Builder(activity)
         builder.setTitle(titleRes)
@@ -95,10 +93,11 @@ internal class ProblematicManufacturerWarningDialog(
         // If a device specific settings page is found, add a button to open it directly
         val deviceSpecificIntent = getDeviceSpecificIntent(context)
         if (deviceSpecificIntent != null) {
-
             // [STAD-492] Since 2021 Huawei started to deny opening the Huawei "App Launch" setting via intent.
-            val unreachableSetting =
-                deviceSpecificIntent.key.component!!.className.equals("com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity")
+            @Suppress("SpellCheckingInspection")
+            val unreachableSetting = deviceSpecificIntent.key.component!!.className.equals(
+                "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity"
+            )
             return if (unreachableSetting) {
                 builder.setMessage(deviceSpecificIntent.value) // Use the message for the identified intent
                 builder.setPositiveButton(feedbackButtonRes) { _, _ ->
@@ -121,7 +120,6 @@ internal class ProblematicManufacturerWarningDialog(
                 builder.create()
             }
         } else {
-
             // Generate a feedback button
             builder.setPositiveButton(feedbackButtonRes) { _, _ ->
                 startActivity(
@@ -131,7 +129,6 @@ internal class ProblematicManufacturerWarningDialog(
                     )
                 )
             }
-
             builder.setMessage(messageRes)
             return builder.create()
         }
@@ -187,7 +184,8 @@ internal class ProblematicManufacturerWarningDialog(
          * Alternative, `FragmentManager`-less implementation.
          *
          * @param activity Required to show the dialog
-         * @param recipientEmail The e-mail address to which the feedback email should be addressed to in the generated template.
+         * @param recipientEmail The e-mail address to which the feedback email should be addressed
+         * to in the generated template.
          * @param settings The settings which contain the user preferences.
          * @param scope The scope to execute async code in.
          */
@@ -197,7 +195,6 @@ internal class ProblematicManufacturerWarningDialog(
             settings: EnergySettings,
             scope: LifecycleCoroutineScope
         ): MaterialDialog {
-
             // Generate dialog
             val dialog = MaterialDialog(activity, DIALOG_BEHAVIOUR)
             dialog.title(titleRes, null)
@@ -223,10 +220,11 @@ internal class ProblematicManufacturerWarningDialog(
             // If a device specific settings page is found, add a button to open it directly
             val deviceSpecificIntent = getDeviceSpecificIntent(context)
             if (deviceSpecificIntent != null) {
-
                 // [STAD-492] Since 2021 Huawei started to deny opening the Huawei "App Launch" setting via intent.
-                val unreachable =
-                    deviceSpecificIntent.key.component!!.className.equals("com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity")
+                @Suppress("SpellCheckingInspection")
+                val unreachable = deviceSpecificIntent.key.component!!.className.equals(
+                    "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity"
+                )
                 return if (unreachable) {
                     dialog.positiveButton(feedbackButtonRes) {
                         activity.startActivity(
@@ -269,9 +267,10 @@ internal class ProblematicManufacturerWarningDialog(
          * Searches for a match of a list of known device-specific energy setting pages.
          *
          * @param context The [Context] to check if the intent is resolvable on this device
-         * @return The intent to open the settings page and the resource id of the message string which describes what to do
-         * on the settings page. Returns `Null` if no intent was resolved. Always returns the first match,
-         * which means the intent which was added in a later Android version if there are multiple matches.
+         * @return The intent to open the settings page and the resource id of the message string
+         * which describes what to do on the settings page. Returns `null` if no intent was
+         * resolved. Always returns the first match, which means the intent which was added in a
+         * later Android version if there are multiple matches.
          */
         private fun getDeviceSpecificIntent(context: Context): Map.Entry<Intent, Int>? {
             // (!) This needs to be an ordered map or else StartupAppControlActivity might be returned in favor

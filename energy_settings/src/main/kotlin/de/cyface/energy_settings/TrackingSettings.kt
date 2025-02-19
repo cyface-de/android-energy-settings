@@ -34,7 +34,6 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import de.cyface.energy_settings.TrackingSettings.initialize
 import de.cyface.energy_settings.settings.EnergySettings
-import de.cyface.utils.Validate
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import java.util.Locale
@@ -83,7 +82,6 @@ object TrackingSettings {
     @JvmStatic
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     fun isEnergySaferActive(context: Context): Boolean {
-
         val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         val isInPowerSavingMode = powerManager.isPowerSaveMode
 
@@ -110,7 +108,6 @@ object TrackingSettings {
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     fun isBackgroundProcessingRestricted(context: Context): Boolean {
-
         val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         return (activityManager.isBackgroundRestricted)
     }
@@ -125,7 +122,6 @@ object TrackingSettings {
     @Suppress("MemberVisibilityCanBePrivate", "SpellCheckingInspection") // Used by implementing app
     val isProblematicManufacturer: Boolean
         get() {
-
             return when (Build.MANUFACTURER.lowercase(Locale.ROOT)) {
                 Constants.MANUFACTURER_HUAWEI, Constants.MANUFACTURER_HONOR, Constants.MANUFACTURER_SAMSUNG,
                 Constants.MANUFACTURER_XIAOMI, Constants.MANUFACTURER_SONY -> true
@@ -165,7 +161,6 @@ object TrackingSettings {
     @JvmStatic
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     fun isGnssEnabled(context: Context): Boolean {
-
         val manager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
@@ -209,13 +204,11 @@ object TrackingSettings {
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     @Deprecated("Alternative implementation recommended as this one is currently not being tested.")
     fun showEnergySaferWarningDialog(context: Context, fragment: Fragment): Boolean {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isEnergySaferActive(context)) {
-            val fragmentManager = fragment.fragmentManager
-            Validate.notNull(fragmentManager)
+            val fragmentManager = fragment.parentFragmentManager
             val dialog = EnergySaferWarningDialog()
             dialog.setTargetFragment(fragment, Constants.DIALOG_ENERGY_SAFER_WARNING_CODE)
-            dialog.show(fragmentManager!!, "ENERGY_SAFER_WARNING_DIALOG")
+            dialog.show(fragmentManager, "ENERGY_SAFER_WARNING_DIALOG")
             return true
         }
         return false
@@ -232,7 +225,6 @@ object TrackingSettings {
     @JvmStatic
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     fun showEnergySaferWarningDialog(activity: Activity?): Boolean {
-
         if (activity == null || activity.isFinishing) {
             Log.w(Constants.TAG, "showEnergySaferWarningDialog: aborted, activity is null")
             return false
@@ -262,16 +254,14 @@ object TrackingSettings {
         context: Context,
         fragment: Fragment
     ): Boolean {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isBackgroundProcessingRestricted(
                 context
             )
         ) {
-            val fragmentManager = fragment.fragmentManager
-            Validate.notNull(fragmentManager)
+            val fragmentManager = fragment.parentFragmentManager
             val dialog = BackgroundProcessingRestrictionWarningDialog()
             dialog.setTargetFragment(fragment, Constants.DIALOG_BACKGROUND_RESTRICTION_WARNING_CODE)
-            dialog.show(fragmentManager!!, "BACKGROUND_RESTRICTION_WARNING_DIALOG")
+            dialog.show(fragmentManager, "BACKGROUND_RESTRICTION_WARNING_DIALOG")
             return true
         }
         return false
@@ -289,7 +279,6 @@ object TrackingSettings {
     @JvmStatic
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     fun showRestrictedBackgroundProcessingWarningDialog(activity: Activity?): Boolean {
-
         if (activity == null || activity.isFinishing) {
             Log.w(
                 Constants.TAG,
@@ -335,8 +324,7 @@ object TrackingSettings {
             settings.manufacturerWarningShownFlow.first()
         }
         if (isProblematicManufacturer && (force || !warningShown)) {
-            val fragmentManager = fragment.fragmentManager
-            Validate.notNull(fragmentManager)
+            val fragmentManager = fragment.parentFragmentManager
             val dialog = ProblematicManufacturerWarningDialog(
                 recipientEmail,
                 fragment.lifecycleScope,
@@ -346,7 +334,7 @@ object TrackingSettings {
                 fragment,
                 Constants.DIALOG_PROBLEMATIC_MANUFACTURER_WARNING_CODE
             )
-            dialog.show(fragmentManager!!, "PROBLEMATIC_MANUFACTURER_WARNING_DIALOG")
+            dialog.show(fragmentManager, "PROBLEMATIC_MANUFACTURER_WARNING_DIALOG")
             return true
         }
         return false
@@ -401,16 +389,14 @@ object TrackingSettings {
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     @Deprecated("Alternative implementation recommended as this one is currently not being tested.")
     fun showGnssWarningDialog(context: Context, fragment: Fragment): Boolean {
-
         if (isGnssEnabled(context)) {
             return false
         }
 
-        val fragmentManager = fragment.fragmentManager
-        Validate.notNull(fragmentManager)
+        val fragmentManager = fragment.parentFragmentManager
         val dialog = GnssDisabledWarningDialog()
         dialog.setTargetFragment(fragment, Constants.DIALOG_GPS_DISABLED_WARNING_CODE)
-        dialog.show(fragmentManager!!, "GPS_DISABLED_WARNING_DIALOG")
+        dialog.show(fragmentManager, "GPS_DISABLED_WARNING_DIALOG")
         return true
     }
 
@@ -423,7 +409,6 @@ object TrackingSettings {
     @JvmStatic
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     fun showGnssWarningDialog(activity: Activity?): Boolean {
-
         if (activity == null || activity.isFinishing) {
             Log.w(Constants.TAG, "showGnssWarningDialog: aborted, activity is null")
             return false
@@ -448,12 +433,10 @@ object TrackingSettings {
     @Deprecated("Alternative implementation recommended as this one is currently not being tested.")
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     fun showNoGuidanceNeededDialog(fragment: Fragment, recipientEmail: String) {
-
-        val fragmentManager = fragment.fragmentManager
-        Validate.notNull(fragmentManager)
+        val fragmentManager = fragment.parentFragmentManager
         val dialog = NoGuidanceNeededDialog(recipientEmail)
         dialog.setTargetFragment(fragment, Constants.DIALOG_NO_GUIDANCE_NEEDED_DIALOG_CODE)
-        dialog.show(fragmentManager!!, "NO_GUIDANCE_NEEDED_DIALOG")
+        dialog.show(fragmentManager, "NO_GUIDANCE_NEEDED_DIALOG")
     }
 
     /**
@@ -466,7 +449,6 @@ object TrackingSettings {
     @JvmStatic
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     fun showNoGuidanceNeededDialog(activity: Activity?, recipientEmail: String) {
-
         if (activity == null || activity.isFinishing) {
             Log.w(Constants.TAG, "showNoGuidanceNeededDialog: aborted, activity is null")
             return
@@ -492,12 +474,18 @@ object TrackingSettings {
         extraText: String,
         recipientEmail: String
     ): Intent {
-
         val appVersion = getAppVersion(context)
         val appAndDeviceInfo = prepareAppAndDeviceInformation(context, appVersion)
-        val mailSubject =
-            (context.getString(R.string.app_name) + " " + context.getString(R.string.feedback_email_subject) + " (" + appVersion + "-"
-                    + Build.VERSION.SDK_INT + ")")
+        val mailSubject = (buildString {
+            append(context.getString(R.string.app_name))
+            append(" ")
+            append(context.getString(R.string.feedback_email_subject))
+            append(" (")
+            append(appVersion)
+            append("-")
+            append(Build.VERSION.SDK_INT)
+            append(")")
+        })
 
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipientEmail))
@@ -514,7 +502,6 @@ object TrackingSettings {
      * @return The app version as string
      */
     private fun getAppVersion(context: Context): String {
-
         val packageManager = context.packageManager
         return try {
             packageManager.getPackageInfo(context.packageName, 0).versionName
@@ -532,7 +519,6 @@ object TrackingSettings {
      * @return Device and app information
      */
     private fun prepareAppAndDeviceInformation(context: Context, appVersion: String): String {
-
         // Replace app version, commit id and device info dynamically
         return (context.getString(R.string.feedback_version_text) + ": " + appVersion + "\n"
                 + context.getString(R.string.feedback_device_text) + ": " + Build.MANUFACTURER + ", "
@@ -553,7 +539,6 @@ object TrackingSettings {
     @Deprecated("Only works with deprecated DialogFragment implementations. Should not be needed for MaterialDialogs.")
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     fun dismissAllDialogs(fragmentManager: FragmentManager) {
-
         val fragments = fragmentManager.fragments
         for (fragment in fragments) {
             if (fragment is EnergySettingDialog) {

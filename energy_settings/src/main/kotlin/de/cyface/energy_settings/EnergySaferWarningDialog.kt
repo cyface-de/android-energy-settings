@@ -44,12 +44,11 @@ import de.cyface.energy_settings.GnssDisabledWarningDialog.Companion.create
  * @since 1.0.0
  */
 internal class EnergySaferWarningDialog : EnergySettingDialog() {
-
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     val builder = AlertDialog.Builder(activity)
     builder.setTitle(titleRes).setMessage(messageRes)
     val context = context
-    if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+    if (context != null) {
       builder.setPositiveButton(positiveButtonRes) { _, _ ->
         context.startActivity(intent())
       }
@@ -74,7 +73,6 @@ internal class EnergySaferWarningDialog : EnergySettingDialog() {
     /**
      * @return The Android `Intent` to be started when the positive button was clicked (opens the settings).
      */
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     private fun intent(): Intent {
       val intent = Intent()
       intent.action = Settings.ACTION_BATTERY_SAVER_SETTINGS
@@ -92,7 +90,7 @@ internal class EnergySaferWarningDialog : EnergySettingDialog() {
       dialog.title(titleRes)
       dialog.message(messageRes)
       val context = activity.applicationContext
-      if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+      if (context != null) {
         dialog.positiveButton(positiveButtonRes) {
           activity.startActivity(intent())
         }

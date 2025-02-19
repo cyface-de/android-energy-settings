@@ -32,6 +32,8 @@ android.nonTransitiveRClass=true
 android.builder.sdkDownload=true
 android.enableJetifier=false
 
+android.lint.checks=CheckUnusedResources,RemoveUnusedCode
+
 # Secrets
 
 githubUser=
