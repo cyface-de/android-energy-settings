@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2023 Cyface GmbH
+ * Copyright 2019-2025 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -46,7 +46,7 @@ import java.util.Locale
  * Attention: You need to call [initialize] before you use this object, e.g. in Activity.onCreate.
  *
  * @author Armin Schnabel
- * @version 2.1.0
+ * @version 2.1.1
  * @since 1.0.0
  */
 object TrackingSettings {

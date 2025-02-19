@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Cyface GmbH
+ * Copyright 2023-2025 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -28,7 +28,7 @@ import de.cyface.utils.settings.MigrationException
  * Migration which ensures DataStore files from all versions are compatible.
  *
  * @author Armin Schnabel
- * @version 1.0.0
+ * @version 1.0.1
  * @since 3.4.0
  */
 class StoreMigration : DataMigration<Settings> {

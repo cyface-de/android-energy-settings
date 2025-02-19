@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Cyface GmbH
+ * Copyright 2023-2025 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -29,6 +29,7 @@ import de.cyface.energy_settings.Settings
  * Factory for the migration which imports preferences from the previously used SharedPreferences.
  *
  * @author Armin Schnabel
+ * @version 1.0.0
  * @since 4.3.0
  */
 object PreferencesMigrationFactory {
