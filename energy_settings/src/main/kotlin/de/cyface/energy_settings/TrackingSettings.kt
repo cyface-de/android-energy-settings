@@ -476,9 +476,16 @@ object TrackingSettings {
     ): Intent {
         val appVersion = getAppVersion(context)
         val appAndDeviceInfo = prepareAppAndDeviceInformation(context, appVersion)
-        val mailSubject =
-            (context.getString(R.string.app_name) + " " + context.getString(R.string.feedback_email_subject) + " (" + appVersion + "-"
-                    + Build.VERSION.SDK_INT + ")")
+        val mailSubject = (buildString {
+            append(context.getString(R.string.app_name))
+            append(" ")
+            append(context.getString(R.string.feedback_email_subject))
+            append(" (")
+            append(appVersion)
+            append("-")
+            append(Build.VERSION.SDK_INT)
+            append(")")
+        })
 
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipientEmail))
