@@ -56,9 +56,6 @@ ext {
     targetSdkVersion = 34 // behavioral changes, follow migration guide & test the app against this
     compileSdkVersion = 34 // allows newest APIs to be used and to see deprecations, use latest
 
-    // Android dependencies
-    lifecycleVersion = "2.8.7"
-
     // Other dependencies
     materialDialogsVersion = '3.3.0'
     protobufVersion = '4.30.0' // For Proto Datastore. Maybe keep in sync with other versions.

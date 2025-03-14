@@ -65,14 +65,11 @@ dependencies {
     // Proto DataStore with SingleProcess support to store settings
     implementation  "com.google.protobuf:protobuf-javalite:${protobufVersion}"
 
-    // Other Android libraries
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.ext.lifecycleVersion"
-
     // To support Dialogs without androidx/SupportFragment dependencies
     implementation "com.afollestad.material-dialogs:core:$rootProject.ext.materialDialogsVersion"
 
     // Cyface dependencies
-    api "de.cyface:android-utils:$rootProject.ext.cyfaceUtilsVersion"
+    implementation "de.cyface:android-utils:$rootProject.ext.cyfaceUtilsVersion"
 
     // Dependencies for instrumentation tests
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.junitVersion"
