@@ -30,7 +30,7 @@ apply plugin: 'com.google.protobuf' // For Proto DataStore
 
 android {
     namespace "de.cyface.energy_settings"
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -63,12 +63,7 @@ android {
 
 dependencies {
     // Proto DataStore with SingleProcess support to store settings
-    implementation "androidx.datastore:datastore:${datastoreVersion}"
     implementation  "com.google.protobuf:protobuf-javalite:${protobufVersion}"
-
-    // Other Android libraries
-    implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.ext.lifecycleVersion"
 
     // To support Dialogs without androidx/SupportFragment dependencies
     implementation "com.afollestad.material-dialogs:core:$rootProject.ext.materialDialogsVersion"
@@ -86,7 +81,7 @@ dependencies {
     testImplementation "androidx.test.ext:junit:$rootProject.ext.junitVersion"
     testImplementation "org.mockito:mockito-core:$rootProject.ext.mockitoVersion"
     // Optional - For better debuggable asserts
-    testImplementation "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
+    testImplementation "org.hamcrest:hamcrest:$rootProject.ext.hamcrestVersion"
 }
 
 // Required for Proto DataStore
