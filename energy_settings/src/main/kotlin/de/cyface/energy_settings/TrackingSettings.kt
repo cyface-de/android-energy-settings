@@ -35,7 +35,6 @@ import androidx.lifecycle.lifecycleScope
 import de.cyface.energy_settings.TrackingSettings.initialize
 import de.cyface.energy_settings.settings.EnergySettings
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import java.util.Locale
 
 /**
@@ -312,7 +311,7 @@ object TrackingSettings {
     @JvmStatic
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
     @Deprecated("Alternative implementation recommended as this one is currently not being tested.")
-    fun showProblematicManufacturerDialog(
+    suspend fun showProblematicManufacturerDialog(
         context: Context,
         fragment: Fragment,
         force: Boolean,
@@ -320,9 +319,7 @@ object TrackingSettings {
     ): Boolean {
         // TODO: consider async-preloading data at least, see:
         // https://developer.android.com/topic/libraries/architecture/datastore#synchronous
-        val warningShown = runBlocking {
-            settings.manufacturerWarningShownFlow.first()
-        }
+        val warningShown = settings.manufacturerWarningShownFlow.first()
         if (isProblematicManufacturer && (force || !warningShown)) {
             val fragmentManager = fragment.parentFragmentManager
             val dialog = ProblematicManufacturerWarningDialog(
@@ -354,7 +351,7 @@ object TrackingSettings {
      */
     @JvmStatic
     @Suppress("MemberVisibilityCanBePrivate") // Used by implementing app
-    fun showProblematicManufacturerDialog(
+    suspend fun showProblematicManufacturerDialog(
         activity: Activity?,
         force: Boolean,
         recipientEmail: String,
@@ -366,10 +363,7 @@ object TrackingSettings {
             return false
         }
 
-        val warningShown = runBlocking {
-            settings.manufacturerWarningShownFlow.first()
-        }
-
+        val warningShown = settings.manufacturerWarningShownFlow.first()
         if (isProblematicManufacturer && (force || !warningShown)) {
             ProblematicManufacturerWarningDialog.create(activity, recipientEmail, settings, scope)
                 .show()
