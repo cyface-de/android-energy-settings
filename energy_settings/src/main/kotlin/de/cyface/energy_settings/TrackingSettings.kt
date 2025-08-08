@@ -498,7 +498,7 @@ object TrackingSettings {
     private fun getAppVersion(context: Context): String {
         val packageManager = context.packageManager
         return try {
-            packageManager.getPackageInfo(context.packageName, 0).versionName
+            packageManager.getPackageInfo(context.packageName, 0).versionName!!
         } catch (e: PackageManager.NameNotFoundException) {
             Log.e(Constants.TAG, "App version could not be identified: $e")
             "N/A"

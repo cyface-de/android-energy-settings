@@ -53,8 +53,8 @@ ext {
 
     // Android SDK versions
     minSdkVersion = 26 // device support
-    targetSdkVersion = 34 // behavioral changes, follow migration guide & test the app against this
-    compileSdkVersion = 34 // allows newest APIs to be used and to see deprecations, use latest
+    targetSdkVersion = 35 // behavioral changes, follow migration guide & test the app against this
+    compileSdkVersion = 35 // allows newest APIs to be used and to see deprecations, use latest
 
     // Other dependencies
     materialDialogsVersion = '3.3.0'
