@@ -7,20 +7,37 @@ name: "CodeQL Analysis"
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - 'release-*'
   pull_request:
-    branches: [ main ]
-  schedule:
-    - cron: '22 1 * * 3'
+    branches:
+      - main
+      - 'release-*'
+  # Start a scan by hand, for example to check old code with new CodeQL rules
+  workflow_dispatch:
+  # No `schedule`: GitHub disables a scheduled workflow in a public repository after 60 days without activity.
+  # A disabled workflow also does not run for pushes and pull requests.
+
+# Explicit workflow permissions (as little as required)
+permissions:
+  contents: read
+
+# A new commit on a pull request stops the run of the previous commit
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    # Not for PRs from forks: the build needs the secrets of this repository
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-26.04
 
     permissions:
-      # required for all workflows
-      security-events: write
+      contents: read          # to check out the code
+      security-events: write  # to upload the results
 
     strategy:
       fail-fast: false
@@ -31,40 +48,37 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          # Do not keep the token on the runner after the checkout, where build scripts and dependencies can read it
+          persist-credentials: false
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           # 'java-kotlin' to analyze code written in Java, Kotlin or both
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
 
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '21'
-
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          # Only update cache on hash change (gradle build files and the wrapper properties)
-          key: gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: gradle-
+          cache: 'gradle'
 
       - name: Add gradle.properties
-        run: |
-          # Use a personal read token to install the Cyface Utils package
-          cp gradle.properties.template gradle.properties
-          echo "githubUser=${{ secrets.GH_READ_ACCOUNT }}" >> gradle.properties
-          echo "githubToken=${{ secrets.GH_READ_TOKEN }}" >> gradle.properties
+        run: cp gradle.properties.template gradle.properties
 
       - name: Build with Gradle
         run: ./gradlew build
+        env:
+          # Gradle reads `ORG_GRADLE_PROJECT_<name>` as the project property `<name>`. The token is not written to a file.
+          # A personal read token is used to install the Cyface Utils package.
+          ORG_GRADLE_PROJECT_githubUser: ${{ secrets.GH_READ_ACCOUNT }}
+          ORG_GRADLE_PROJECT_githubToken: ${{ secrets.GH_READ_TOKEN }}
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{matrix.language}}"

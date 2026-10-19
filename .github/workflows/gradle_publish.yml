@@ -3,63 +3,68 @@
 # @author Armin Schnabel
 # @version 1.3.0
 # @since 1.0.5
+#
+# NOTE: An organization-wide cleanup deletes old versions of the published packages each week.
+# See `.github/workflows/registry_cleanup.yml` in the repository `cyface-de/production`.
 name: Gradle Publish
 
 on:
   push:
     tags:
+      # GitHub filter pattern, not a reg-ex: `+` means one or more of the previous character, `*` means any text
       - '[0-9]+.[0-9]+.[0-9]+*'
 
+# Explicit workflow permissions
 permissions:
   contents: write  # Required for creating releases
   packages: write  # Required for publishing packages
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  publish:
+    # No if-protection needed: write permission needed to push tags, not allowed for forks
+    runs-on: ubuntu-26.04
+
+    env:
+      # Never use `github.ref_name` directly in a script: a tag name can contain shell commands
+      TAG: ${{ github.ref_name }}
 
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          # Do not keep the write token on the runner after the checkout, where build scripts and dependencies can read it
+          persist-credentials: false
 
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          # Only update cache on hash change (gradle build files and the wrapper properties)
-          key: gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: gradle-
-
       - name: Add gradle.properties
-        run: |
-          # Use the repository's automatically set up token to publish to the registry
-          cp gradle.properties.template gradle.properties
-          echo "githubUser=${{ github.actor }}" >> gradle.properties
-          echo "githubToken=${{ secrets.GITHUB_TOKEN }}" >> gradle.properties
+        run: cp gradle.properties.template gradle.properties
 
       # versionName is required to publish artifacts to Github Registry
       - name: Set versionName
-        run: |
-          sed -i "s/cyfaceEnergySettingsVersion = \"0.0.0\"/cyfaceEnergySettingsVersion = \"${{ github.ref_name }}\"/g" build.gradle
+        run: sed -i "s/cyfaceEnergySettingsVersion = \"0.0.0\"/cyfaceEnergySettingsVersion = \"$TAG\"/g" build.gradle
 
       - name: Publish with Gradle
         run: ./gradlew publish
-
-      # Automatically mark this tag as release on Github
-      - name: Mark tag as release on Github
-        uses: actions/create-release@v1
-        id: create_release
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: false
-          # Release tags of format `1.2.3-beta1 / -alpha1 / -test1` are considered a pre-release
-          prerelease: ${{ contains(github.ref, 'test') || contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Gradle reads `ORG_GRADLE_PROJECT_<name>` as the project property `<name>`. The token is not written to a file.
+          ORG_GRADLE_PROJECT_githubUser: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # Automatically mark this tag as release on Github. The message of the tag, without its first line, becomes the release notes.
+      - name: Mark tag as release on Github
+        run: |
+          # A tag with a suffix, for example `1.2.3-beta1`, is a pre-release
+          case "$TAG" in *-*) PRERELEASE=--prerelease ;; *) PRERELEASE= ;; esac
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes "$(git tag -l --format='%(contents:body)' "$TAG")" \
+            $PRERELEASE
+        env:
+          # `gh` reads these variables: the token for the login, the repository which gets the release
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
