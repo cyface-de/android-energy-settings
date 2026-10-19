@@ -114,7 +114,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && isBackgroundProcessingRest
 === Problematic Manufacturer Identified
 
 ....
-if (isProblematicManufacturer()) {
+if (isProblematicManufacturer) {
     // Your logic
 }
 ....
@@ -211,9 +211,10 @@ feedback email which is addressed to the email address provided as
 parameter.
 
 ....
-showProblematicManufacturerDialog(activity, true, "support@your-domain.com"))
-// or: Android FragmentDialog implementation
-showProblematicManufacturerDialog(context, fragment, true, "support@your-domain.com"))
+// A suspend function: call it from a coroutine, for example in `lifecycleScope.launch { }`
+showProblematicManufacturerDialog(activity, true, "support@your-domain.com", lifecycleScope)
+// or: Android FragmentDialog implementation (deprecated, not tested)
+showProblematicManufacturerDialog(context, fragment, true, "support@your-domain.com")
 ....
 
 [[no-guidance-needed]]
@@ -261,10 +262,31 @@ protected void onPause() {
 
 This section is only relevant for developers of this library.
 
+Kotlin 2.0.21, Java 21, Gradle 8.13, Android Gradle Plugin 8.5.0, minSdk 26, compileSdk and targetSdk 35. The library depends on `de.cyface:android-utils` (`cyfaceUtilsVersion` in `build.gradle`) from GitHub Packages, so the build needs `githubUser` and `githubToken` in `gradle.properties`.
+
+....
+./gradlew build   # build and run the tests
+....
+
+[[github-workflows]]
+=== GitHub Workflows
+
+* `gradle_build.yml` builds and tests each push and pull request to `main` and `release-*`. Pull requests from forks are skipped.
+* `gradle_publish.yml` runs on version tags: it publishes the library to GitHub Packages and creates the GitHub release.
+* `codeql.yml` runs the CodeQL analysis each week and on pushes and pull requests.
+
+The build and the CodeQL analysis read `android-utils` with the personal read token in the secrets `GH_READ_ACCOUNT` and `GH_READ_TOKEN`. The workflows give the tokens to Gradle as `ORG_GRADLE_PROJECT_githubUser` and `ORG_GRADLE_PROJECT_githubToken`, not in a file.
+
+Rules of the workflows (hardening of CY-6748): do not use `${{ github.ref_name }}` or other event values directly in a `run:` script, pass them through `env:`; pass secrets through `env:` of the step that needs them; use `runs-on: ubuntu-26.04`, not `ubuntu-latest`.
+
+The organization-wide cleanup in `cyface-de/production` (`.github/workflows/registry_cleanup.yml`) deletes old package versions. A version that a build file of the organization names stays.
+
 [[release-a-new-version]]
 === Release a new version
 
-See https://github.com/cyface-de/android-backend#release-a-new-version[Cyface Android SDK Readme]
+* The CI sets `cyfaceEnergySettingsVersion` in `build.gradle` from the tag. Do not change it manually.
+* Create an annotated tag with a semantic version (for example `4.3.6`) on `main` and push it. The body of the tag message becomes the release notes.
+* A tag with a suffix (for example `4.3.6-beta1`) becomes a pre-release.
 
 == In case you need to publish _manually_ to the Github Registry
 
@@ -278,13 +300,13 @@ See https://github.com/cyface-de/android-backend#release-a-new-version[Cyface An
 githubUser=YOUR_USERNAME
 githubToken=YOUR_ACCESS_TOKEN
 ....
-. Execute the publish command `./gradlew publishAll`
+. Execute the publish command `./gradlew publish`
 
 
 [[license]]
 == License
 
-Copyright 2019-2023 Cyface GmbH
+Copyright 2019-2026 Cyface GmbH
 
 This file is part of the Cyface Energy Settings library for Android.
 
