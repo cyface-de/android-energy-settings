@@ -273,7 +273,7 @@ Kotlin 2.0.21, Java 21, Gradle 8.13, Android Gradle Plugin 8.5.0, minSdk 26, com
 
 * `gradle_build.yml` builds and tests each push and pull request to `main` and `release-*`. Pull requests from forks are skipped.
 * `gradle_publish.yml` runs on version tags: it publishes the library to GitHub Packages and creates the GitHub release.
-* `codeql.yml` runs the CodeQL analysis on pushes and pull requests. Pull requests from forks are skipped. It has no weekly run, because GitHub disables a scheduled workflow in a public repository after 60 days without activity.
+* `codeql.yml` runs the CodeQL analysis on pushes and pull requests. You can also start it by hand. Pull requests from forks are skipped. It has no weekly run, because GitHub disables a scheduled workflow in a public repository after 60 days without activity.
 
 The build and the CodeQL analysis read `android-utils` with the personal read token in the secrets `GH_READ_ACCOUNT` and `GH_READ_TOKEN`. The workflows give the tokens to Gradle as `ORG_GRADLE_PROJECT_githubUser` and `ORG_GRADLE_PROJECT_githubToken`, not in a file.
 

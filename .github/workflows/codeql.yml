@@ -14,6 +14,8 @@ on:
     branches:
       - main
       - 'release-*'
+  # Start a scan by hand, for example to check old code with new CodeQL rules
+  workflow_dispatch:
   # No `schedule`: GitHub disables a scheduled workflow in a public repository after 60 days without activity.
   # A disabled workflow also does not run for pushes and pull requests.
 
