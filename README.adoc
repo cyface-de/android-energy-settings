@@ -262,7 +262,7 @@ protected void onPause() {
 
 This section is only relevant for developers of this library.
 
-Kotlin 2.0.21, Java 21, Gradle 8.13, Android Gradle Plugin 8.5.0, minSdk 26, compileSdk and targetSdk 35. The library depends on `de.cyface:android-utils` (`cyfaceUtilsVersion` in `build.gradle`) from GitHub Packages, so the build needs `githubUser` and `githubToken` in `gradle.properties`.
+Kotlin 2.4.21, Java 21, Gradle 9.7.1, Android Gradle Plugin 9.4.1, minSdk 26, compileSdk 37, targetSdk 36. AGP 9 compiles the Kotlin code (built-in Kotlin), so the module does not apply `kotlin-android`. A library has no targetSdk of its own: the value in `testOptions` and `lint` is only for the tests and the lint checks. The apps that use this library need compileSdk 37 or higher. The library depends on `de.cyface:android-utils` (`cyfaceUtilsVersion` in `build.gradle`) from GitHub Packages, so the build needs `githubUser` and `githubToken` in `gradle.properties`.
 
 ....
 ./gradlew build   # build and run the tests

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 Cyface GmbH
+ * Copyright 2019-2026 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -20,7 +20,7 @@
  * Gradle's publish file for this module.
  *
  * @author Armin Schnabel
- * @version 2.0.0
+ * @version 2.0.1
  * @since 1.0.4
  */
 
@@ -40,12 +40,12 @@ publishing {
     publications {
         Production(MavenPublication) {
 
-            artifact("$buildDir/outputs/aar/energy_settings-release.aar") {
+            artifact(layout.buildDirectory.file("outputs/aar/energy_settings-release.aar").get().asFile) {
                 builtBy tasks.getByName("assemble")
             }
             groupId = 'de.cyface'
             artifactId = 'android-energy-settings'
-            version rootProject.ext.cyfaceEnergySettingsVersion
+            version = rootProject.ext.cyfaceEnergySettingsVersion
 
             pom.withXml {
                 // Define this explicitly if using implementation or api configurations
