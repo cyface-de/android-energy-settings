@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2025 Cyface GmbH
+ * Copyright 2019-2026 Cyface GmbH
  *
  * This file is part of the Cyface Energy Settings for Android.
  *
@@ -20,25 +20,21 @@
  * Gradle's build file for this module.
  *
  * @author Armin Schnabel
- * @version 1.5.0
+ * @version 1.6.0
  * @since 1.0.0
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: 'com.android.library' // Compiles Kotlin, too (built-in Kotlin of AGP 9)
 apply plugin: 'com.google.protobuf' // For Proto DataStore
 
 android {
-    namespace "de.cyface.energy_settings"
-    compileSdk rootProject.ext.compileSdkVersion
+    namespace = "de.cyface.energy_settings"
+    compileSdk = rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdk = rootProject.ext.minSdkVersion
 
-        versionName rootProject.ext.cyfaceEnergySettingsVersion
-
-        testInstrumentationRunner rootProject.ext.testInstrumentationRunner
+        testInstrumentationRunner = rootProject.ext.testInstrumentationRunner
     }
 
     // Enable Proguard for the release build type.
@@ -51,19 +47,24 @@ android {
     }
 
     // Enabling desugaring to support Java 8 and Java 11 features
+    // The Kotlin `jvmTarget` uses the `targetCompatibility`
     compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibility
-        targetCompatibility rootProject.ext.targetCompatibility
+        sourceCompatibility = rootProject.ext.sourceCompatibility
+        targetCompatibility = rootProject.ext.targetCompatibility
     }
 
-    kotlinOptions {
-        jvmTarget = rootProject.ext.kotlinTargetJavaVersion
+    // A library has no targetSdk of its own, the app sets it. These are only used by the tests and lint.
+    testOptions {
+        targetSdk = rootProject.ext.targetSdkVersion
+    }
+    lint {
+        targetSdk = rootProject.ext.targetSdkVersion
     }
 }
 
 dependencies {
     // Proto DataStore with SingleProcess support to store settings
-    implementation  "com.google.protobuf:protobuf-javalite:${protobufVersion}"
+    implementation  "com.google.protobuf:protobuf-javalite:${rootProject.ext.protobufVersion}"
 
     // To support Dialogs without androidx/SupportFragment dependencies
     implementation "com.afollestad.material-dialogs:core:$rootProject.ext.materialDialogsVersion"
@@ -87,7 +88,7 @@ dependencies {
 // Required for Proto DataStore
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:$protobufVersion"
+        artifact = "com.google.protobuf:protoc:${rootProject.ext.protobufVersion}"
     }
 
     // Generates the java Protobuf-lite code for the Protobuf files in this project. See
